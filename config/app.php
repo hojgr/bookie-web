@@ -145,6 +145,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // generates proxy objects for IDE auto competition
 	],
 
 	/*
