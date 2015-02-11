@@ -194,6 +194,8 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
+		// NOT a typo! Laravel docs refer to Socialite facade as Socialize
+		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 	],
 
 ];
