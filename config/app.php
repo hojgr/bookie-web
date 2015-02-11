@@ -139,11 +139,11 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\BusServiceProvider',
-		'App\Providers\ConfigServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+		'BookieGG\Providers\AppServiceProvider',
+		'BookieGG\Providers\BusServiceProvider',
+		'BookieGG\Providers\ConfigServiceProvider',
+		'BookieGG\Providers\EventServiceProvider',
+		'BookieGG\Providers\RouteServiceProvider',
 
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // generates proxy objects for IDE auto competition
 	],

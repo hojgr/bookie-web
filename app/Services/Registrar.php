@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace BookieGG\Services;
 
-use App\User;
+use BookieGG\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

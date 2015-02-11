@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace BookieGG\Commands;
 
 abstract class Command {
 

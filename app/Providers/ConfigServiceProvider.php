@@ -1,4 +1,4 @@
-<?php namespace App\Providers;
+<?php namespace BookieGG\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
