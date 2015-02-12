@@ -14,8 +14,8 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class User extends Eloquent implements Authenticatable {
 
-    public function signUp() {
-        return $this->hasOne('BookieGG\Models\SignUp');
+    public function subscription() {
+        return $this->hasOne('BookieGG\Models\BetaSubscription');
     }
 
     public function setProfileUrl($profile_url) {

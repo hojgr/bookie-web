@@ -35,9 +35,9 @@ class SubscribeUserToBeta extends Command implements SelfHandling {
 	 */
 	public function handle()
 	{
-		if(!$this->user->signUp) {
-			$signUp = new BetaSubscription($this->input);
-			$this->user->signUp()->save($signUp);
+		if(!$this->user->subscription) {
+			$subscription = new BetaSubscription($this->input);
+			$this->user->subscription()->save($subscription);
 		}
 	}
 

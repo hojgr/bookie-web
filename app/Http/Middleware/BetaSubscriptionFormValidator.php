@@ -3,7 +3,7 @@
 use BookieGG\Http\Controllers\SignupController;
 use Closure;
 
-class SignupInputValidator {
+class BetaSubscriptionFormValidator {
 
 	/**
 	 * Validates closed beta signup inputs.

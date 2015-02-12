@@ -25,7 +25,7 @@
             <h2>A Revolution for Esports Betting
                 <span class="fix">&nbsp;</span></h2>
             <img class="logo" src="{{ elixir('images/logo_beta.png') }}" />
-            @if (!Auth::user() || Auth::user()->signUp === null)
+            @if (!Auth::user() || Auth::user()->subscription === null)
                 <h2>Sign Up for Updates and Beta Access
                 <span class="fix">&nbsp;</span></h2>
             @endif
@@ -41,7 +41,7 @@
                     </div>
                     <div class="clr"></div>
                 </div>
-                @if (Auth::user()->signUp !== null)
+                @if (Auth::user()->subscription !== null)
                     <div class="signed_up">
                         <h3>You have signed up for closed beta.</h3>
                         When you account is activated you will receive an e-mail informing you so.
