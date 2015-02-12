@@ -148,6 +148,8 @@ return [
 		'Illuminate\Html\HtmlServiceProvider',
 
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // generates proxy objects for IDE auto competition
+		'Barryvdh\Debugbar\ServiceProvider',
+
 		'BookieGG\Providers\SteamAuthServiceProvider'
 	],
 
@@ -202,6 +204,7 @@ return [
 
 		// NOT a typo! Laravel docs refer to Socialite facade as Socialize
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+		'Debugbar' => 'Barryvdh\Debugbar\Facade',
 	],
 
 ];
