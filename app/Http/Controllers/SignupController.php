@@ -4,8 +4,7 @@
 namespace BookieGG\Http\Controllers;
 
 
-use BookieGG\Commands\SignUserToBeta;
-use BookieGG\Models\SignUp;
+use BookieGG\Commands\SubscribeUserToBeta;
 use Illuminate\Http\Request;
 
 class SignupController extends Controller {
@@ -22,7 +21,7 @@ class SignupController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function index(Request $request) {
-        $this->dispatch(new SignUserToBeta(\Auth::user(), $request->input()));
+        $this->dispatch(new SubscribeUserToBeta(\Auth::user(), $request->input()));
         return \Redirect::route('beta_home');
     }
 }

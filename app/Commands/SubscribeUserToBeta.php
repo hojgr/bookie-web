@@ -2,11 +2,11 @@
 
 use BookieGG\Commands\Command;
 
-use BookieGG\Models\SignUp;
+use BookieGG\Models\BetaSubscription;
 use BookieGG\Models\User;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class SignUserToBeta extends Command implements SelfHandling {
+class SubscribeUserToBeta extends Command implements SelfHandling {
 	/**
 	 * @var User
 	 */
@@ -36,7 +36,7 @@ class SignUserToBeta extends Command implements SelfHandling {
 	public function handle()
 	{
 		if(!$this->user->signUp) {
-			$signUp = new SignUp($this->input);
+			$signUp = new BetaSubscription($this->input);
 			$this->user->signUp()->save($signUp);
 		}
 	}
