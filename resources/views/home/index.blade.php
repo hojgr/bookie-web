@@ -9,7 +9,7 @@
             <h2>A Revolution for Esports Betting
                 <span class="fix">&nbsp;</span></h2>
             <img src="{{ elixir('images/logo_beta.png') }}" />
-            @if (Auth::user()->signUp === null)
+            @if (!Auth::user() || Auth::user()->signUp === null)
                 <h2>Sign Up for Updates and Beta Access
                 <span class="fix">&nbsp;</span></h2>
             @endif
@@ -32,10 +32,10 @@
                     @endforeach
 
                     {!! Form::open(['route' => 'signup']) !!}
-                    {!! Form::text('email', null, array('placeholder' => 'Your Email', 'style' => 'color: black')) !!}
-                    {!! Form::text('name', null, array('placeholder' => 'Your Name', 'style' => 'color: black')) !!}
+                    {!! Form::text('email', null, array('placeholder' => 'Your Email')) !!}
+                    {!! Form::text('name', null, array('placeholder' => 'Your Name')) !!}
 
-                    {!! Form::submit('Sign Up', ['style' => 'color: black']) !!}
+                    {!! Form::submit('Sign Up') !!}
                     {!! Form::close() !!}
                 @endif
             @endif
