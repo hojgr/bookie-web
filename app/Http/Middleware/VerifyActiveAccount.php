@@ -7,8 +7,9 @@ use Illuminate\Routing\Route;
 class VerifyActiveAccount {
 
 	protected $excluded = ['beta_home', 'login', 'logout'];
+
 	/**
-	 * Handle an incoming request.
+	 * Keep non-active users on /beta landpage
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  \Closure  $next
@@ -24,6 +25,12 @@ class VerifyActiveAccount {
 		return $next($request);
 	}
 
+	/**
+	 * Check whether given route is excluded from verification
+	 *
+	 * @param $name
+	 * @return bool
+	 */
 	public function isExcludedRoute($name) {
 		return in_array($name, $this->excluded);
 	}
