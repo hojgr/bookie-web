@@ -27,6 +27,7 @@ class SteamController extends Controller {
 
 	public function logout(Hybrid_Auth $ha) {
 		$ha->logoutAllProviders();
+		\Auth::logout();
 		return \Redirect::route('beta_home');
 	}
 
