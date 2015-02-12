@@ -6342,3 +6342,6 @@ body {
   clear: both;
   height: 0px;
 }
+.content input {
+  color: black;
+}
