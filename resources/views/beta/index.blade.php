@@ -16,11 +16,12 @@
         @if (!Auth::check())
                 <a href="{{ action("SteamController@login") }}" class="connect"><img src="{{ elixir('images/steamsignin.png') }}"/></a>
             @else
-                <div class="userbox">
-                    <img src="{{ Auth::user()->photo_url }}">
+                <div class="userbox" style="position: relative">
+                    <img src="{{ Auth::user()->getAvatarUrl() }}">
                     <div class="right">
                         <span>Logged in as:</span>
-                        <h2>{{ auth::user()->display_name }}</h2>
+                        <h2>{{ Auth::user()->display_name }}</h2>
+                        <a style="color: white; position: absolute; top: 0; right: 0; padding: 20px" href="{{ route('logout') }}">Logout</a>
                     </div>
                     <div class="clr"></div>
                 </div>
