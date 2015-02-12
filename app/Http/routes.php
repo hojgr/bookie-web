@@ -13,7 +13,7 @@
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
-Route::get('/login/{action?}', 'SteamController@login');
+Route::get('/login/{action?}', ['as' => 'login', 'uses' => 'SteamController@login']);
 Route::get('/logout', ['as' => 'logout', 'uses' => 'SteamController@logout']);
 
 Route::get('/beta', ['as' => 'beta_home', 'uses' => 'BetaController@index']);
