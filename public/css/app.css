@@ -6345,3 +6345,13 @@ body {
 .content input {
   color: black;
 }
+.logo {
+  height: 200px;
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.signed_up {
+  margin-bottom: 200px;
+}

@@ -8,7 +8,7 @@
                 <span class="fix">&nbsp;</span></h1>
             <h2>A Revolution for Esports Betting
                 <span class="fix">&nbsp;</span></h2>
-            <img src="{{ elixir('images/logo_beta.png') }}" />
+            <img class="logo" src="{{ elixir('images/logo_beta.png') }}" />
             @if (!Auth::user() || Auth::user()->signUp === null)
                 <h2>Sign Up for Updates and Beta Access
                 <span class="fix">&nbsp;</span></h2>
@@ -25,7 +25,10 @@
                     <div class="clr"></div>
                 </div>
                 @if (Auth::user()->signUp !== null)
-                    <h3>You have signed up for closed beta.</h3>
+                    <div class="signed_up">
+                        <h3>You have signed up for closed beta.</h3>
+                        When you account is activated you will receive an e-mail informing you so.
+                    </div>
                 @else
                     @foreach($errors->all() as $error)
                         <span class="error" style="color: white">{{ $error }}</span>
@@ -39,8 +42,6 @@
                     {!! Form::close() !!}
                 @endif
             @endif
-                <p class="fine">If you're interested in applying for a position at Bookie.GG, please send all applicable information to jobs@bookie.gg</p>
-
         </div>
     </div>
 @endsection
