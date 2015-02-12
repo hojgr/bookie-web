@@ -16,6 +16,7 @@ class Kernel extends HttpKernel {
 		'Illuminate\Session\Middleware\StartSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
 		'BookieGG\Http\Middleware\VerifyCsrfToken',
+
 	];
 
 	/**
@@ -24,7 +25,7 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-
+		'signup.validator' => 'BookieGG\Http\Middleware\SignupInputValidator'
 	];
 
 }

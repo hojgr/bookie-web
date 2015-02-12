@@ -5,23 +5,24 @@ namespace BookieGG\Http\Controllers;
 
 
 use BookieGG\Models\SignUp;
+use Illuminate\Http\Request;
 
 class SignupController extends Controller {
-    public function index() {
-        $input = \Input::all();
-        $validator = \Validator::make($input,  [
-            'email' => 'required|email',
-            'name' => 'required'
-        ]);
 
-        if($validator->fails())
-            return \Redirect::route('beta_home')->withErrors($validator)->withInput($input);
+    public static $validation_failure_route = 'beta_home';
 
+    public static $validation_rules = [
+        'email' => 'required|email',
+        'name' => 'required'
+    ];
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function index(Request $request) {
         if(!\Auth::user()->signUp) {
-            $signUp = new SignUp();
-            $signUp->email = $input['email'];
-            $signUp->name = $input['name'];
-
+            $signUp = new SignUp($request->input());
             \Auth::user()->signUp()->save($signUp);
         }
 
