@@ -11,4 +11,8 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/login/{action?}', 'SteamController@login');
+Route::get('/logout', 'SteamController@logout');
+
+Route::post('/signup', ['as' => 'signup', 'uses' => 'SignupController@index']);

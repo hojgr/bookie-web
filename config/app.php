@@ -145,7 +145,10 @@ return [
 		'BookieGG\Providers\EventServiceProvider',
 		'BookieGG\Providers\RouteServiceProvider',
 
+		'Illuminate\Html\HtmlServiceProvider',
+
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // generates proxy objects for IDE auto competition
+		'BookieGG\Providers\SteamAuthServiceProvider'
 	],
 
 	/*
@@ -193,6 +196,9 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+
+		'Form'=> 'Illuminate\Html\FormFacade',
+		'HTML'=> 'Illuminate\Html\HtmlFacade',
 
 		// NOT a typo! Laravel docs refer to Socialite facade as Socialize
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
