@@ -15,7 +15,7 @@ class SignupController extends Controller {
         ]);
 
         if($validator->fails())
-            return \Redirect::route('home')->withErrors($validator)->withInput($input);
+            return \Redirect::route('beta_home')->withErrors($validator)->withInput($input);
 
         if(!\Auth::user()->signUp) {
             $signUp = new SignUp();
@@ -25,6 +25,6 @@ class SignupController extends Controller {
             \Auth::user()->signUp()->save($signUp);
         }
 
-        return \Redirect::route('home');
+        return \Redirect::route('beta_home');
     }
 }

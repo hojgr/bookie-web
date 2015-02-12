@@ -22,11 +22,12 @@ class SteamController extends Controller {
 		$auth->authenticate();
 		$res = \Auth::loginUsingId($auth->getUser()->id);
 
-		return \Redirect::to('/');
+		return \Redirect::route('beta_home');
 	}
 
 	public function logout(Hybrid_Auth $ha) {
 		$ha->logoutAllProviders();
+		return \Redirect::route('beta_home');
 	}
 
 }
