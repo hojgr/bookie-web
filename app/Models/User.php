@@ -18,6 +18,24 @@ class User extends Eloquent implements Authenticatable {
         return $this->hasOne('BookieGG\Models\SignUp');
     }
 
+    public function setProfileUrl($profile_url) {
+        if(!preg_match("-/id/([^\\^/]+)-", $profile_url, $matches))
+            throw new \Exception("Unable to parse profileURL (profile url: {$profile_url}");
+        $this->profile_name = $matches[1];
+    }
+
+    public function setAvatarUrl($avatar_url) {
+        $this->avatar_path = preg_replace('~^(.*)/avatars/~', '', $avatar_url);
+    }
+
+    public function getProfileUrl() {
+        return "http://steamcommunity.com/id/" . $this->profile_name . "/";
+    }
+
+    public function getAvatarUrl() {
+        return "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/" . $this->avatar_path;
+    }
+
     /**
      * Get the unique identifier for the user.
      *

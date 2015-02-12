@@ -96,10 +96,29 @@ class SteamAuthenticator implements Authenticatable {
             $user = new User;
             $user->steam_id = $steam_id;
             $user->display_name = $user_profile->displayName;
-            $user->profile_url = $user_profile->profileURL;
-            $user->photo_url = $user_profile->photoURL;
+            $user->setProfileUrl($user_profile->profileURL);
+            $user->setAvatarUrl($user_profile->photoURL);
 
             $user->save();
+        } else {
+            $force_save = false;
+            if($user->getProfileUrl() !== $user_profile->profileURL) {
+                $user->setProfileUrl($user_profile->profileURL);
+                $force_save = true;
+            }
+
+            if($user->getAvatarUrl() !== $user_profile->photoURL) {
+                $user->setAvatarUrl($user_profile->photoURL);
+                $force_save = true;
+            }
+
+            if($user->display_name !== $user_profile->displayName) {
+                $user->display_name = $user_profile->displayName;
+                $force_save = true;
+            }
+
+            if($force_save)
+                $user->save();
         }
 
         return $user;
