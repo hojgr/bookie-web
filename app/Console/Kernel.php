@@ -11,7 +11,8 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
-		'BookieGG\Console\Commands\Inspire',
+        'BookieGG\Console\Commands\Inspire',
+        'BookieGG\Console\Commands\UserList',
 	];
 
 	/**
