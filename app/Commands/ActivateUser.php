@@ -1,5 +1,6 @@
 <?php namespace BookieGG\Commands;
 
+use BookieGG\Exceptions\UserAlreadyActivated;
 use BookieGG\Models\User;
 use Illuminate\Contracts\Bus\SelfHandling;
 
@@ -16,11 +17,12 @@ class ActivateUser extends Command implements SelfHandling {
 
         $this->user = $user;
     }
-	/**
-	 * Execute the command.
-	 *
-	 * @return void
-	 */
+
+    /**
+     * Execute the command.
+     *
+     * @throws UserAlreadyActivated
+     */
 	public function handle()
 	{
         /**
@@ -28,9 +30,11 @@ class ActivateUser extends Command implements SelfHandling {
          * prevent SQL query if user was already
          * activated prior to this attept
          */
-		if($this->user->activate())
+		if($this->user->activate()) {
             $this->user->save();
-
+        } else {
+            throw new UserAlreadyActivated("User #" . $this->user->id . " is already activated");
+        }
 	}
 
 }

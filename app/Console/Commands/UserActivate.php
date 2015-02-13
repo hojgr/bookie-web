@@ -1,6 +1,7 @@
 <?php namespace BookieGG\Console\Commands;
 
 use BookieGG\Commands\ActivateUser;
+use BookieGG\Exceptions\UserAlreadyActivated;
 use BookieGG\Models\User;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -43,11 +44,11 @@ class UserActivate extends Command {
         if(!$user) {
             $this->error($this->formatMessage($id, "was not found"));
         } else {
-            if($user->active) {
-                $this->error($this->formatMessage($id, "is already activated"));
-            } else {
+            try {
                 \Bus::dispatch(new ActivateUser($user));
                 $this->info($this->formatMessage($id, "was activated"));
+            } catch (UserAlreadyActivated $e) {
+                $this->error($e->getMessage());
             }
         }
 	}
