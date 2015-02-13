@@ -1,12 +1,9 @@
 <?php namespace BookieGG\Console\Commands;
 
 use BookieGG\Commands\ActivateUser;
-use BookieGG\Exceptions\UserAlreadyActivated;
 use BookieGG\Models\User;
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
-class UserActivate extends Command {
+class UserActivate extends UserChangeActivation {
 
 	/**
 	 * The console command name.
@@ -38,45 +35,9 @@ class UserActivate extends Command {
 	 */
 	public function fire()
 	{
-        $id = $this->argument('id');
-		$user = User::whereId($id)->first();
-
-        if(!$user) {
-            $this->error($this->formatMessage($id, "was not found"));
-        } else {
-            try {
-                \Bus::dispatch(new ActivateUser($user));
-                $this->info($this->formatMessage($id, "was activated"));
-            } catch (UserAlreadyActivated $e) {
-                $this->error($e->getMessage());
-            }
-        }
-	}
-
-    public function formatMessage($id, $appendix) {
-        return "User #" . $id . " " . $appendix;
-    }
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return [
-			['id', InputArgument::REQUIRED, 'User ID'],
-		];
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return [];
+        $this->process_change(function(User $user) {
+            return new ActivateUser($user);
+        }, "was activated");
 	}
 
 }

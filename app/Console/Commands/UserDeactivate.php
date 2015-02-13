@@ -1,12 +1,9 @@
 <?php namespace BookieGG\Console\Commands;
 
-use BookieGG\Exceptions\UserNotActivated;
 use BookieGG\Commands\DeactivateUser;
 use BookieGG\Models\User;
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
-class UserDeactivate extends Command {
+class UserDeactivate extends UserChangeActivation {
 
 	/**
 	 * The console command name.
@@ -31,52 +28,17 @@ class UserDeactivate extends Command {
 		parent::__construct();
 	}
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-        $id = $this->argument('id');
-        $user = User::whereId($id)->first();
-
-        if(!$user) {
-            $this->error($this->formatMessage($id, "was not found"));
-        } else {
-            try {
-                \Bus::dispatch(new DeactivateUser($user));
-                $this->info($this->formatMessage($id, "was deactivated"));
-            } catch (UserNotActivated $e) {
-                $this->error($e->getMessage());
-            }
-        }
-	}
-
-    public function formatMessage($id, $appendix) {
-        return "User #" . $id . " " . $appendix;
-    }
-
     /**
-     * Get the console command arguments.
+     * Execute the console command.
      *
-     * @return array
+     * @return mixed
      */
-    protected function getArguments()
+    public function fire()
     {
-        return [
-            ['id', InputArgument::REQUIRED, 'User ID'],
-        ];
+        $this->process_change(function(User $user) {
+            return new DeactivateUser($user);
+        }, "was deactivated");
     }
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [];
-    }
 
 }
