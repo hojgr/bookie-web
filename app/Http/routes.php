@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::group(['middleware' => 'active.validator'], function() {
+    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+});
 
 Route::get('/login/{action?}', ['as' => 'login', 'uses' => 'SteamController@login']);
 Route::get('/logout', ['as' => 'logout', 'uses' => 'SteamController@logout']);

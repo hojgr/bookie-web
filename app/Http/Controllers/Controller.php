@@ -9,6 +9,5 @@ abstract class Controller extends BaseController {
 	use DispatchesCommands, ValidatesRequests;
 
 	public function __construct() {
-		$this->middleware('BookieGG\Http\Middleware\VerifyActiveAccount');
 	}
 }

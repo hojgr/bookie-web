@@ -25,7 +25,8 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'signup.validator' => 'BookieGG\Http\Middleware\BetaSubscriptionFormValidator'
+		'signup.validator' => 'BookieGG\Http\Middleware\BetaSubscriptionFormValidator',
+        'active.validator' => 'BookieGG\Http\Middleware\VerifyActiveAccount',
 	];
 
 }
