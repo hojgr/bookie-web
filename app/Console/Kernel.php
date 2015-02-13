@@ -14,7 +14,9 @@ class Kernel extends ConsoleKernel {
         'BookieGG\Console\Commands\Inspire',
         'BookieGG\Console\Commands\UserList',
         'BookieGG\Console\Commands\UserActivate',
-	];
+        'BookieGG\Console\Commands\UserDeactivate',
+
+    ];
 
 	/**
 	 * Define the application's command schedule.
