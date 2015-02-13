@@ -18,11 +18,14 @@ class UserChangeActivation extends Command {
 	}
 
     /**
-     * Execute the console command.
+     * Both, activate and deactivate commands
+     * share almost all logic. This logic
+     * is abstracted except command creation
+     * and success message.
      *
-     * @param callable $create_command
-     * @param $success_message
-     * @return mixed
+     * @param callable $create_command Returns instance of Command
+     * @param $success_message string
+     * @return void
      */
 	public function process_change(\Closure $create_command, $success_message)
 	{
