@@ -20,4 +20,4 @@ Route::get('/logout', ['as' => 'logout', 'uses' => 'SteamController@logout']);
 
 Route::get('/beta', ['as' => 'beta_home', 'uses' => 'BetaController@index']);
 Route::post('/signup', ['as' => 'signup', 'uses' => 'SignupController@index',
-    'middleware' => 'signup.validator']);
+    'middleware' => 'beta.subscription.form.validator']);
