@@ -6,7 +6,12 @@ use BookieGG\Models\User;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class UserChangeActivation extends Command {
+/**
+ * Class is abstract because is not usable without
+ * being extended. Only provides utilities for both
+ * user activation and deactivation.
+ */
+abstract class UserChangeActivation extends Command {
 
     /**
      * Create a new command instance.
