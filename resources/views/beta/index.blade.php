@@ -51,7 +51,7 @@
                         <span class="error" style="color: white">{{ $error }}</span>
                     @endforeach
 
-                    {!! Form::open(['route' => 'signup']) !!}
+                    {!! Form::open(['route' => 'subscribe']) !!}
                     {!! Form::text('email', null, array('placeholder' => 'Your Email')) !!}
                     {!! Form::text('name', null, array('placeholder' => 'Your Name')) !!}
 
