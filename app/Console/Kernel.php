@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel {
 	protected $commands = [
         'BookieGG\Console\Commands\Inspire',
         'BookieGG\Console\Commands\UserList',
+        'BookieGG\Console\Commands\UserActivate',
 	];
 
 	/**

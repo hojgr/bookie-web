@@ -18,6 +18,37 @@ class User extends Eloquent implements Authenticatable {
         return $this->hasOne('BookieGG\Models\BetaSubscription');
     }
 
+
+    /**
+     * Activate user account
+     *
+     * Returns true if user was activated
+     * false if he was not
+     *
+     * @return bool
+     */
+    public function activate() {
+        if(!$this->active) {
+            $this->active = true;
+            return true;
+        } else return false;
+    }
+
+    /**
+     * Deactivates user account
+     *
+     * Returns true if user was activated
+     * false if he was not
+     *
+     * @return bool
+     */
+    public function deactivate() {
+        if($this->active) {
+            $this->active = false;
+            return true;
+        } else return false;
+    }
+
     public function setProfileUrl($profile_url) {
         if(!preg_match("-/id/([^\\^/]+)-", $profile_url, $matches))
             throw new \Exception("Unable to parse profileURL (profile url: {$profile_url}");
