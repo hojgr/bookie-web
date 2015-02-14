@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rdan
- * Date: 2/14/15
- * Time: 1:26 AM
- */
+
+namespace BookieGG\Http\Controllers;
+
+
+class MatchController extends Controller {
+    public function matches() {
+        return view('site/index');
+    }
+}

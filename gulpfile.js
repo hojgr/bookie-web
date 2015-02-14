@@ -1,3 +1,5 @@
+process.env.DISABLE_NOTIFIER = true;
+
 var elixir = require('laravel-elixir');
 
 /*
@@ -12,7 +14,7 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
- mix.less(['app.less', 'beta.less'])
+ mix.less(['app.less', 'beta.less', 'site.less'])
      .copy('resources/assets/images', 'public/images')
      .version(['css/app.css', 'css/beta.css'])
 

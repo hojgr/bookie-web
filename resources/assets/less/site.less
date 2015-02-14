@@ -1,0 +1,90 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #8b8b8b;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #02a4d9;
+  color: #fff;
+  width: 100%;
+  padding-bottom: 3px;
+  box-shadow: 10px 0px 15px #000;
+
+  .logo {
+    padding: 20px;
+  }
+
+  .nav {
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline;
+        font-size: 16pt;
+        padding: 0 10px;
+
+        &.active {
+          border-bottom: 3px solid orangered;
+        }
+      }
+    }
+  }
+}
+
+.container {
+  background-color: #f5f5f5;
+  padding: 10px;
+
+  .left-side {
+    width: 300px;
+
+    .user-left, .news-left {
+      padding: 5px;
+      box-shadow: 0 0 15px #888888;
+      background-color: #fff;
+
+      &:not(:first-child) {
+        margin-top: 15px;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+
+    .user-left {
+      .username-container {
+        height: 80px;
+
+        h2 {
+          padding-left: 10px;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .avatar {
+          float: left;
+          border-radius: 50%;
+          overflow: hidden;
+          width: 75px;
+          height: 75px;
+
+          img {
+            display: block;
+            min-width: 100%;
+            width: 100%;
+            min-height: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
