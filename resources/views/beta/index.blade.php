@@ -24,7 +24,7 @@
                 <span class="fix">&nbsp;</span></h1>
             <h2>A Revolution for Esports Betting
                 <span class="fix">&nbsp;</span></h2>
-            <img class="logo" src="{{ asset('images/asd/logo_beta.png') }}" />
+            <img class="logo" src="{{ asset('images/logo_beta.png') }}" />
             @if (!Auth::user() || Auth::user()->subscription === null)
                 <h2>Sign Up for Updates and Beta Access
                 <span class="fix">&nbsp;</span></h2>
