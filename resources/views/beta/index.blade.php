@@ -24,13 +24,13 @@
                 <span class="fix">&nbsp;</span></h1>
             <h2>A Revolution for Esports Betting
                 <span class="fix">&nbsp;</span></h2>
-            <img class="logo" src="{{ elixir('images/logo_beta.png') }}" />
+            <img class="logo" src="{{ asset('images/asd/logo_beta.png') }}" />
             @if (!Auth::user() || Auth::user()->subscription === null)
                 <h2>Sign Up for Updates and Beta Access
                 <span class="fix">&nbsp;</span></h2>
             @endif
         @if (!Auth::check())
-                <a href="{{ action("SteamController@login") }}" class="connect"><img src="{{ elixir('images/steamsignin.png') }}"/></a>
+                <a href="{{ action("SteamController@login") }}" class="connect"><img src="{{ asset('images/steamsignin.png') }}"/></a>
             @else
                 <div class="userbox" style="position: relative">
                     <img src="{{ Auth::user()->getAvatarUrl() }}">
