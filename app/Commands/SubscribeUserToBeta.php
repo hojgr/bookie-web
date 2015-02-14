@@ -23,7 +23,6 @@ class SubscribeUserToBeta extends Command implements SelfHandling {
 	 */
 	public function __construct(User $user, array $input)
 	{
-		//
 		$this->user = $user;
 		$this->input = $input;
 	}
