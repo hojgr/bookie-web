@@ -16,6 +16,6 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
  mix.less(['app.less', 'beta.less', 'site.less'])
      .copy('resources/assets/images', 'public/images')
-     .version(['css/app.css', 'css/beta.css'])
+     .version(['css/app.css', 'css/beta.css', 'css/site.css'])
 
 });
