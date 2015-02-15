@@ -19,7 +19,7 @@ class UsersChangeSteamIdFromIntToString extends Migration {
 
 		Schema::table('users', function(Blueprint $table)
 		{
-			$table->string("steam_id"); // int is not big enough for steam id... obviously
+			$table->string("steam_id")->default(""); // int is not big enough for steam id... obviously
 		});
 	}
 
