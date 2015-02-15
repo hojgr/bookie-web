@@ -3,7 +3,7 @@
 use Closure;
 use Illuminate\Http\Request;
 
-class VerifyActiveAccount {
+class RedirectNonActivatedAccounts {
 
 	/**
 	 * Keep non-active users on /beta landpage

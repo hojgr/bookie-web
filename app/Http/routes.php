@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => 'active.validator'], function() {
+Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 });
 
