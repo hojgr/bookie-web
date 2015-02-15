@@ -11,8 +11,9 @@ class UserRepository implements UserRepositoryInterface {
 
     public function activate(User $user)
     {
-        $user->activate();
+        $return = $user->activate();
         $user->save();
+        return $return;
     }
 
     public function save(User $user)
