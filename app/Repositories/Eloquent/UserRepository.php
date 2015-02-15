@@ -19,4 +19,16 @@ class UserRepository implements UserRepositoryInterface {
     {
         $user->save();
     }
+
+    public function createUser($steamId, $displayName, $profileName, $avatarPath)
+    {
+        $user = new User([
+            "steamId" => $steamId,
+            "displayName" => $displayName,
+            "profileName" => $profileName,
+            "avatarPath" => $avatarPath
+        ]);
+
+        return $user->save();
+    }
 }
