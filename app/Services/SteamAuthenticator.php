@@ -5,6 +5,7 @@ namespace BookieGG\Services;
 
 
 use BookieGG\Contracts\Authenticatable;
+use BookieGG\Contracts\SteamUtilityInterface;
 use BookieGG\Models\User;
 use Hybrid_Endpoint;
 
@@ -23,14 +24,19 @@ class SteamAuthenticator implements Authenticatable {
      * @var Hybrid_Endpoint
      */
     private $hybrid_endpoint;
+    /**
+     * @var SteamUtilityInterface
+     */
+    private $steamUtility;
 
     /**
      * @param \Hybrid_Auth $ha
      * @param Hybrid_Endpoint $he
      */
-    public function __construct(\Hybrid_Auth $ha, \Hybrid_Endpoint $he) {
+    public function __construct(\Hybrid_Auth $ha, \Hybrid_Endpoint $he, SteamUtilityInterface $steamUtil) {
         $this->hybrid_auth = $ha;
         $this->hybrid_endpoint = $he;
+        $this->steamUtility = $steamUtil;
     }
 
     /**
@@ -96,10 +102,10 @@ class SteamAuthenticator implements Authenticatable {
 
         return [
             'identifier' => $user_profile->identifier,
-            'steam_id' => $steam_id,
-            'display_name' => $user_profile->displayName,
-            'profile_url' => $user_profile->profileURL,
-            'avatar_url' => $user_profile->photoURL,
+            'steamId' => $steam_id,
+            'displayName' => $user_profile->displayName,
+            'profileName' => $this->steamUtility->profileURLToProfileName($user_profile->profileURL),
+            'avatarPath' => $this->steamUtility->avatarURLToAvatarPath($user_profile->photoURL),
         ];
     }
 
