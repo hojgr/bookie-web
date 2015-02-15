@@ -24,7 +24,7 @@ class SteamAuthServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('Hybrid_Auth', function($app) {
 			return new Hybrid_Auth(array(
-				"base_url"   => "http://localhost:8000/login/auth",
+				"base_url"   => route("login", "auth"),
 				"providers" => array (
 					"OpenID" => array (
 						"enabled" => true
@@ -33,7 +33,7 @@ class SteamAuthServiceProvider extends ServiceProvider {
 						"enabled" => true,
 						"wrapper" => array(
 							'class'=>'Hybrid_Providers_Steam',
-							'path' => $_SERVER['DOCUMENT_ROOT'].'/../vendor/hybridauth/hybridauth/additional-providers/hybridauth-steam/Providers/Steam.php'
+							'path' => base_path() . '/vendor/hybridauth/hybridauth/additional-providers/hybridauth-steam/Providers/Steam.php'
 						)
 					)
 				)
