@@ -1,7 +1,6 @@
 <?php namespace BookieGG\Commands;
 
 use BookieGG\Exceptions\UserAlreadySubscribed;
-use BookieGG\Commands\Command;
 
 use BookieGG\Models\BetaSubscription;
 use BookieGG\Models\User;
@@ -28,11 +27,11 @@ class SubscribeUserToBeta extends Command implements SelfHandling {
 		$this->input = $input;
 	}
 
-	/**
-	 * Execute the command.
-	 *
-	 * @return void
-	 */
+    /**
+     * Execute the command.
+     *
+     * @throws UserAlreadySubscribed
+     */
 	public function handle()
 	{
 		if(!$this->user->subscription) {
