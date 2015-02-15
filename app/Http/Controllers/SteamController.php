@@ -23,7 +23,7 @@ class SteamController extends Controller {
 	 */
 	public function login(SteamAuthenticator $auth) {
 		$auth->authenticate();
-		$res = \Auth::loginUsingId($auth->getUser()->id);
+		\Auth::loginUsingId($auth->getUser()->id);
 
 		return \Redirect::route('beta_home');
 	}
