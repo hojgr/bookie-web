@@ -1,5 +1,6 @@
 <?php namespace BookieGG\Commands;
 
+use BookieGG\Contracts\Repositories\UserRepositoryInterface;
 use BookieGG\Models\User;
 use Illuminate\Contracts\Bus\SelfHandling;
 
@@ -21,19 +22,17 @@ class CreateUser extends Command implements SelfHandling {
     /**
      * Creates command
      *
-     * @param User $user
+     * @param UserRepositoryInterface $userRepository
      * @return User
      */
-	public function handle(User $user)
+	public function handle(UserRepositoryInterface $userRepository)
 	{
-        $user->fill($this->parameters);
-
-        $user->setAvatarUrl($this->parameters['avatar_url']);
-        $user->setProfileUrl($this->parameters['profile_url']);
-
-        $user->save();
-
-        return $user;
+        return $userRepository->createUser(
+            $this->parameters['steamId'],
+            $this->parameters['displayName'],
+            $this->parameters['profileName'],
+            $this->parameters['avatarPath']
+        );
 	}
 
 }
