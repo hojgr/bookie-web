@@ -8,27 +8,29 @@ use BookieGG\Models\User;
 
 class DeactivateUserTest extends \TestCase {
     public function testDeactivateUser_successful() {
-        $mock = \Mockery::mock('BookieGG\Models\User');
+        $user = new User();
 
-        $mock->shouldReceive("deactivate")->times(1)->andReturn(true);
-        $mock->shouldReceive("save")->times(1);
+        $mock = \Mockery::mock('BookieGG\Contracts\Repositories\UserRepositoryInterface');
+        $mock->shouldReceive('deactivate')->with($user)->andReturn(true);
 
-        $command = new DeactivateUser($mock);
+        $command = new DeactivateUser($user);
 
-        $command->handle();
+        $command->handle($mock);
 
         $mock->mockery_verify();
     }
 
-    public function testDeactivateUser_already_deactivated() {
+    public function testDeactivateUser_already_Deactivated() {
         $this->setExpectedException('BookieGG\Exceptions\UserNotActivated');
-        $mock = \Mockery::mock('BookieGG\Models\User');
+        $user = new User();
 
-        $mock->shouldReceive("deactivate")->once()->andReturn(false);
-        $mock->shouldReceive("getAttribute")->once()->with("id")->andReturn(1);
+        $mock = \Mockery::mock('BookieGG\Contracts\Repositories\UserRepositoryInterface');
+        $mock->shouldReceive('deactivate')->with($user)->andReturn(false);
 
-        $command = new DeactivateUser($mock);
+        $command = new DeactivateUser($user);
 
-        $command->handle();
+        $command->handle($mock);
+
+        $mock->mockery_verify();
     }
 }
