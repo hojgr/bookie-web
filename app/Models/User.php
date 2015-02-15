@@ -14,6 +14,8 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class User extends Eloquent implements Authenticatable {
 
+    protected $fillable = ['steam_id', 'display_name'];
+
     public function subscription() {
         return $this->hasOne('BookieGG\Models\BetaSubscription');
     }
@@ -65,6 +67,14 @@ class User extends Eloquent implements Authenticatable {
 
     public function getAvatarUrl() {
         return "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/" . $this->avatar_path;
+    }
+
+    public function getDisplayName() {
+        return $this->display_name;
+    }
+
+    public function setDisplayName($name) {
+        $this->display_name = $name;
     }
 
     /**

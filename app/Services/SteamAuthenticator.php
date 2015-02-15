@@ -19,12 +19,18 @@ class SteamAuthenticator implements Authenticatable {
      * @var \Hybrid_Provider_Model_OpenID
      */
     protected $auth_provider;
+    /**
+     * @var Hybrid_Endpoint
+     */
+    private $hybrid_endpoint;
 
     /**
      * @param \Hybrid_Auth $ha
+     * @param Hybrid_Endpoint $he
      */
-    public function __construct(\Hybrid_Auth $ha) {
+    public function __construct(\Hybrid_Auth $ha, \Hybrid_Endpoint $he) {
         $this->hybrid_auth = $ha;
+        $this->hybrid_endpoint = $he;
     }
 
     /**
@@ -48,7 +54,7 @@ class SteamAuthenticator implements Authenticatable {
     public function process()
     {
         try {
-            Hybrid_Endpoint::process();
+            $this->hybrid_endpoint->process();
         } catch (\Exception $e) {
             \Log::error("Error at Hybrid_Endpoint process (SteamController@login): $e");
         }
@@ -81,7 +87,6 @@ class SteamAuthenticator implements Authenticatable {
          * @var \Hybrid_User_Profile
          */
         $user_profile = $this->auth_provider->getUserProfile();
-
         if(!preg_match("([0-9]+)", $user_profile->identifier, $matches) || !isset($matches[0])) {
             \Log::error("Received STEAM ID did not contain an ID! {$user_profile->identifier}");
             throw new \Exception("Received STEAM ID did not contain an ID! {$user_profile->identifier}");
@@ -89,42 +94,13 @@ class SteamAuthenticator implements Authenticatable {
 
         $steam_id = $matches[0];
 
-        /**
-         * @var \BookieGG\Models\User $user
-         */
-        $user = User::where('steam_id', '=', $steam_id)->first();
-
-        if($user === null) {
-            // register user
-            $user = new User;
-            $user->steam_id = $steam_id;
-            $user->display_name = $user_profile->displayName;
-            $user->setProfileUrl($user_profile->profileURL);
-            $user->setAvatarUrl($user_profile->photoURL);
-
-            $user->save();
-        } else {
-            $force_save = false;
-            if($user->getProfileUrl() !== $user_profile->profileURL) {
-                $user->setProfileUrl($user_profile->profileURL);
-                $force_save = true;
-            }
-
-            if($user->getAvatarUrl() !== $user_profile->photoURL) {
-                $user->setAvatarUrl($user_profile->photoURL);
-                $force_save = true;
-            }
-
-            if($user->display_name !== $user_profile->displayName) {
-                $user->display_name = $user_profile->displayName;
-                $force_save = true;
-            }
-
-            if($force_save)
-                $user->save();
-        }
-
-        return $user;
+        return [
+            'identifier' => $user_profile->identifier,
+            'steam_id' => $steam_id,
+            'display_name' => $user_profile->displayName,
+            'profile_url' => $user_profile->profileURL,
+            'avatar_url' => $user_profile->photoURL,
+        ];
     }
 
     public function logout() {
