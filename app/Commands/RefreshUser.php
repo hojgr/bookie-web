@@ -1,5 +1,6 @@
 <?php namespace BookieGG\Commands;
 
+use BookieGG\Contracts\Repositories\UserRepositoryInterface;
 use BookieGG\Models\User;
 use Illuminate\Contracts\Bus\SelfHandling;
 
@@ -25,30 +26,29 @@ class RefreshUser extends Command implements SelfHandling {
         $this->user = $user;
     }
 
-	/**
-	 * Execute the command.
-	 *
+    /**
+     * Execute the command.
+     *
+     * @param UserRepositoryInterface $userRepository
      * @return User
-	 */
-	public function handle()
+     */
+	public function handle(UserRepositoryInterface $userRepository)
 	{
         $save = false;
 
-        $map = [
-            'ProfileUrl' => 'profile_url',
-            'AvatarUrl' => 'avatar_url',
-            'DisplayName' => 'display_name',
-        ];
+        $map = ['profileName', 'avatarPath', 'displayName'];
 
-        foreach($map as $method_name => $array_key) {
-            if ($this->user->{'get' . $method_name}() !== $this->parameters[$array_key]) {
-                $this->user->{'set' . $method_name}($this->parameters[$array_key]);
+        foreach($map as $name) {
+            if ($this->user->$name !== $this->parameters[$name]) {
+                $this->user->$name = $this->parameters[$name];
                 $save = true;
             }
         }
 
-        if($save)
-            $this->user->save();
+
+        if($save) {
+            return $userRepository->save($this->user);
+        }
 
         return $this->user;
 	}
