@@ -23,7 +23,7 @@
         <ul>
             <li class="active">Matches</li>
             <li>Bank</li>
-            <li>Something</li>
+            <li>Forums</li>
         </ul>
     </div>
 </div>
@@ -37,11 +37,8 @@
                 <h2>Here's a username</h2>
             </div>
             <ul>
-                <li>blank stuff</li>
-                <li>blank stuff</li>
-                <li>blank stuff</li>
-                <li>blank stuff</li>
-                <li>blank stuff</li>
+                <li>Bets</li>
+                <li>Settings</li>
             </ul>
         </div>
         <div class="news-left">
@@ -56,7 +53,20 @@
         </div>
     </div>
     <div class="content">
-
+        <div class="matchbox">
+            <div class="team1">
+                {{--<div class="team-image">--}}
+                    <img height="75px" src="{{ asset('images/teams/virtus.pro.png') }}" />
+                {{--</div>--}}
+                <div class="team-name">Virtus.pro</div>
+            </div>
+            <div class="team2">
+                <div class="team-name">Cloud 9</div>
+                {{--<div class="team-image">--}}
+                    <img height="75px" src="{{ asset('images/teams/cloud_9.png') }}" />
+                {{--</div>--}}
+            </div>
+        </div>
     </div>
 </div>
 
