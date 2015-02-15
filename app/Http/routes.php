@@ -15,12 +15,14 @@ Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 });
 
-Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);
-Route::get('/auth', ['as' => 'auth', 'uses' => 'SteamController@auth']);
+Route::group(['middleware' => 'beta.redirect_activated'], function() {
+    Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);
+    Route::get('/auth', ['as' => 'auth', 'uses' => 'SteamController@auth']);
 
-Route::get('/logout', ['as' => 'logout', 'uses' => 'SteamController@logout']);
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'SteamController@logout']);
 
-Route::get('/beta', ['as' => 'beta_home', 'uses' => 'BetaController@index']);
-Route::post('/subscribe', ['as' => 'subscribe', 'uses' => 'BetaSubscribeController@index']);
+    Route::get('/beta', ['as' => 'beta_home', 'uses' => 'BetaController@index']);
+    Route::post('/subscribe', ['as' => 'subscribe', 'uses' => 'BetaSubscribeController@index']);
 
-Route::get('/site', ['as' => 'site_home', 'uses' => 'MatchController@matches']);
+    Route::get('/site', ['as' => 'site_home', 'uses' => 'MatchController@matches']);
+});
