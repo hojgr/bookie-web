@@ -14,8 +14,6 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	protected $namespace = 'BookieGG\Http\Controllers';
 
-	public $middleware = ['BookieGG\Http\Middleware\VerifyActiveAccount',];
-
 	/**
 	 * Define your route model bindings, pattern filters, etc.
 	 *
