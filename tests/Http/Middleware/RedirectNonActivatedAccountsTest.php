@@ -6,7 +6,7 @@ namespace tests\Http\Middleware;
 
 use BookieGG\Models\User;
 
-class RedirectNonActivatedAccounts extends \TestCase {
+class RedirectNonActivatedAccountsTest extends \TestCase {
     public function testNotAuthed_home_page() {
         $response = $this->call('GET', route("home"));
         $this->assertTrue($response->isRedirect(route("beta_home")));
