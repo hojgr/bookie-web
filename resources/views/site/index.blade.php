@@ -30,16 +30,22 @@
 <div class="container">
     <div class="left-side">
         <div class="user-left">
-            <div class="username-container">
-                <div class="avatar">
-                    <img src="{{ asset('images/teams/virtus.pro.png') }}" />
+            @if (!Auth::check())
+                <div class="steam-button">
+                    <a href="{{ action("SteamController@login") }}" class="connect"><img src="{{ asset('images/steamsignin.png') }}"/></a>
                 </div>
-                <h2>Here's a username</h2>
-            </div>
-            <ul>
-                <li>Bets</li>
-                <li>Settings</li>
-            </ul>
+            @else
+                <div class="username-container">
+                    <div class="avatar">
+                        <img src="{{ asset('images/teams/virtus.pro.png') }}" />
+                    </div>
+                    <h2>Here's a username</h2>
+                </div>
+                <ul>
+                    <li>Bets</li>
+                    <li>Settings</li>
+                </ul>
+            @endif
         </div>
         <div class="news-left">
             News
