@@ -16,6 +16,12 @@ class UserRepository implements UserRepositoryInterface {
         return $return;
     }
 
+    public function deactivate(User $user) {
+        $return = $user->deactivate();
+        $user->save();
+        return $return;
+    }
+
     public function save(User $user)
     {
         $user->save();
