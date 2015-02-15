@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel {
         'BookieGG\Console\Commands\UserList',
         'BookieGG\Console\Commands\UserActivate',
         'BookieGG\Console\Commands\UserDeactivate',
+        'BookieGG\Console\Commands\SqliteCreate',
 
     ];
 
