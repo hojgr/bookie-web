@@ -24,7 +24,7 @@ class SteamAuthServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('Hybrid_Auth', function($app) {
 			return new Hybrid_Auth(array(
-				"base_url"   => route("login", "auth"),
+				"base_url"   => route("auth"),
 				"providers" => array (
 					"OpenID" => array (
 						"enabled" => true
