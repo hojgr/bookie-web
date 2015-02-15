@@ -19,11 +19,10 @@ class UserList extends BaseCommand {
 	 */
 	protected $description = 'Prints list of users';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
+    /**
+     * Create a new command instance.
+     *
+     */
 	public function __construct()
 	{
 		parent::__construct();

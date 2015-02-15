@@ -89,6 +89,9 @@ class SteamAuthenticator implements Authenticatable {
 
         $steam_id = $matches[0];
 
+        /**
+         * @var \BookieGG\Models\User $user
+         */
         $user = User::where('steam_id', '=', $steam_id)->first();
 
         if($user === null) {

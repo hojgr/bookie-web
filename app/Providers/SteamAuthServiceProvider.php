@@ -22,7 +22,7 @@ class SteamAuthServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->singleton('Hybrid_Auth', function($app) {
+		$this->app->singleton('Hybrid_Auth', function() {
 			return new Hybrid_Auth(array(
 				"base_url"   => route("auth"),
 				"providers" => array (

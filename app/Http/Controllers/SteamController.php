@@ -1,12 +1,9 @@
 <?php namespace BookieGG\Http\Controllers;
 
 use BookieGG\Http\Requests;
-use BookieGG\Http\Controllers\Controller;
 
 use BookieGG\Services\SteamAuthenticator;
 use Hybrid_Auth;
-use Hybrid_Endpoint;
-use Illuminate\Http\Request;
 
 class SteamController extends Controller {
 	/**
