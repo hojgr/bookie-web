@@ -5,6 +5,7 @@ namespace BookieGG\Repositories\Eloquent;
 
 
 use BookieGG\Contracts\Repositories\UserRepositoryInterface;
+use BookieGG\Models\BetaSubscription;
 use BookieGG\Models\User;
 
 class UserRepository implements UserRepositoryInterface {
@@ -50,5 +51,10 @@ class UserRepository implements UserRepositoryInterface {
         ]);
 
         return $user->save();
+    }
+
+    public function subscribe(User $user, BetaSubscription $betaSubscription)
+    {
+        $user->subscription()->save($betaSubscription);
     }
 }

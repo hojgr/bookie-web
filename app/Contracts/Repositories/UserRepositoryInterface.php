@@ -4,6 +4,7 @@
 namespace BookieGG\Contracts\Repositories;
 
 
+use BookieGG\Models\BetaSubscription;
 use BookieGG\Models\User;
 
 interface UserRepositoryInterface {
@@ -12,4 +13,6 @@ interface UserRepositoryInterface {
     public function createUser($steamId, $displayName, $profileName, $avatarPath);
 
     public function deactivate(User $user);
+
+    public function subscribe(User $user, BetaSubscription $betaSubscription);
 }

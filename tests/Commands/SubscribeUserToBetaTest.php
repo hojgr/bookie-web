@@ -5,45 +5,37 @@ namespace tests\Commands;
 
 
 use BookieGG\Commands\SubscribeUserToBeta;
-use BookieGG\Models\BetaSubscription;
 use BookieGG\Models\User;
 
 class SubscribeUserToBetaTest extends \TestCase {
     public function testSubscribe_call_save() {
-        $CI = $this;
-        $args = ['name' => 'John Doe', 'email' => 'e@ma.il'];
+        $user = new User();
 
-        $has_one_or_many = \Mockery::mock('Illuminate\Database\Eloquent\Relations\HasOneOrMany');
-        $has_one_or_many->shouldReceive('save')->once()->with(\Mockery::on(function(BetaSubscription $model) use ($CI, $args) {
-            $this->assertSame($args['name'], $model->name);
-            $this->assertSame($args['email'], $model->email);
-            return true;
-        }));
+        $interface = \Mockery::mock('BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface');
 
-        $user = \Mockery::mock('BookieGG\Models\User');
-        $user->shouldReceive('getAttribute')->once()->with('subscription')->andReturnNull();
-        $user->shouldReceive('subscription')->once()->andReturn($has_one_or_many);
+        $interface->shouldReceive('isSubscribed')->once()->with($user)->andReturn(false);
+        $interface->shouldReceive('create')->once()->withArgs([$user, "a", "b"]);
 
-        $subscribe_user_to_beta_command = new SubscribeUserToBeta($user, $args);
-        $subscribe_user_to_beta_command->handle();
+        $command = new SubscribeUserToBeta($user, "a", "b");
 
-        $user->mockery_verify();
-        $has_one_or_many->mockery_verify();
+        $command->handle($interface);
+
+        $interface->mockery_verify();
     }
 
-    public function testSubscribe_dont_call_save() {
+    public function testSubscribe_call_dont_save() {
         $this->setExpectedException('BookieGG\Exceptions\UserAlreadySubscribed');
-        $has_one_or_many = \Mockery::mock('Illuminate\Database\Eloquent\Relations\HasOneOrMany');
-        $has_one_or_many->shouldReceive('save')->never();
+        $user = new User();
 
-        $user = \Mockery::mock('BookieGG\Models\User');
-        $user->shouldReceive('getAttribute')->once()->with('subscription')->andReturn($has_one_or_many);
-        $user->shouldReceive('getAttribute')->once()->with('id')->andReturn(1);
+        $interface = \Mockery::mock('BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface');
 
-        $subscribe_user_to_beta_command = new SubscribeUserToBeta($user, []);
-        $subscribe_user_to_beta_command->handle();
+        $interface->shouldReceive('isSubscribed')->once()->with($user)->andReturn(true);
+        $interface->shouldReceive('create')->never();
 
-        $user->mockery_verify();
-        $has_one_or_many->mockery_verify();
+        $command = new SubscribeUserToBeta($user, "a", "b");
+
+        $command->handle($interface);
+
+        $interface->mockery_verify();
     }
 }
