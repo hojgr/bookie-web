@@ -14,7 +14,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class User extends Eloquent implements Authenticatable {
 
-    protected $fillable = ['steam_id', 'display_name'];
+    protected $fillable = ['steam_id', 'display_name', 'avatar_path', 'profile_name'];
 
     public function subscription() {
         return $this->hasOne('BookieGG\Models\BetaSubscription');
