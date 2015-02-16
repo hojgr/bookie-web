@@ -28,10 +28,10 @@ class CreateUser extends Command implements SelfHandling {
 	public function handle(UserRepositoryInterface $userRepository)
 	{
         return $userRepository->createUser(
-            $this->parameters['steamId'],
-            $this->parameters['displayName'],
-            $this->parameters['profileName'],
-            $this->parameters['avatarPath']
+            $this->parameters['steam_id'],
+            $this->parameters['display_name'],
+            $this->parameters['profile_name'],
+            $this->parameters['avatar_path']
         );
 	}
 
