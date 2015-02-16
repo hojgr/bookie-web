@@ -39,7 +39,7 @@ class BetaSubscriptionRepository implements BetaSubscriptionRepositoryInterface 
     public function create(User $user, $name, $email)
     {
         $subscription = new BetaSubscription(['name' => $name, 'email' => $email]);
-        $this->userRepository->subscribe($subscription);
+        $this->userRepository->subscribe($user, $subscription);
     }
 
     /**

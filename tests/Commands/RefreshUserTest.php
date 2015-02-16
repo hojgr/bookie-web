@@ -17,21 +17,21 @@ class RefreshUserTest extends \TestCase {
 
         $user = $refresh_user->handle($repoMock);
 
-        $this->assertEquals("76561178907171", $user->steamId);
-        $this->assertEquals("testusr", $user->profileName);
-        $this->assertEquals("e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg", $user->avatarPath);
-        $this->assertEquals("testuser", $user->displayName);
+        $this->assertEquals("76561178907171", $user->steam_id);
+        $this->assertEquals("testusr", $user->profile_name);
+        $this->assertEquals("e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg", $user->avatar_path);
+        $this->assertEquals("testuser", $user->display_name);
 
         $repoMock->mockery_verify();
     }
 
     public function testRefreshUserNoSave() {
         $user = new User();
-        $user->profileName = "a";
-        $user->avatarPath = "b";
-        $user->displayName = "c";
+        $user->profile_name = "a";
+        $user->avatar_path = "b";
+        $user->display_name = "c";
 
-        $data = ['profileName' => "a", 'avatarPath' => "b", 'displayName' => "c"];
+        $data = ['profile_name' => "a", 'avatar_path' => "b", 'display_name' => "c"];
 
         $refresh_user = new RefreshUser($user, $data);
 
@@ -46,20 +46,20 @@ class RefreshUserTest extends \TestCase {
     public function createRawData() {
         $user = new \stdClass();
         $user->identifier = "http://steamcommunity.com/openid/id/76561178907171";
-        $user->steamId = "76561178907171";
-        $user->profileName = "testusr";
-        $user->avatarPath = "e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg";
-        $user->displayName = "testuser";
+        $user->steam_id = "76561178907171";
+        $user->profile_name = "testusr";
+        $user->avatar_path = "e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg";
+        $user->display_name = "testuser";
 
         return $user;
     }
 
     public function createUserObject() {
         $user = new User();
-        $user->profileName = "old_profile";
-        $user->avatarPath = "old_path.jpg";
-        $user->displayName = "old disp name";
-        $user->steamId = "76561178907171";
+        $user->profile_name = "old_profile";
+        $user->avatar_path = "old_path.jpg";
+        $user->display_name = "old disp name";
+        $user->steam_id = "76561178907171";
 
         return $user;
     }

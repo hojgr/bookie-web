@@ -30,11 +30,11 @@ class SteamAuthenticatorTest extends \TestCase {
         $steam_auth->authenticate();
         $user = $steam_auth->getUser();
 
-        $this->assertEquals("76561178907171", $user['steamId']);
+        $this->assertEquals("76561178907171", $user['steam_id']);
         $this->assertEquals("http://steamcommunity.com/openid/id/76561178907171", $user['identifier']);
-        $this->assertEquals("testusr", $user['profileName']);
-        $this->assertEquals("e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg", $user['avatarPath']);
-        $this->assertEquals("testuser", $user['displayName']);
+        $this->assertEquals("testusr", $user['profile_name']);
+        $this->assertEquals("e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg", $user['avatar_path']);
+        $this->assertEquals("testuser", $user['display_name']);
 
         $auth->mockery_verify();
         $endpoint->mockery_verify();
@@ -45,9 +45,9 @@ class SteamAuthenticatorTest extends \TestCase {
         $user = new \stdClass();
         $user->identifier = "http://steamcommunity.com/openid/id/76561178907171";
         $user->steam_id = "76561178907171";
-        $user->profileURL = "http://steamcommunity.com/id/testusr";
-        $user->photoURL = "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg";
-        $user->displayName = "testuser";
+        $user->profile_url = "http://steamcommunity.com/id/testusr";
+        $user->photo_url = "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg";
+        $user->display_name = "testuser";
 
         return $user;
     }

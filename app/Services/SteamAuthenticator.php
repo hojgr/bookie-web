@@ -99,14 +99,14 @@ class SteamAuthenticator implements Authenticatable {
             throw new \Exception("Received STEAM ID did not contain an ID! {$user_profile->identifier}");
         }
 
-        $steam_id = $matches[0];
+        $steamId = $matches[0];
 
         return [
             'identifier' => $user_profile->identifier,
-            'steamId' => $steam_id,
-            'displayName' => $user_profile->displayName,
-            'profileName' => $this->steamUtility->profileURLToProfileName($user_profile->profileURL),
-            'avatarPath' => $this->steamUtility->avatarURLToAvatarPath($user_profile->photoURL),
+            'steam_id' => $steamId,
+            'display_name' => $user_profile->displayName,
+            'profile_name' => $this->steamUtility->profileURLToProfileName($user_profile->profileURL),
+            'avatar_path' => $this->steamUtility->avatarURLToAvatarPath($user_profile->photoURL),
         ];
     }
 

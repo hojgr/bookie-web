@@ -150,7 +150,8 @@ return [
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // generates proxy objects for IDE auto competition
 		'Barryvdh\Debugbar\ServiceProvider',
 
-		'BookieGG\Providers\SteamAuthServiceProvider'
+        'BookieGG\Providers\SteamAuthServiceProvider',
+		'BookieGG\Providers\SteamUtilityServiceProvider',
 	],
 
 	/*

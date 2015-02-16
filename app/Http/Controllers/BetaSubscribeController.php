@@ -14,7 +14,7 @@ class BetaSubscribeController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function index(SubscribeFormRequest $request) {
-        $this->dispatch(new SubscribeUserToBeta(\Auth::user(), $request->input()));
+        $this->dispatch(new SubscribeUserToBeta(\Auth::user(), $request->input()["name"], $request->input()['email']));
         return \Redirect::route('beta_home');
     }
 }

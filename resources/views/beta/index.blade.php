@@ -33,7 +33,7 @@
                 <a href="{{ action("SteamController@login") }}" class="connect"><img src="{{ asset('images/steamsignin.png') }}"/></a>
             @else
                 <div class="userbox" style="position: relative">
-                    <img src="{{ Auth::user()->getAvatarUrl() }}">
+                    <img src="{{ Auth::user()->avatar_path }}">
                     <div class="right">
                         <span>Logged in as:</span>
                         <h2>{{ Auth::user()->display_name }}</h2>

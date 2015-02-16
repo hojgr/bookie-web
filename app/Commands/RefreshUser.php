@@ -36,8 +36,7 @@ class RefreshUser extends Command implements SelfHandling {
 	{
         $save = false;
 
-        $map = ['profileName', 'avatarPath', 'displayName'];
-
+        $map = ['profile_name', 'avatar_path', 'display_name'];
         foreach($map as $name) {
             if ($this->user->$name !== $this->parameters[$name]) {
                 $this->user->$name = $this->parameters[$name];
