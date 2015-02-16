@@ -28,6 +28,7 @@
                     <ul>
                         <li>Bets</li>
                         <li>Settings</li>
+                        <li><a href="logout">Logout</a></li>
                     </ul>
                 @endif
             </div>
