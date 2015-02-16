@@ -1,6 +1,5 @@
 <?php namespace BookieGG\Providers;
 
-use BookieGG\Contracts\Repositories\UserRepositoryInterface;
 use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
 use Illuminate\Foundation\Application;
@@ -29,13 +28,13 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        $this->app->singleton('BookieGG\Contracts\Repositories\UserRepositoryInterface', function() {
-            return new UserRepository();
+        $this->app->singleton('BookieGG\Contracts\Repositories\UserRepositoryInterface', function(Application $app) {
+            return $app->make(UserRepository::class);
         });
 
         $this->app->singleton('BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface',
             function(Application $app) {
-                return new BetaSubscriptionRepository($app->make('BookieGG\Contracts\Repositories\UserRepositoryInterface'));
+                return $app->make(BetaSubscriptionRepository::class);
             }
         );
 	}
