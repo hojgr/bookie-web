@@ -32,6 +32,7 @@ class SteamAuthenticator implements Authenticatable {
     /**
      * @param \Hybrid_Auth $ha
      * @param Hybrid_Endpoint $he
+     * @param SteamUtilityInterface $steamUtil
      */
     public function __construct(\Hybrid_Auth $ha, \Hybrid_Endpoint $he, SteamUtilityInterface $steamUtil) {
         $this->hybrid_auth = $ha;

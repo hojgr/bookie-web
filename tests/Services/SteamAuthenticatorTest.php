@@ -20,18 +20,21 @@ class SteamAuthenticatorTest extends \TestCase {
 
         $auth->shouldReceive('authenticate')->with("Steam")->andReturn($adapter);
 
-        $steam_auth = new SteamAuthenticator($auth, $endpoint);
+        $steamUtil = \Mockery::mock('BookieGG\Contracts\SteamUtilityInterface');
+
+        $steamUtil->shouldReceive('profileURLToProfileName')->once()->andReturn('testusr');
+        $steamUtil->shouldReceive('avatarURLToAvatarPath')->once()->andReturn('e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg');
+
+        $steam_auth = new SteamAuthenticator($auth, $endpoint, $steamUtil);
 
         $steam_auth->authenticate();
         $user = $steam_auth->getUser();
 
-        $comparision_user = $this->createTestUser();
-
-        $this->assertEquals($comparision_user->steam_id, $user['steam_id']);
-        $this->assertEquals($comparision_user->identifier, $user['identifier']);
-        $this->assertEquals($comparision_user->profileURL, $user['profile_url']);
-        $this->assertEquals($comparision_user->photoURL, $user['avatar_url']);
-        $this->assertEquals($comparision_user->displayName, $user['display_name']);
+        $this->assertEquals("76561178907171", $user['steamId']);
+        $this->assertEquals("http://steamcommunity.com/openid/id/76561178907171", $user['identifier']);
+        $this->assertEquals("testusr", $user['profileName']);
+        $this->assertEquals("e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg", $user['avatarPath']);
+        $this->assertEquals("testuser", $user['displayName']);
 
         $auth->mockery_verify();
         $endpoint->mockery_verify();
