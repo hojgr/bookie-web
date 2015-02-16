@@ -37,13 +37,14 @@
             @else
                 <div class="username-container">
                     <div class="avatar">
-                        <img src="{{ asset('images/teams/virtus.pro.png') }}" />
+                        <img src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
                     </div>
-                    <h2>Here's a username</h2>
+                    <h2>{{ Auth::user()->display_name }}</h2>
                 </div>
                 <ul>
                     <li>Bets</li>
                     <li>Settings</li>
+                    <li><a href="logout">Logout</a></li>
                 </ul>
             @endif
         </div>

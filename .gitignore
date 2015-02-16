@@ -5,3 +5,6 @@
 /_ide_helper.php
 /_ide_helper_models.php
 storage/database.sqlite
+config/database.php
+
+config/database.php

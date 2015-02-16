@@ -30,7 +30,7 @@ class ActivateUser extends Command implements SelfHandling {
         /**
          * By checking return value we can
          * prevent SQL query if user was already
-         * activated prior to this attept
+         * activated prior to this attempt
          */
 		if(!$userRepository->activate($this->user)) {
             throw new UserAlreadyActivated("User #" . $this->user->id . " is already activated");
