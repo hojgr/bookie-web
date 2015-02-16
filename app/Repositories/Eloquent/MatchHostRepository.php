@@ -27,4 +27,13 @@ class MatchHostRepository implements MatchHostRepositoryInterface {
 	{
 		return MatchHost::all();
 	}
+
+	public function delete(MatchHost $matchHost) {
+		return $matchHost->delete();
+	}
+
+	public function findById($id)
+	{
+		return MatchHost::find($id);
+	}
 }

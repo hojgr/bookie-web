@@ -16,4 +16,8 @@ interface MatchHostRepositoryInterface {
 	public function create($name, $url);
 
 	public function getAll();
+
+	public function delete(MatchHost $matchHost);
+
+	public function findById($id);
 }

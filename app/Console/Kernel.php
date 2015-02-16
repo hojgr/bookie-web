@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel {
 
 		'BookieGG\Console\Commands\HostCreate',
 		'BookieGG\Console\Commands\HostList',
+		'BookieGG\Console\Commands\HostDelete',
     ];
 
 	/**
