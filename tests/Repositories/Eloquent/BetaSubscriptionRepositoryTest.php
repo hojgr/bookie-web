@@ -4,11 +4,12 @@
 namespace tests\Repositories\Eloquent;
 
 
+use BookieGG\Models\BetaSubscription;
 use BookieGG\Models\User;
 use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
 
-class BetaSubscriptionRepositoryTest extends \PHPUnit_Framework_TestCase {
+class BetaSubscriptionRepositoryTest extends \TestCase {
 	public function testCreate() {
 		$user = new User();
 		$name = "x";
@@ -22,6 +23,7 @@ class BetaSubscriptionRepositoryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals($name, $return->name);
 		$this->assertEquals($email, $return->email);
+		$this->assertInstanceOf(BetaSubscription::class, $return);
 
 		$userMock->mockery_verify();
 	}
