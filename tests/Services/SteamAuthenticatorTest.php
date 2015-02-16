@@ -44,10 +44,10 @@ class SteamAuthenticatorTest extends \TestCase {
     public function createTestUser() {
         $user = new \stdClass();
         $user->identifier = "http://steamcommunity.com/openid/id/76561178907171";
-        $user->steam_id = "76561178907171";
-        $user->profile_url = "http://steamcommunity.com/id/testusr";
-        $user->photo_url = "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg";
-        $user->display_name = "testuser";
+        $user->steamID = "76561178907171";
+        $user->profileURL = "http://steamcommunity.com/id/testusr";
+        $user->photoURL = "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/e7/e766c6dc582e9456aa2a0b00298054c9de_medium.jpg";
+        $user->displayName = "testuser";
 
         return $user;
     }
