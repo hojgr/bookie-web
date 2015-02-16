@@ -4,6 +4,7 @@ use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use BookieGG\Services\SteamUtility;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -37,6 +38,10 @@ class AppServiceProvider extends ServiceProvider {
                 return $app->make(BetaSubscriptionRepository::class);
             }
         );
+
+        $this->app->singleton('BookieGG\Contracts\SteamUtilityInterface', function(Application $app) {
+            return $app->make(SteamUtility::class);
+        });
 	}
 
 }

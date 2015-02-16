@@ -151,7 +151,6 @@ return [
 		'Barryvdh\Debugbar\ServiceProvider',
 
         'BookieGG\Providers\SteamAuthServiceProvider',
-		'BookieGG\Providers\SteamUtilityServiceProvider',
 	],
 
 	/*
