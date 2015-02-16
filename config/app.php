@@ -150,7 +150,7 @@ return [
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // generates proxy objects for IDE auto competition
 		'Barryvdh\Debugbar\ServiceProvider',
 
-        'BookieGG\Providers\SteamAuthServiceProvider',
+		'BookieGG\Providers\SteamAuthServiceProvider',
 	],
 
 	/*
@@ -202,7 +202,7 @@ return [
 		'Form'=> 'Illuminate\Html\FormFacade',
 		'HTML'=> 'Illuminate\Html\HtmlFacade',
 
-        'SteamUtil' => 'BookieGG\Facades\SteamUtil',
+		'SteamUtil' => 'BookieGG\Facades\SteamUtil',
 
 		// NOT a typo! Laravel docs refer to Socialite facade as Socialize
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',

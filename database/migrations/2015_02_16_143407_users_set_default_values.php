@@ -17,7 +17,7 @@ class UsersSetDefaultValues extends Migration {
         });
 
         Schema::table('users', function(Blueprint $table) {
-            $table->string('steam_id')->after('id')->default('');
+		 $table->string('steam_id')->after('id')->default('');
             $table->string('display_name')->after('steam_id')->default('');
             $table->string('profile_name')->after('display_name')->default('');
             $table->string('avatar_path')->after('profile_name')->default('');

@@ -12,15 +12,15 @@ class UsersSetDefaultValueOfProfileName extends Migration {
 	 */
 	public function up()
 	{
-        Schema::table('users', function(Blueprint $table)
-        {
-            $table->dropColumn('profile_name');
-        });
+		Schema::table('users', function(Blueprint $table)
+		{
+			$table->dropColumn('profile_name');
+		});
 
-        Schema::table('users', function(Blueprint $table)
-        {
-            $table->string("profile_name")->default("");
-        });
+		Schema::table('users', function(Blueprint $table)
+		{
+			$table->string("profile_name")->default("");
+		});
 	}
 
 	/**

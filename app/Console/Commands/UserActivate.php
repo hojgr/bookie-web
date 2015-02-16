@@ -19,10 +19,10 @@ class UserActivate extends UserChangeActivation {
 	 */
 	protected $description = 'Activates user';
 
-    /**
-     * Create a new command instance.
-     *
-     */
+	/**
+	 * Create a new command instance.
+	 *
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -35,9 +35,9 @@ class UserActivate extends UserChangeActivation {
 	 */
 	public function fire()
 	{
-        $this->process_change(function(User $user) {
-            return new ActivateUser($user);
-        }, "was activated");
+		$this->process_change(function(User $user) {
+			return new ActivateUser($user);
+		}, "was activated");
 	}
 
 }

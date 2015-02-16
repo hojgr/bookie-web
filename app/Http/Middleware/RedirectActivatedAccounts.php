@@ -13,9 +13,9 @@ class RedirectActivatedAccounts {
 	 */
 	public function handle($request, Closure $next)
 	{
-        if(\Auth::user() and \Auth::user()->active) {
-            return \Redirect::route('home');
-        }
+		if(\Auth::user() and \Auth::user()->active) {
+			return \Redirect::route('home');
+		}
 
 		return $next($request);
 	}

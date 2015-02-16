@@ -20,8 +20,8 @@ class SubscribeFormRequest extends Request {
 	public function rules()
 	{
 		return [
-            'email' => 'required|email',
-            'name' => 'required'
+			'email' => 'required|email',
+			'name' => 'required'
 		];
 	}
 

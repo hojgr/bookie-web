@@ -19,26 +19,26 @@ class UserDeactivate extends UserChangeActivation {
 	 */
 	protected $description = 'Deactivates user';
 
-    /**
-     * Create a new command instance.
-     *
-     */
+	/**
+	 * Create a new command instance.
+	 *
+	 */
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function fire()
-    {
-        $this->process_change(function(User $user) {
-            return new DeactivateUser($user);
-        }, "was deactivated");
-    }
+	/**
+	 * Execute the console command.
+	 *
+	 * @return mixed
+	 */
+	public function fire()
+	{
+		$this->process_change(function(User $user) {
+			return new DeactivateUser($user);
+		}, "was deactivated");
+	}
 
 
 }

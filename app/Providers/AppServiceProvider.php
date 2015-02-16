@@ -29,19 +29,19 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        $this->app->singleton('BookieGG\Contracts\Repositories\UserRepositoryInterface', function(Application $app) {
-            return $app->make(UserRepository::class);
-        });
+		$this->app->singleton('BookieGG\Contracts\Repositories\UserRepositoryInterface', function(Application $app) {
+			return $app->make(UserRepository::class);
+		});
 
-        $this->app->singleton('BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface',
-            function(Application $app) {
-                return $app->make(BetaSubscriptionRepository::class);
-            }
-        );
+		$this->app->singleton('BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface',
+			function(Application $app) {
+				return $app->make(BetaSubscriptionRepository::class);
+			}
+		);
 
-        $this->app->singleton('BookieGG\Contracts\SteamUtilityInterface', function(Application $app) {
-            return $app->make(SteamUtility::class);
-        });
+		$this->app->singleton('BookieGG\Contracts\SteamUtilityInterface', function(Application $app) {
+			return $app->make(SteamUtility::class);
+		});
 	}
 
 }

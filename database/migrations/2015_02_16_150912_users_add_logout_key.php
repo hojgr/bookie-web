@@ -13,8 +13,8 @@ class UsersAddLogoutKey extends Migration {
 	public function up()
 	{
 		Schema::table('users', function(Blueprint $table) {
-            $table->string("logout_key", 16)->nullable();
-        });
+			$table->string("logout_key", 16)->nullable();
+		});
 	}
 
 	/**

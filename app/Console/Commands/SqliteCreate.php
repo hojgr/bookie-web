@@ -18,10 +18,10 @@ class SqliteCreate extends Command {
 	 */
 	protected $description = 'Command description.';
 
-    /**
-     * Create a new command instance.
-     *
-     */
+	/**
+	 * Create a new command instance.
+	 *
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -34,13 +34,13 @@ class SqliteCreate extends Command {
 	 */
 	public function fire()
 	{
-        $path = \Config::get('database.connections.sqlite.database');
-        if(\File::exists($path))
-            \File::delete($path);
+		$path = \Config::get('database.connections.sqlite.database');
+		if(\File::exists($path))
+			\File::delete($path);
 
-        if (is_dir(dirname($path))) {
-            touch($path);
-        }
+		if (is_dir(dirname($path))) {
+			touch($path);
+		}
 	}
 
 	/**

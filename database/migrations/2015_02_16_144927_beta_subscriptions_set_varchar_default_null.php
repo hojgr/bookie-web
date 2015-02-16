@@ -12,15 +12,15 @@ class BetaSubscriptionsSetVarcharDefaultNull extends Migration {
 	 */
 	public function up()
 	{
-        Schema::table('beta_subscriptions', function(Blueprint $table) {
-            $table->dropColumn(['name', 'email']);
-        });
+		Schema::table('beta_subscriptions', function(Blueprint $table) {
+			$table->dropColumn(['name', 'email']);
+		});
 
-        Schema::table('beta_subscriptions', function(Blueprint $table) {
-            $table->string("name")->after("id")->nullable();
-            $table->string("email")->after("name")->nullable();
+		Schema::table('beta_subscriptions', function(Blueprint $table) {
+			$table->string("name")->after("id")->nullable();
+			$table->string("email")->after("name")->nullable();
 
-        });
+		});
 	}
 
 	/**
