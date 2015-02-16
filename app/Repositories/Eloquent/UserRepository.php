@@ -9,22 +9,35 @@ use BookieGG\Models\User;
 
 class UserRepository implements UserRepositoryInterface {
 
+    /**
+     * @param User $user
+     * @return User
+     */
     public function activate(User $user)
     {
-        $return = $user->activate();
+        $user->activate();
         $user->save();
-        return $return;
+        return $user;
     }
 
+    /**
+     * @param User $user
+     * @return User
+     */
     public function deactivate(User $user) {
-        $return = $user->deactivate();
+        $user->deactivate();
         $user->save();
-        return $return;
+        return $user;
     }
 
+    /**
+     * @param User $user
+     * @return User
+     */
     public function save(User $user)
     {
         $user->save();
+        return $user;
     }
 
     public function createUser($steamId, $displayName, $profileName, $avatarPath)
