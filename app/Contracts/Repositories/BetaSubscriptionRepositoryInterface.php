@@ -8,11 +8,6 @@ use BookieGG\Models\BetaSubscription;
 use BookieGG\Models\User;
 
 interface BetaSubscriptionRepositoryInterface {
-	/**
-	 * @param BetaSubscription $betaSubscription
-	 * @return BetaSubscription
-	 */
-	public function save(BetaSubscription $betaSubscription);
 
 	/**
 	 * @param User $user

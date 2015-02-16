@@ -20,15 +20,6 @@ class BetaSubscriptionRepository implements BetaSubscriptionRepositoryInterface 
 
 		$this->userRepository = $userRepo;
 	}
-	/**
-	 * @param BetaSubscription $betaSubscription
-	 * @return BetaSubscription
-	 */
-	public function save(BetaSubscription $betaSubscription)
-	{
-		$betaSubscription->save();
-		return $betaSubscription;
-	}
 
 	/**
 	 * @param User $user
@@ -40,6 +31,8 @@ class BetaSubscriptionRepository implements BetaSubscriptionRepositoryInterface 
 	{
 		$subscription = new BetaSubscription(['name' => $name, 'email' => $email]);
 		$this->userRepository->subscribe($user, $subscription);
+
+		return $subscription;
 	}
 
 	/**
