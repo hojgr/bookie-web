@@ -20,4 +20,9 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="DEFAULT_DB" value="sqlite"/>
     </php>
+    <filter>
+        <whitelist>
+            <directory>app/</directory>
+        </whitelist>
+    </filter>
 </phpunit>
