@@ -203,6 +203,8 @@ return [
 		'Form'=> 'Illuminate\Html\FormFacade',
 		'HTML'=> 'Illuminate\Html\HtmlFacade',
 
+        'SteamUtil' => 'BookieGG\Facades\SteamUtil',
+
 		// NOT a typo! Laravel docs refer to Socialite facade as Socialize
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		'Debugbar' => 'Barryvdh\Debugbar\Facade',
