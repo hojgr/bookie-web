@@ -24,5 +24,6 @@ Route::group(['middleware' => 'beta.redirect_activated'], function() {
     Route::get('/beta', ['as' => 'beta_home', 'uses' => 'BetaController@index']);
     Route::post('/subscribe', ['as' => 'subscribe', 'uses' => 'BetaSubscribeController@index']);
 
-    Route::get('/site', ['as' => 'site_home', 'uses' => 'MatchController@matches']);
 });
+
+Route::get('/site', ['as' => 'site_home', 'uses' => 'MatchController@matches']);
