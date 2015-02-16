@@ -17,7 +17,7 @@ class HostList extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Lists all hosts';
 	/**
 	 * @var MatchHostRepository
 	 */
