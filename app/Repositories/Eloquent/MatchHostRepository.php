@@ -22,4 +22,9 @@ class MatchHostRepository implements MatchHostRepositoryInterface {
 		$host->save();
 		return $host;
 	}
+
+	public function getAll()
+	{
+		return MatchHost::all();
+	}
 }

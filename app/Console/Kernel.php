@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel {
         'BookieGG\Console\Commands\SqliteCreate',
 
 		'BookieGG\Console\Commands\HostCreate',
+		'BookieGG\Console\Commands\HostList',
     ];
 
 	/**

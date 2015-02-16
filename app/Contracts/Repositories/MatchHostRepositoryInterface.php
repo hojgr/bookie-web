@@ -14,4 +14,6 @@ interface MatchHostRepositoryInterface {
 	 * @return MatchHost
 	 */
 	public function create($name, $url);
+
+	public function getAll();
 }
