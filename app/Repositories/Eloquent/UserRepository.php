@@ -50,7 +50,8 @@ class UserRepository implements UserRepositoryInterface {
             "avatar_path" => $avatarPath
         ]);
 
-        return $user->save();
+        $user->save();
+        return $user;
     }
 
     public function subscribe(User $user, BetaSubscription $betaSubscription)
