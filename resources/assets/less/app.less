@@ -126,15 +126,25 @@ a {
 .content {
 	margin-left: 330px;
 
+	> div:not(:last-of-type) {
+		margin-bottom: 20px;
+	}
+
+	.streambox {
+		box-shadow: 0 0 15px #888888;
+		width: 620px;
+	}
+
+	.chatbox {
+		box-shadow: 0 0 15px #888888;
+		width: 620px;
+	}
+
 	.matchbox {
 		box-shadow: 0 0 15px #888888;
 		background-color: #fff;
 		width: 620px;
 		height: 120px;
-
-	  	&:not(:last-of-type) {
-		  	margin-bottom: 20px;
-		}
 
 		.team1 {
 			padding: 10px;

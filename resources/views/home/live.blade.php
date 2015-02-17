@@ -11,5 +11,10 @@
 			<img height="75px" src="{{ asset('images/teams/cloud_9.png') }}" />
 		</div>
 	</div>
-	<div class="streambox"></div>
+	<div class="streambox">
+		<iframe src="http://www.twitch.tv/suchCow/embed" frameborder="0" scrolling="no" height="378" width="620"></iframe>
+	</div>
+	<div class="chatbox">
+		<iframe src="http://www.twitch.tv/suchCow/chat?popout=" frameborder="0" scrolling="no" height="500" width="620"></iframe>
+	</div>
 @endsection
