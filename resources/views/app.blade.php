@@ -17,8 +17,59 @@
 	<![endif]-->
 </head>
 <body>
+	@section('header')
+		<div class="header">
+			<div class="logo"><h1>Bookie.GG</h1></div>
+			<div class="nav">
+				<ul>
+					<li class="active">Matches</li>
+					<li>Bank</li>
+					<li>Forums</li>
+				</ul>
+			</div>
+		</div>
+		<div class="container"> {{--todo: consider options for this opener--}}
+	@show
 
-	@yield('content')
+	@section('leftside')
+		<div class="left-side">
+			<div class="user-left">
+				@if (!Auth::check())
+					<div class="steam-button">
+						<a href="{{ route('login') }}" class="connect"><img src="{{ asset('images/steamsignin.png') }}"/></a>
+					</div>
+				@else
+					<div class="username-container">
+						<div class="avatar">
+							<img src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
+						</div>
+						<h2>{{ Auth::user()->display_name }}</h2>
+					</div>
+					<ul>
+						<li>Bets</li>
+						<li>Settings</li>
+						<li><a href="{{ route('logout') }}">Logout</a></li>
+					</ul>
+				@endif
+			</div>
+			<div class="news-left">
+				News
+				<ul>
+					<li>blank stuff</li>
+					<li>blank stuff</li>
+					<li>blank stuff</li>
+					<li>blank stuff</li>
+					<li>blank stuff</li>
+				</ul>
+			</div>
+		</div>
+	@show
+
+	<div class="content">
+		@yield('content')
+	</div>
+
+	</div> {{--todo: remember that weird opener earlier?--}}
 
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
