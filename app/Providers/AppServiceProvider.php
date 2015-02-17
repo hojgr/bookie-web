@@ -1,6 +1,8 @@
 <?php namespace BookieGG\Providers;
 
 use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
+use BookieGG\Repositories\Eloquent\MatchHostRepository;
+use BookieGG\Repositories\Eloquent\TeamRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -42,6 +44,17 @@ class AppServiceProvider extends ServiceProvider {
 		$this->app->singleton('BookieGG\Contracts\SteamUtilityInterface', function(Application $app) {
 			return $app->make(SteamUtility::class);
 		});
+
+		$this->app->singleton('BookieGG\Contracts\Repositories\MatchHostRepositoryInterface',
+			function(Application $app) {
+				return $app->make(MatchHostRepository::class);
+			}
+		);
+
+		$this->app->singleton('BookieGG\Contracts\Repositories\TeamRepositoryInterface',
+			function(Application $app) {
+				return $app->make(TeamRepository::class);
+			});
 	}
 
 }

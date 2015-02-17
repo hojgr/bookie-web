@@ -20,6 +20,10 @@ class Kernel extends ConsoleKernel {
 		'BookieGG\Console\Commands\HostCreate',
 		'BookieGG\Console\Commands\HostList',
 		'BookieGG\Console\Commands\HostDelete',
+
+		'BookieGG\Console\Commands\TeamCreate',
+		'BookieGG\Console\Commands\TeamList',
+		'BookieGG\Console\Commands\TeamDelete',
     ];
 
 	/**

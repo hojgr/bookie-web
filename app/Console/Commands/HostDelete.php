@@ -1,5 +1,6 @@
 <?php namespace BookieGG\Console\Commands;
 
+use BookieGG\Contracts\Repositories\MatchHostRepositoryInterface;
 use BookieGG\Repositories\Eloquent\MatchHostRepository;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -26,10 +27,9 @@ class HostDelete extends Command {
 
 	/**
 	 * Create a new command instance.
-	 *
-	 * @param MatchHostRepository $matchHostRepository
+	 * @param MatchHostRepositoryInterface $matchHostRepository
 	 */
-	public function __construct(MatchHostRepository $matchHostRepository)
+	public function __construct(MatchHostRepositoryInterface $matchHostRepository)
 	{
 		parent::__construct();
 		$this->matchHostRepository = $matchHostRepository;
