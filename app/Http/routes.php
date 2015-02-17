@@ -13,6 +13,7 @@
 
 Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
 	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+	Route::get('/live', ['as' => 'home', 'uses' => 'HomeController@live']);
 });
 
 Route::group(['middleware' => 'beta.redirect_activated'], function() {
