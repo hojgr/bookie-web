@@ -4,7 +4,6 @@ use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
 use BookieGG\Repositories\Eloquent\MatchHostRepository;
 use BookieGG\Repositories\Eloquent\TeamRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use BookieGG\Services\SteamUtility;
 
@@ -31,30 +30,20 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->singleton('BookieGG\Contracts\Repositories\UserRepositoryInterface', function(Application $app) {
-			return $app->make(UserRepository::class);
-		});
+		$binds = [
+			'BookieGG\Contracts\Repositories\UserRepositoryInterface' => UserRepository::class,
+			'BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface'
+				=> BetaSubscriptionRepository::class,
+			'BookieGG\Contracts\SteamUtilityInterface' => SteamUtility::class,
+			'BookieGG\Contracts\Repositories\MatchHostRepositoryInterface' => MatchHostRepository::class,
+			'BookieGG\Contracts\Repositories\TeamRepositoryInterface' => TeamRepository::class,
+		];
 
-		$this->app->singleton('BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface',
-			function(Application $app) {
-				return $app->make(BetaSubscriptionRepository::class);
-			}
-		);
+		foreach($binds as $interface => $implementation) {
+			$this->app->bind($interface, $implementation);
+		}
 
-		$this->app->singleton('BookieGG\Contracts\SteamUtilityInterface', function(Application $app) {
-			return $app->make(SteamUtility::class);
-		});
 
-		$this->app->singleton('BookieGG\Contracts\Repositories\MatchHostRepositoryInterface',
-			function(Application $app) {
-				return $app->make(MatchHostRepository::class);
-			}
-		);
-
-		$this->app->singleton('BookieGG\Contracts\Repositories\TeamRepositoryInterface',
-			function(Application $app) {
-				return $app->make(TeamRepository::class);
-			});
 	}
 
 }
