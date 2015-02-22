@@ -25,6 +25,10 @@ class Kernel extends ConsoleKernel {
 		'BookieGG\Console\Commands\Team\TeamCreate',
 		'BookieGG\Console\Commands\Team\TeamList',
 		'BookieGG\Console\Commands\Team\TeamDelete',
+
+		'BookieGG\Console\Commands\Match\MatchCreate',
+		'BookieGG\Console\Commands\Match\MatchList',
+		'BookieGG\Console\Commands\Match\MatchDelete',
     ];
 
 	/**

@@ -2,6 +2,7 @@
 
 use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
 use BookieGG\Repositories\Eloquent\MatchHostRepository;
+use BookieGG\Repositories\Eloquent\MatchRepository;
 use BookieGG\Repositories\Eloquent\TeamRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\SteamUtilityInterface' => SteamUtility::class,
 			'BookieGG\Contracts\Repositories\MatchHostRepositoryInterface' => MatchHostRepository::class,
 			'BookieGG\Contracts\Repositories\TeamRepositoryInterface' => TeamRepository::class,
+			'BookieGG\Contracts\Repositories\MatchRepositoryInterface' => MatchRepository::class,
 		];
 
 		foreach($binds as $interface => $implementation) {
