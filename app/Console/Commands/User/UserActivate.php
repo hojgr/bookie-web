@@ -1,23 +1,24 @@
-<?php namespace BookieGG\Console\Commands;
+<?php
+namespace BookieGG\Console\Commands\User;
 
-use BookieGG\Commands\DeactivateUser;
+use BookieGG\Commands\ActivateUser;
 use BookieGG\Models\User;
 
-class UserDeactivate extends UserChangeActivation {
+class UserActivate extends UserChangeActivation {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'user:deactivate';
+	protected $name = 'user:activate';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Deactivates user';
+	protected $description = 'Activates user';
 
 	/**
 	 * Create a new command instance.
@@ -36,9 +37,8 @@ class UserDeactivate extends UserChangeActivation {
 	public function fire()
 	{
 		$this->process_change(function(User $user) {
-			return new DeactivateUser($user);
-		}, "was deactivated");
+			return new ActivateUser($user);
+		}, "was activated");
 	}
-
 
 }

@@ -1,4 +1,4 @@
-<?php namespace BookieGG\Console\Commands;
+<?php namespace BookieGG\Console\Commands\User;
 
 use BookieGG\Exceptions\UserAlreadyActivated;
 use BookieGG\Exceptions\UserNotActivated;

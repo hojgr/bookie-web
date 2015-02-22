@@ -12,18 +12,19 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
         'BookieGG\Console\Commands\Inspire',
-        'BookieGG\Console\Commands\UserList',
-        'BookieGG\Console\Commands\UserActivate',
-        'BookieGG\Console\Commands\UserDeactivate',
         'BookieGG\Console\Commands\SqliteCreate',
 
-		'BookieGG\Console\Commands\HostCreate',
-		'BookieGG\Console\Commands\HostList',
-		'BookieGG\Console\Commands\HostDelete',
+		'BookieGG\Console\Commands\User\UserList',
+		'BookieGG\Console\Commands\User\UserActivate',
+		'BookieGG\Console\Commands\User\UserDeactivate',
 
-		'BookieGG\Console\Commands\TeamCreate',
-		'BookieGG\Console\Commands\TeamList',
-		'BookieGG\Console\Commands\TeamDelete',
+		'BookieGG\Console\Commands\Host\HostCreate',
+		'BookieGG\Console\Commands\Host\HostList',
+		'BookieGG\Console\Commands\Host\HostDelete',
+
+		'BookieGG\Console\Commands\Team\TeamCreate',
+		'BookieGG\Console\Commands\Team\TeamList',
+		'BookieGG\Console\Commands\Team\TeamDelete',
     ];
 
 	/**

@@ -1,4 +1,4 @@
-<?php namespace BookieGG\Console\Commands;
+<?php namespace BookieGG\Console\Commands\Team;
 
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use Illuminate\Console\Command;

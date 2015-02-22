@@ -1,4 +1,4 @@
-<?php namespace BookieGG\Console\Commands;
+<?php namespace BookieGG\Console\Commands\Host;
 
 use BookieGG\Repositories\Eloquent\MatchHostRepository;
 use Illuminate\Console\Command;

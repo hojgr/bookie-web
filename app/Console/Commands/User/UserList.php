@@ -1,7 +1,8 @@
-<?php namespace BookieGG\Console\Commands;
+<?php namespace BookieGG\Console\Commands\User;
 
 use BookieGG\Models\User;
 use Symfony\Component\Console\Input\InputOption;
+use BookieGG\Console\Commands\BaseCommand;
 
 class UserList extends BaseCommand {
 
