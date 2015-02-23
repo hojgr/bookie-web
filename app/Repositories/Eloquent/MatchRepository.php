@@ -6,6 +6,7 @@ namespace BookieGG\Repositories\Eloquent;
 
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Models\Match;
+use BookieGG\Models\Team;
 
 class MatchRepository implements MatchRepositoryInterface {
 
@@ -27,5 +28,10 @@ class MatchRepository implements MatchRepositoryInterface {
 	public function find($id)
 	{
 		return Match::find($id);
+	}
+
+	public function addMatches(Match $match, Team $team1, Team $team2)
+	{
+		$match->teams()->save([$team1, $team2]);
 	}
 }
