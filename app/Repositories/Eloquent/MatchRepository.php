@@ -6,13 +6,18 @@ namespace BookieGG\Repositories\Eloquent;
 
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Models\Match;
+use BookieGG\Models\MatchHost;
 use BookieGG\Models\Team;
 
 class MatchRepository implements MatchRepositoryInterface {
 
-	public function save(Match $match)
+	public function __construct() {
+
+	}
+
+	public function save(MatchHost $host, Match $match)
 	{
-		$match->save();
+		$host->matches()->save($match);
 		return $match;
 	}
 
@@ -32,6 +37,17 @@ class MatchRepository implements MatchRepositoryInterface {
 
 	public function addMatches(Match $match, Team $team1, Team $team2)
 	{
-		$match->teams()->save([$team1, $team2]);
+		$match->teams()->saveMany([$team1, $team2]);
+	}
+
+	public function create(MatchHost $host, Team $t1, Team $t2, $bo, \DateTime $start)
+	{
+		$match = new Match();
+
+		$match->bo = (int)$bo;
+		$match->start = $start;
+
+		$this->save($host, $match);
+		$this->addMatches($match, $t1, $t2);
 	}
 }

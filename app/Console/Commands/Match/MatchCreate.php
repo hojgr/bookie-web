@@ -1,5 +1,6 @@
 <?php namespace BookieGG\Console\Commands\Match;
 
+use BookieGG\Contracts\Repositories\MatchHostRepositoryInterface;
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Models\Match;
@@ -29,17 +30,26 @@ class MatchCreate extends Command {
 	 * @var TeamRepositoryInterface
 	 */
 	private $tri;
+	/**
+	 * @var MatchHostRepositoryInterface
+	 */
+	private $mhri;
 
 	/**
 	 * Create a new command instance.
 	 * @param MatchRepositoryInterface $mri
 	 * @param TeamRepositoryInterface $tri
+	 * @param MatchHostRepositoryInterface $mhri
 	 */
-	public function __construct(MatchRepositoryInterface $mri, TeamRepositoryInterface $tri)
+	public function __construct(
+		MatchRepositoryInterface $mri,
+		TeamRepositoryInterface $tri,
+		MatchHostRepositoryInterface $mhri)
 	{
 		parent::__construct();
 		$this->mri = $mri;
 		$this->tri = $tri;
+		$this->mhri = $mhri;
 	}
 
 	/**
@@ -49,6 +59,14 @@ class MatchCreate extends Command {
 	 */
 	public function fire()
 	{
+		$host_id = $this->argument('match_id');
+		$host = $this->mhri->findById($host_id);
+
+		if(!$host) {
+			$this->error("Match host #$host_id was not found");
+			return;
+		}
+
 		$bo = $this->argument('bo');
 		$time = new \DateTime($this->argument('start'));
 
@@ -68,14 +86,7 @@ class MatchCreate extends Command {
 			$teams[] = $team;
 		}
 
-		$match = new Match();
-
-		$match->bo = (int)$bo;
-		$match->start = $time;
-
-		$match = $this->mri->save($match);
-
-		$this->mri->addMatches($match, $teams[0], $teams[1]);
+		$this->mri->create($host, $teams[0], $teams[1], $bo, $time);
 
 		$this->info("Match created");
 	}
@@ -88,6 +99,7 @@ class MatchCreate extends Command {
 	protected function getArguments()
 	{
 		return [
+			['match_id', InputArgument::REQUIRED, 'Host #'],
 			['bo', InputArgument::REQUIRED, 'Best of #'],
 			['start', InputArgument::REQUIRED, 'Start (ie: 22.2.2015 23:30)'],
 			['team1', InputArgument::REQUIRED, 'ID of Team 1'],
