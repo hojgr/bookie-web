@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class MatchHost extends Model {
+class Organization extends Model {
 
 	protected $fillable = ['name', 'url'];
 

@@ -3,21 +3,21 @@
 
 namespace BookieGG\Contracts\Repositories;
 
-use BookieGG\Models\MatchHost;
+use BookieGG\Models\Organization;
 
-interface MatchHostRepositoryInterface {
+interface OrganizationRepositoryInterface {
 	/**
-	 * Creates a new MatchHost
+	 * Creates a new Organization
 	 *
 	 * @param $name
 	 * @param $url
-	 * @return MatchHost
+	 * @return Organization
 	 */
 	public function create($name, $url);
 
 	public function getAll();
 
-	public function delete(MatchHost $matchHost);
+	public function delete(Organization $organization);
 
 	public function findById($id);
 }

@@ -1,7 +1,7 @@
 <?php namespace BookieGG\Providers;
 
 use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
-use BookieGG\Repositories\Eloquent\MatchHostRepository;
+use BookieGG\Repositories\Eloquent\OrganizationRepository;
 use BookieGG\Repositories\Eloquent\MatchRepository;
 use BookieGG\Repositories\Eloquent\TeamRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface'
 				=> BetaSubscriptionRepository::class,
 			'BookieGG\Contracts\SteamUtilityInterface' => SteamUtility::class,
-			'BookieGG\Contracts\Repositories\MatchHostRepositoryInterface' => MatchHostRepository::class,
+			'BookieGG\Contracts\Repositories\OrganizationRepositoryInterface' => OrganizationRepository::class,
 			'BookieGG\Contracts\Repositories\TeamRepositoryInterface' => TeamRepository::class,
 			'BookieGG\Contracts\Repositories\MatchRepositoryInterface' => MatchRepository::class,
 		];

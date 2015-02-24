@@ -7,7 +7,7 @@ class Match extends Model {
 		return $this->belongsToMany('BookieGG\Models\Team');
 	}
 
-	public function host() {
-		$this->belongsTo('BookieGG\Models\MatchHost');
+	public function organization() {
+		$this->belongsTo('BookieGG\Models\Organization');
 	}
 }

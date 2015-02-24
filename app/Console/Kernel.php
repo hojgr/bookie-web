@@ -18,9 +18,9 @@ class Kernel extends ConsoleKernel {
 		'BookieGG\Console\Commands\User\UserActivate',
 		'BookieGG\Console\Commands\User\UserDeactivate',
 
-		'BookieGG\Console\Commands\Host\HostCreate',
-		'BookieGG\Console\Commands\Host\HostList',
-		'BookieGG\Console\Commands\Host\HostDelete',
+		'BookieGG\Console\Commands\Organization\OrganizationCreate',
+		'BookieGG\Console\Commands\Organization\OrganizationList',
+		'BookieGG\Console\Commands\Organization\OrganizationDelete',
 
 		'BookieGG\Console\Commands\Team\TeamCreate',
 		'BookieGG\Console\Commands\Team\TeamList',

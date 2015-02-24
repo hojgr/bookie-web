@@ -1,6 +1,6 @@
 <?php namespace BookieGG\Console\Commands\Match;
 
-use BookieGG\Contracts\Repositories\MatchHostRepositoryInterface;
+use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Models\Match;
@@ -31,7 +31,7 @@ class MatchCreate extends Command {
 	 */
 	private $tri;
 	/**
-	 * @var MatchHostRepositoryInterface
+	 * @var OrganizationRepositoryInterface
 	 */
 	private $mhri;
 
@@ -39,12 +39,12 @@ class MatchCreate extends Command {
 	 * Create a new command instance.
 	 * @param MatchRepositoryInterface $mri
 	 * @param TeamRepositoryInterface $tri
-	 * @param MatchHostRepositoryInterface $mhri
+	 * @param OrganizationRepositoryInterface $mhri
 	 */
 	public function __construct(
 		MatchRepositoryInterface $mri,
 		TeamRepositoryInterface $tri,
-		MatchHostRepositoryInterface $mhri)
+		OrganizationRepositoryInterface $mhri)
 	{
 		parent::__construct();
 		$this->mri = $mri;
@@ -59,11 +59,11 @@ class MatchCreate extends Command {
 	 */
 	public function fire()
 	{
-		$host_id = $this->argument('match_id');
-		$host = $this->mhri->findById($host_id);
+		$organization_id = $this->argument('organization_id');
+		$organization = $this->mhri->findById($organization_id);
 
-		if(!$host) {
-			$this->error("Match host #$host_id was not found");
+		if(!$organization) {
+			$this->error("Organization #$organization_id was not found");
 			return;
 		}
 
@@ -86,7 +86,7 @@ class MatchCreate extends Command {
 			$teams[] = $team;
 		}
 
-		$this->mri->create($host, $teams[0], $teams[1], $bo, $time);
+		$this->mri->create($organization, $teams[0], $teams[1], $bo, $time);
 
 		$this->info("Match created");
 	}
@@ -99,7 +99,7 @@ class MatchCreate extends Command {
 	protected function getArguments()
 	{
 		return [
-			['match_id', InputArgument::REQUIRED, 'Host #'],
+			['organization_id', InputArgument::REQUIRED, 'Organization #'],
 			['bo', InputArgument::REQUIRED, 'Best of #'],
 			['start', InputArgument::REQUIRED, 'Start (ie: 22.2.2015 23:30)'],
 			['team1', InputArgument::REQUIRED, 'ID of Team 1'],
