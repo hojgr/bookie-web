@@ -41,10 +41,19 @@ class MatchList extends Command {
 	public function fire()
 	{
 		$teams = $this->mri->all();
+		$team_array = [];
 
-		$this->table(['#', 'Start', 'BO'], array_map(function($r) {
-			return [$r['id'], $r['start'], $r['bo']];
-		}, $teams->toArray()));
+		foreach($teams as $team) {
+			$team_array[] = [
+				$team->id,
+				$team->organization->name,
+				$team->bo,
+				$team->teams[0]->name,
+				$team->teams[1]->name
+			];
+		}
+
+		$this->table(['#', 'Host', 'BO', 'Team#1', 'Team#2'], $team_array);
 	}
 
 	/**

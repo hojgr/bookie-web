@@ -8,6 +8,6 @@ class Match extends Model {
 	}
 
 	public function organization() {
-		$this->belongsTo('BookieGG\Models\Organization');
+		return $this->belongsTo('BookieGG\Models\Organization');
 	}
 }
