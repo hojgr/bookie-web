@@ -124,7 +124,8 @@ a {
 }
 
 .content {
-	margin-left: 330px;
+	margin-left: 20px;
+  	float: left;
 
 	> div:not(:last-of-type) {
 		margin-bottom: 20px;
@@ -179,5 +180,33 @@ a {
 				margin-top: -20px; /* todo: figure out why this is necessary */
 			}
 		}
+	}
+}
+
+.rightside {
+	float: left;
+	margin-left: 20px;
+	width: 800px;
+
+
+	> div {
+		box-shadow: 0 0 15px #888888;
+		background-color: #fff;
+		width: 100%;
+		display: inline-block;
+	}
+
+	.bet {
+		display: table;
+
+	}
+	.itembox {
+		margin: 5px;
+		height: 150px;
+		width: 150px;
+		background-color: lightgray;
+		text-align: center;
+		display: inline-block;
+		float: left;
 	}
 }

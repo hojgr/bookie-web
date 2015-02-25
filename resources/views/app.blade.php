@@ -69,6 +69,10 @@
 		@yield('content')
 	</div>
 
+	<div class="rightside">
+	    @yield('rightside')
+	</div>
+
 	</div> {{--todo: remember that weird opener earlier?--}}
 
 	<!-- Scripts -->
