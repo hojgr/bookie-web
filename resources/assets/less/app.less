@@ -214,9 +214,6 @@ a {
 		}
 	}
 
-	.bet {
-		display: table;
-	}
 	.itembox {
 		margin: 5px;
 		height: 150px;
@@ -225,6 +222,10 @@ a {
 		text-align: center;
 		display: inline-block;
 		float: left;
+
+		&:not([data-contains='empty']) {
+			cursor: pointer;
+		}
 
 		.stattrak {
 			background-color: orange;
