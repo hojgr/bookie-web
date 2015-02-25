@@ -6,7 +6,7 @@ $(document).ready(function() {
             return;
         }
         $this.fadeOut('slow', function() {
-            $this.appendTo($(".inventory h1")).show();
+            $this.appendTo($(".inventory")).show();
             $('<div class="itembox" data-contains="empty">Empty</div>').appendTo($(".bet"));
         });
     });
