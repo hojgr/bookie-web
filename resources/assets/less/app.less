@@ -186,7 +186,23 @@ a {
 .rightside {
 	float: right;
 	margin-left: 20px;
-	width: 800px;
+
+	//For tiny resolutions
+	@media (min-width:1315px) and (max-width:1469px) {
+		width: 335px;
+	}
+
+	@media (min-width:1470px) and (max-width:1624px) {
+		width: 490px;
+	}
+
+	@media (min-width:1625px) and (max-width:1779px) {
+		width: 645px;
+	}
+
+	@media (min-width:1780px) {
+		width: 800px;
+	}
 
 
 	> div {
