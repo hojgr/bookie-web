@@ -29,6 +29,8 @@ class Kernel extends ConsoleKernel {
 		'BookieGG\Console\Commands\Match\MatchCreate',
 		'BookieGG\Console\Commands\Match\MatchList',
 		'BookieGG\Console\Commands\Match\MatchDelete',
+
+		'BookieGG\Console\Commands\Item\ItemLookup',
     ];
 
 	/**
