@@ -16,7 +16,6 @@ class OrganizationImagesAddFilename extends Migration {
 		{
 			$table->string('filename')->after('image_type_id');
 
-
 			$table->integer("organization_id")->unsigned()->after('filename');
 			$table->foreign("organization_id")->references("id")
 				->on("organizations");
