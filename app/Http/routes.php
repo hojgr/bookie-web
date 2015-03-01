@@ -24,6 +24,7 @@ Route::group(['middleware' => 'beta.redirect_activated'], function() {
 // TODO: add admin middleware & roles
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
 	Route::get('/', ['as' => 'admin_home', 'uses' => 'HomeController@index']);
+	Route::resource('article', 'ArticleController');
 });
 
 Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);

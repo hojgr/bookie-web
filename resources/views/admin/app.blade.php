@@ -22,8 +22,8 @@
 			<div class="logo"><div></div></div>
 			<div class="nav center">
 				<ul>
-					<li class="active">Main page</li>
-					<li>News</li>
+					<li class="active"><a href="{{ route("admin_home") }}">Main page</a></li>
+					<li><a href="{{ route("admin.article.index") }}">Articles</a></li>
 				</ul>
 			</div>
 		</div>
