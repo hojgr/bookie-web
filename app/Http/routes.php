@@ -13,7 +13,7 @@
 
 Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
 	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-	Route::get('/live', ['as' => 'home', 'uses' => 'HomeController@live']);
+	Route::get('/live', ['as' => 'live', 'uses' => 'HomeController@live']);
 });
 
 Route::group(['middleware' => 'beta.redirect_activated'], function() {
@@ -24,5 +24,4 @@ Route::group(['middleware' => 'beta.redirect_activated'], function() {
 
 Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);
 Route::get('/auth', ['as' => 'auth', 'uses' => 'SteamController@auth']);
-Route::get('/site', ['as' => 'site_home', 'uses' => 'MatchController@matches']);
 Route::get('/logout', ['as' => 'logout', 'uses' => 'SteamController@logout']);
