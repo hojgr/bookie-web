@@ -19,7 +19,11 @@ Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
 Route::group(['middleware' => 'beta.redirect_activated'], function() {
 	Route::get('/beta', ['as' => 'beta_home', 'uses' => 'BetaController@index']);
 	Route::post('/subscribe', ['as' => 'subscribe', 'uses' => 'BetaSubscribeController@index']);
+});
 
+// TODO: add admin middleware & roles
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+	Route::get('/', ['as' => 'admin_home', 'uses' => 'HomeController@index']);
 });
 
 Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);

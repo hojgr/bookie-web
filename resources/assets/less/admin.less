@@ -1,0 +1,280 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+h1, h2, h3, h4 {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	color: #8b8b8b;
+	margin: 0;
+	padding: 0;
+	background-color: #f5f5f5;
+}
+
+a {
+	text-decoration: none;
+  	color: #8b8b8b;
+
+	&:visited {
+		color:#8b8b8b;
+	}
+
+	&:hover {
+		color:#8b8b8b;
+	}
+
+	&:active {
+		color:#8b8b8b;
+	}
+}
+
+.header {
+	background-color: #02a4d9;
+	color: #fff;
+	width: 100%;
+	padding-bottom: 3px;
+	box-shadow: 1px 0 5px #000;
+	z-index: 999;
+
+	.logo {
+		padding: 5px 0 5px 5px;
+
+		div {
+			background: url('../../images/header.png');
+			width: 363px;
+			height: 100px;
+			margin: 0 auto;
+		}
+	}
+
+	.nav {
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+
+			li {
+				display: inline;
+				font-size: 16pt;
+				padding: 0 15px;
+
+				&.active {
+					border-bottom: 3px solid orangered;
+				}
+			}
+		}
+	}
+}
+
+.center {
+	width: 1260px;
+	margin: 0 auto;
+}
+
+.container {
+	margin-top: 20px;
+
+	.left-side {
+		width: 300px;
+		float: left;
+
+		.user-left, .news-left {
+			padding: 5px;
+			box-shadow: 0 0 15px #888888;
+			background-color: #fff;
+
+			&:not(:first-child) {
+				margin-top: 15px;
+			}
+
+			&:not(:last-child) {
+				margin-bottom: 15px;
+			}
+		}
+
+		.user-left {
+			.steam-button {
+				padding-top: 20px;
+				padding-bottom: 20px;
+				text-align: center;
+			}
+
+			.username-container {
+				height: 80px;
+
+				.username {
+					float: left;
+					position: relative;
+					top: 50%;
+					transform: translateY(-50%);
+
+					display: block;
+					font-size: 1.5em;
+					font-weight: bold;
+
+					margin-top: 20px;
+					margin-left: 10px;
+				}
+
+				.avatar {
+					margin-top: 20px;
+					margin-left: 20px;
+					float: left;
+					border-radius: 50%;
+					overflow: hidden;
+					width: 75px;
+					height: 75px;
+
+					img {
+						display: block;
+						min-width: 100%;
+						width: 100%;
+						min-height: 100%;
+						height: 100%;
+					}
+				}
+			}
+
+			ul {
+				list-style-type: none;
+				font-size: 16pt;
+
+				li {
+					padding: 3px 0;
+				}
+			}
+		}
+	}
+}
+
+.content {
+	margin-left: 20px;
+  float: left;
+
+	> div {
+		margin-bottom: 20px;
+	}
+
+	.content-box {
+		box-shadow: 0 0 15px #888888;
+		background-color: #fff;
+		width: 600px;
+		padding: 10px;
+		height: 120px;
+
+		.team1 {
+			padding: 10px;
+			float: left;
+			height: 85px;
+
+			.team-name {
+				margin-left: 90px;
+				position: relative;
+				top: 50%;
+				transform: translateY(-50%)
+			}
+
+			img {
+				float: left;
+			}
+		}
+
+		.team2 {
+			padding: 10px;
+			text-align: right;
+			height: 85px;
+
+			.team-name {
+				margin-right: 90px;
+				position: relative;
+				top: 50%;
+				transform: translateY(-50%)
+			}
+
+			img {
+				margin-top: -20px; /* todo: figure out why this is necessary */
+			}
+		}
+	}
+}
+
+.rightside {
+	float: left;
+	width: 300px;
+	position: relative;
+	margin-left: 20px;
+
+	> div {
+		box-shadow: 0 0 15px #888888;
+		background-color: #fff;
+		width: 100%;
+		display: inline-block;
+		margin-bottom: 20px;
+	}
+
+	.bet-locked {
+		display: none;
+		z-index: 1;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: #888;
+		color: #fff;
+		text-align: center;
+		opacity: .9;
+
+		h1 {
+			margin-top: 10%;
+			font-size: 30pt;
+		}
+	}
+
+	.itembox {
+		margin: 5px;
+		height: 110px;
+		width: 100px;
+		background-color: lightgray;
+		text-align: center;
+		display: inline-block;
+		float: left;
+
+		&:not([data-contains='empty']) {
+			cursor: pointer;
+		}
+
+		.stattrak {
+			background-color: orange;
+			color: #fff;
+			width: 25%;
+			height: 20px;
+			display: inline-block;
+			float: left;
+			border-collapse: collapse;
+			box-sizing: border-box;
+			box-shadow: 0px 2px 5px #888888;
+			line-height: 1.5;
+		}
+
+		.price {
+			height: 20px;
+			display:inline-block;
+			width: 75%;
+			border-collapse: collapse;
+			box-sizing: border-box;
+			box-shadow: 0px 2px 5px #888888;
+			line-height: 1.5;
+		}
+
+
+		.item {
+			height: 66px;
+		}
+
+		.wear {
+			height: 25px;
+			font-size: 12px;
+		}
+	}
+}
