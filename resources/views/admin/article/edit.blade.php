@@ -4,17 +4,17 @@
 	<div class="content-box">
 		<script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
 
-		<h2>Create new article!</h2>
+		<h2>Edit!</h2>
 
 		@foreach($errors->all() as $error)
 			<span class="error" style="color: white">{{ $error }}</span>
 		@endforeach
 
-		{!! Form::open(['route' => 'admin.article.store']) !!}
-		{!! Form::text('title', null, array('placeholder' => 'Title of article', 'class' => 'form-control')) !!}<br />
-		{!! Form::textarea('text', null, array('placeholder' => 'Text of article')) !!}<br />
+		{!! Form::open(['url' => route('admin.article.update', $article->id), 'method' => 'PATCH']) !!}
+		{!! Form::text('title', $article->title, array('placeholder' => 'Title of article', 'class' => 'form-control')) !!}<br />
+		{!! Form::textarea('text', $article->content, array('placeholder' => 'Text of article')) !!}<br />
 
-		{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+		{!! Form::submit('Submit changed', ['class' => 'btn btn-primary']) !!}
 		{!! Form::close() !!}
 		<script>
 			// Replace the <textarea id="editor1"> with a CKEditor

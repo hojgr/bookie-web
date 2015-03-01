@@ -1,5 +1,6 @@
 <?php namespace BookieGG\Providers;
 
+use BookieGG\Repositories\Eloquent\ArticleRepository;
 use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
 use BookieGG\Repositories\Eloquent\OrganizationRepository;
 use BookieGG\Repositories\Eloquent\MatchRepository;
@@ -39,6 +40,7 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\Repositories\OrganizationRepositoryInterface' => OrganizationRepository::class,
 			'BookieGG\Contracts\Repositories\TeamRepositoryInterface' => TeamRepository::class,
 			'BookieGG\Contracts\Repositories\MatchRepositoryInterface' => MatchRepository::class,
+			'BookieGG\Contracts\Repositories\ArticleRepositoryInterface' => ArticleRepository::class,
 		];
 
 		foreach($binds as $interface => $implementation) {
