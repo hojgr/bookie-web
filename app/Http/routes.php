@@ -22,7 +22,7 @@ Route::group(['middleware' => 'beta.redirect_activated'], function() {
 });
 
 // TODO: add admin middleware & roles
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin.protect'], function() {
 	Route::get('/', ['as' => 'admin_home', 'uses' => 'HomeController@index']);
 	Route::resource('article', 'ArticleController');
 });
