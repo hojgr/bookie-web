@@ -69,7 +69,18 @@ a {
 }
 
 .center {
-	width: 1260px;
+//	@media (max-width: 1359px) {
+		width: 1260px;
+//	}
+//
+//	@media (min-width: 1360px) and (max-width: 1459px) {
+//		width: 1360px;
+//	}
+//
+//	@media (min-width: 1460px) {
+//		width: 1460px;
+//	}
+
 	margin: 0 auto;
 }
 
@@ -204,10 +215,26 @@ a {
 }
 
 .rightside {
+	@media (max-width: 1359px) {
+		width: 300px;
+	}
+
+	@media (min-width: 1360px) and (max-width: 1459px) {
+		width: 400px;
+	}
+
+	@media (min-width: 1460px) {
+		width: 500px;
+	}
+
 	float: left;
-	width: 300px;
 	position: relative;
 	margin-left: 20px;
+
+	//This is cool, right?
+	overflow-x: visible;
+	position: absolute;
+	margin-left: 960px;
 
 	> div {
 		box-shadow: 0 0 15px #888888;
