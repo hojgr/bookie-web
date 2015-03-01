@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="content-box" style="width: 940px">
-		<h2>All organizations <a class='btn btn-primary' href="{{ route('admin.team.create') }}">Add</a></h2>
+		<h2>All teams <a class='btn btn-primary' href="{{ route('admin.team.create') }}">Add</a></h2>
 		<br />
 		<table class="table table-middle">
 			<tr>
