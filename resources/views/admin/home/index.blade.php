@@ -5,7 +5,7 @@
 		<h2>Welcome to administration!</h2>
 		<span style="margin-left: 5px">As of now, you can do</span>
 		<ul>
-			<li>Nothing</li>
+			<li>manage news</li>
 		</ul>
 	</div>
 @endsection
