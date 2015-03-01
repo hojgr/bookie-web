@@ -23,8 +23,15 @@
 			<div class="logo"><div></div></div>
 			<div class="nav center">
 				<ul>
-					<li class="active"><a href="{{ route("admin_home") }}">Main page</a></li>
-					<li><a href="{{ route("admin.article.index") }}">Articles</a></li>
+					<li>
+						<a href="{{ route("home") }}">Main page</a>
+					</li>
+					<li @if(Route::currentRouteName() == 'admin_home')class="active" @endif>
+						<a href="{{ route("admin_home") }}">Main admin page</a>
+					</li>
+					<li @if(Route::currentRouteName() == 'admin.article.index')class="active" @endif>
+						<a href="{{ route("admin.article.index") }}">Articles</a>
+					</li>
 				</ul>
 			</div>
 		</div>
