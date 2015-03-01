@@ -22,9 +22,8 @@
 			<div class="logo"><div></div></div>
 			<div class="nav center">
 				<ul>
-					<li class="active">Matches</li>
-					<li>Bank</li>
-					<li>Forums</li>
+					<li class="active"><a href="{{ route('home') }}">Matches</a></li>
+					<li><a href="http://reddit.com/r/bookie.gg">Reddit</a></li>
 				</ul>
 			</div>
 		</div>

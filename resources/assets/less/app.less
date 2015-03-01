@@ -58,7 +58,15 @@ a {
 			li {
 				display: inline;
 				font-size: 16pt;
-				padding: 0 15px;
+
+				a {
+					color: white;
+					padding: 0 15px;
+
+					>:hover {
+						text-decoration: none;
+					}
+				}
 
 				&.active {
 					border-bottom: 3px solid orangered;

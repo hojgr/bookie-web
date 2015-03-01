@@ -4,11 +4,18 @@
 	<div class="content-box">
 		<script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
 
-		<h2>Create new article!</h2>
+		@if($errors->count())
+			<h2>{{ $errors->count() }} errors while creating an article!</h2>
+		@else
+			<h2>Create new article!</h2>
+		@endif
+		<ul class="validation">
+			@foreach($errors->all() as $error)
+				<li class="error">{{ $error }}</li>
+			@endforeach
+		</ul>
 
-		@foreach($errors->all() as $error)
-			<span class="error" style="color: white">{{ $error }}</span>
-		@endforeach
+		<h3>Fix the errors and submit again</h3>
 
 		{!! Form::open(['route' => 'admin.article.store']) !!}
 		{!! Form::text('title', null, array('placeholder' => 'Title of article', 'class' => 'form-control')) !!}<br />
