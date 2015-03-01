@@ -15,6 +15,10 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
 
 		// $this->call('UserTableSeeder');
+
+		$type = new \BookieGG\ImageType;
+		$type->type = "logo";
+		$type->save();
 	}
 
 }

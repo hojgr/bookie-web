@@ -9,4 +9,19 @@ class Organization extends Model {
 	public function matches() {
 		return $this->hasMany('BookieGG\Models\Match');
 	}
+
+	public function images() {
+		return $this->hasOne('BookieGG\Models\OrganizationImage');
+	}
+
+	public function getLogo() {
+
+		if(count($this->images)) {
+			return $this->images()->whereHas('image_type', function($q) {
+				$q->where('type', '=', 'logo');
+			})->firstOrFail();
+		}
+
+		return null;
+	}
 }

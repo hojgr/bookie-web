@@ -5,7 +5,9 @@ namespace BookieGG\Repositories\Eloquent;
 
 
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
+use BookieGG\Models\ImageType;
 use BookieGG\Models\Organization;
+use BookieGG\Models\OrganizationImage;
 
 class OrganizationRepository implements OrganizationRepositoryInterface {
 
@@ -35,5 +37,14 @@ class OrganizationRepository implements OrganizationRepositoryInterface {
 	public function findById($id)
 	{
 		return Organization::find($id);
+	}
+
+	public function save(Organization $o, OrganizationImage $oi, ImageType $it)
+	{
+		$o->save();
+
+		$oi->image_type_id = $it->id;
+
+		$o->images()->save($oi);
 	}
 }

@@ -25,9 +25,21 @@ Route::group(['middleware' => 'beta.redirect_activated'], function() {
 // TODO: add admin middleware & roles
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin.protect'], function() {
 	Route::get('/', ['as' => 'admin_home', 'uses' => 'HomeController@index']);
+
 	Route::resource('article', 'ArticleController');
+	Route::resource('organization', 'OrganizationController');
 });
 
 Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);
 Route::get('/auth', ['as' => 'auth', 'uses' => 'SteamController@auth']);
 Route::get('/logout', ['as' => 'logout', 'uses' => 'SteamController@logout']);
+
+Route::get('/{thing}/{type}/{filename}', ['as' => 'uploaded_asset', 'uses' => function($thing, $type, $filename) {
+	$path = storage_path($thing . "s/" . $type . "s") . "/$filename";
+
+	$response = Response::make(File::get($path));
+	$response->header('Content-Type', File::type($path));
+	$response->header('Content-Size', File::size($path));
+
+	return $response;
+}]);

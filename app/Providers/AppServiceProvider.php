@@ -6,6 +6,7 @@ use BookieGG\Repositories\Eloquent\OrganizationRepository;
 use BookieGG\Repositories\Eloquent\MatchRepository;
 use BookieGG\Repositories\Eloquent\TeamRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
+use BookieGG\Services\LogoUtility;
 use Illuminate\Support\ServiceProvider;
 use BookieGG\Services\SteamUtility;
 
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\Repositories\BetaSubscriptionRepositoryInterface'
 				=> BetaSubscriptionRepository::class,
 			'BookieGG\Contracts\SteamUtilityInterface' => SteamUtility::class,
+			'BookieGG\Contracts\LogoUtilityInterface' => LogoUtility::class,
 			'BookieGG\Contracts\Repositories\OrganizationRepositoryInterface' => OrganizationRepository::class,
 			'BookieGG\Contracts\Repositories\TeamRepositoryInterface' => TeamRepository::class,
 			'BookieGG\Contracts\Repositories\MatchRepositoryInterface' => MatchRepository::class,

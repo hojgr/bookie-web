@@ -18,6 +18,13 @@
 	<![endif]-->
 </head>
 <body>
+@if(Session::has('message'))
+	@foreach(Session::get('message') as $m)
+		<div class="notice notice-{{ $m['type'] }}">
+			{!! $m['message'] !!}
+		</div>
+	@endforeach
+@endif
 	@section('header')
 		<div class="header">
 			<div class="logo"><div></div></div>
@@ -29,8 +36,11 @@
 					<li @if(Route::currentRouteName() == 'admin_home')class="active" @endif>
 						<a href="{{ route("admin_home") }}">Main admin page</a>
 					</li>
-					<li @if(Route::currentRouteName() == 'admin.article.index')class="active" @endif>
+					<li @if(Request::is('admin/article*'))class="active" @endif>
 						<a href="{{ route("admin.article.index") }}">Articles</a>
+					</li>
+					<li @if(Request::is('admin/organization*'))class="active" @endif>
+						<a href="{{ route("admin.organization.index") }}">Organization</a>
 					</li>
 				</ul>
 			</div>
@@ -64,13 +74,15 @@
 		@yield('content')
 	</div>
 
-	<div class="rightside">
-		@section('rightside')
-			<div class="right-side">
-				rightie admin
-			</div>
-		@show
-	</div>
+	@if(!isset($hide_right_side))
+		<div class="rightside">
+			@section('rightside')
+				<div class="right-side">
+					Empty yet
+				</div>
+			@show
+		</div>
+	@endif
 
 	</div> {{--todo: remember that weird opener earlier?--}}
 
