@@ -1,5 +1,6 @@
 <?php namespace BookieGG\Http\Controllers\Admin;
 
+use BookieGG\Commands\CreateTeamCommand;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Http\Requests;
 use BookieGG\Http\Controllers\Controller;
@@ -27,17 +28,29 @@ class TeamController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('admin/team/create');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param Requests\TeamAddRequest $request
 	 * @return Response
 	 */
-	public function store()
+	public function store(Requests\TeamAddRequest $request)
 	{
-		//
+		$name = \Input::get('name');
+		$logo = \Input::file('logo');
+
+		$this->dispatch(new CreateTeamCommand(
+			$name,
+			$logo
+		));
+
+		\Session::flash('message',
+			[['type' => 'success', 'message' => "Team <i>$name</i> was successfully created"]]);
+
+		return \Redirect::route('admin.team.index');
 	}
 
 	/**

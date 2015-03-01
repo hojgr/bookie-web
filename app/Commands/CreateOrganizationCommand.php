@@ -2,6 +2,7 @@
 
 use BookieGG\Commands\Command;
 
+use BookieGG\Contracts\ImageManagerInterface;
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Models\ImageType;
 use BookieGG\Models\Organization;
@@ -43,10 +44,11 @@ class CreateOrganizationCommand extends Command implements SelfHandling {
 	 * Execute the command.
 	 *
 	 * @param OrganizationRepositoryInterface $ori
+	 * @param ImageManagerInterface $imi
 	 */
-	public function handle(OrganizationRepositoryInterface $ori)
+	public function handle(OrganizationRepositoryInterface $ori, ImageManagerInterface $imi)
 	{
-		$filename = $this->storeLogo($this->logo);
+		$filename = $imi->storeLogo($this->logo);
 
 		$organization = new Organization();
 

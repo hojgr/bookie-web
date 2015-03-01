@@ -45,6 +45,7 @@ class EditOrganizationCommand extends Command implements SelfHandling {
 	 * Execute the command.
 	 *
 	 * @param OrganizationRepositoryInterface $ori
+	 * @param ImageManagerInterface $imi
 	 */
 	public function handle(OrganizationRepositoryInterface $ori, ImageManagerInterface $imi)
 	{
