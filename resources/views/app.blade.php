@@ -43,7 +43,7 @@
 						<div class="avatar">
 							<img src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
 						</div>
-						<h2>{{ Auth::user()->display_name }}</h2>
+						<div class="username">{{ Auth::user()->display_name }}</div>
 					</div>
 					<ul>
 						<li>Bets</li>
