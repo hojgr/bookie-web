@@ -19,7 +19,7 @@
 <body>
 	@section('header')
 		<div class="header">
-			<div class="logo"><h1>Bookie.GG</h1></div>
+			<div class="logo"><div></div></div>
 			<div class="nav">
 				<ul>
 					<li class="active">Matches</li>
