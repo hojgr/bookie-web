@@ -17,7 +17,7 @@ class TeamController extends Controller {
 	public function index(TeamRepositoryInterface $tri)
 	{
 		return view('admin/team/index')->with('teams', $tri->getAll())
-			->with('hide_right_side', true);;
+			->with('hide_right_side', true);
 	}
 
 	/**
