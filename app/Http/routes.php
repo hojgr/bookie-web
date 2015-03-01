@@ -34,7 +34,14 @@ Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);
 Route::get('/auth', ['as' => 'auth', 'uses' => 'SteamController@auth']);
 Route::get('/logout', ['as' => 'logout', 'uses' => 'SteamController@logout']);
 
-Route::get('/{thing}/{type}/{filename}', ['as' => 'uploaded_asset', 'uses' => function($thing, $type, $filename) {
+/**
+ * Statically serve images from storage
+ */
+Route::get('upload_assets/{thing}/{type}/{filename}', ['as' => 'uploaded_asset', 'uses' => function($thing, $type, $filename) {
+	if(!in_array($thing, ['logo', 'banner'])) {
+		App::abort(403);
+	}
+
 	$path = storage_path($thing . "s/" . $type . "s") . "/$filename";
 
 	$response = Response::make(File::get($path));
