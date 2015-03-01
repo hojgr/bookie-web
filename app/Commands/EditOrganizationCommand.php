@@ -2,6 +2,7 @@
 
 use BookieGG\Commands\Command;
 
+use BookieGG\Contracts\ImageManagerInterface;
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Intervention\Image\Image;
@@ -45,7 +46,7 @@ class EditOrganizationCommand extends Command implements SelfHandling {
 	 *
 	 * @param OrganizationRepositoryInterface $ori
 	 */
-	public function handle(OrganizationRepositoryInterface $ori)
+	public function handle(OrganizationRepositoryInterface $ori, ImageManagerInterface $imi)
 	{
 		$org = $ori->findById($this->id);
 
@@ -55,32 +56,8 @@ class EditOrganizationCommand extends Command implements SelfHandling {
 		$org->save();
 
 		if($this->file) {
-			$this->storeLogo($this->file, $org->getLogo()->filename);
+			$imi->storeLogo($this->file, $org->getLogo()->filename);
 		}
-	}
-
-
-	public function storeLogo(UploadedFile $logo, $filename) {
-
-		$this->resizeImageOnDisk($logo);
-
-		$logo->move(storage_path('logos/organizations'), $filename);
-
-		return $filename;
-	}
-
-	public function resizeImageOnDisk(UploadedFile $logo) {
-		$img = \Image::make($logo->getRealPath());
-
-		$d = $this->getGreatestDimension($img);
-		$img->resizeCanvas($d, $d);
-		$img->resize(128, 128);
-
-		$img->save();
-	}
-
-	public function getGreatestDimension(Image $i) {
-		return ($i->getHeight() > $i->getWidth()) ? $i->getHeight() : $i->getWidth();
 	}
 
 }
