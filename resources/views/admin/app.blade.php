@@ -40,7 +40,10 @@
 						<a href="{{ route("admin.article.index") }}">Articles</a>
 					</li>
 					<li @if(Request::is('admin/organization*'))class="active" @endif>
-						<a href="{{ route("admin.organization.index") }}">Organization</a>
+						<a href="{{ route("admin.organization.index") }}">Organizations</a>
+					</li>
+					<li @if(Request::is('admin/team*'))class="active" @endif>
+						<a href="{{ route("admin.team.index") }}">Teams</a>
 					</li>
 				</ul>
 			</div>
