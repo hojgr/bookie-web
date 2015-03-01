@@ -28,12 +28,13 @@ class SteamController extends Controller {
 		$steam_user = $auth->getUser();
 
 		$user = $user->where('steam_id', '=', $steam_user['steam_id'])->first();
+
 		if(!$user)
 			$user = $this->dispatch(new CreateUser($steam_user));
 		else
 			$user = $this->dispatch(new RefreshUser($user, $steam_user));
 
-		\Auth::login($user);
+		\Auth::login($user, true);
 
 		return \Redirect::route('beta_home');
 	}

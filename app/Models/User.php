@@ -77,7 +77,7 @@ class User extends Eloquent implements Authenticatable {
 	 */
 	public function getRememberToken()
 	{
-		return null;
+		return $this->remember_token;
 	}
 
 	/**
@@ -88,7 +88,7 @@ class User extends Eloquent implements Authenticatable {
 	 */
 	public function setRememberToken($value)
 	{
-
+		$this->remember_token = $value;
 	}
 
 	/**
@@ -98,6 +98,6 @@ class User extends Eloquent implements Authenticatable {
 	 */
 	public function getRememberTokenName()
 	{
-		return null;
+		return 'remember_token';
 	}
 }
