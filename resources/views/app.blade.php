@@ -73,11 +73,7 @@
 	</div>
 
 	<div class="rightside">
-		@section('rightside')
-			<div class="right-side">
-				rightie
-			</div>
-		@show
+		@yield('rightside')
 	</div>
 
 	</div> {{--todo: remember that weird opener earlier?--}}
