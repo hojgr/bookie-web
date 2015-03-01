@@ -20,7 +20,7 @@
 	@section('header')
 		<div class="header">
 			<div class="logo"><div></div></div>
-			<div class="nav">
+			<div class="nav center">
 				<ul>
 					<li class="active">Matches</li>
 					<li>Bank</li>
@@ -28,7 +28,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="container"> {{--todo: consider options for this opener--}}
+		<div class="container center"> {{--todo: consider options for this opener--}}
 	@show
 
 	@section('leftside')
@@ -70,7 +70,11 @@
 	</div>
 
 	<div class="rightside">
-	    @yield('rightside')
+		@section('rightside')
+			<div class="right-side">
+				rightie
+			</div>
+		@show
 	</div>
 
 	</div> {{--todo: remember that weird opener earlier?--}}
