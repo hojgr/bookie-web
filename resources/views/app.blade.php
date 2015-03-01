@@ -55,11 +55,10 @@
 			<div class="news-left">
 				News
 				<ul>
-					<li>blank stuff</li>
-					<li>blank stuff</li>
-					<li>blank stuff</li>
-					<li>blank stuff</li>
-					<li>blank stuff</li>
+					@foreach($articles as $a)
+						<li><a href="{{ route('article', $a->id) }}">{{ str_limit($a->title, 32) }}</a></li>
+					@endforeach
+
 				</ul>
 			</div>
 		</div>

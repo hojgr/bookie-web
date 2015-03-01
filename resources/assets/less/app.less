@@ -1,5 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
+h1, h2, h3, h4, h5 {
+	margin: 0;
+	padding: 0;
+}
+
 body {
 	font-family: 'Roboto', sans-serif;
 	color: #8b8b8b;
@@ -162,7 +167,7 @@ a {
 		width: 620px;
 	}
 
-	.matchbox {
+	.matchbox, .content-box {
 		box-shadow: 0 0 15px #888888;
 		background-color: #fff;
 		width: 620px;
@@ -201,6 +206,10 @@ a {
 				margin-top: -20px; /* todo: figure out why this is necessary */
 			}
 		}
+	}
+
+	.content-box {
+		height: auto;
 	}
 }
 
