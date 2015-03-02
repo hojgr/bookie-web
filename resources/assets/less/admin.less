@@ -267,7 +267,7 @@ a.btn {
 			float: left;
 			border-collapse: collapse;
 			box-sizing: border-box;
-			box-shadow: 0px 2px 5px #888888;
+			box-shadow: 0 2px 5px #888888;
 			line-height: 1.5;
 		}
 
@@ -277,7 +277,7 @@ a.btn {
 			width: 75%;
 			border-collapse: collapse;
 			box-sizing: border-box;
-			box-shadow: 0px 2px 5px #888888;
+			box-shadow: 0 2px 5px #888888;
 			line-height: 1.5;
 		}
 
@@ -308,11 +308,10 @@ a.btn {
 	color: black;
 }
 
-.form-table {
-	td {
-		padding-top: 20px;
-	}
-	td:first-child {
+table.form-table>tbody>tr>td {
+	padding-top: 20px;
+
+	&:first-child {
 		vertical-align: middle;
 		padding-right: 10px;
 		text-align: right;

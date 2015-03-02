@@ -6,10 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Bookie.GG - Upcoming Matches</title>
 
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.4/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.0.0/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,100,900' rel='stylesheet' type='text/css'>
-
+	<link href="{{ elixir('css/admin_bootstrap_override.css') }}" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -44,6 +47,9 @@
 					</li>
 					<li @if(Request::is('admin/team*'))class="active" @endif>
 						<a href="{{ route("admin.team.index") }}">Teams</a>
+					</li>
+					<li @if(Request::is('admin/match*'))class="active" @endif>
+						<a href="{{ route("admin.match.create") }}">Matches</a>
 					</li>
 				</ul>
 			</div>
@@ -90,9 +96,11 @@
 	</div> {{--todo: remember that weird opener earlier?--}}
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.4/js/bootstrap-select.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.0.0/js/bootstrap-datetimepicker.min.js"></script>
 
-	<script src="http://localhost:8000/js/live.js"></script>
+		<script src="http://localhost:8000/js/live.js"></script>
 </body>
 </html>

@@ -29,6 +29,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admi
 	Route::resource('article', 'ArticleController');
 	Route::resource('organization', 'OrganizationController');
 	Route::resource('team', 'TeamController');
+	Route::resource('match', 'MatchController');
 });
 
 Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);

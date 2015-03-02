@@ -4,7 +4,7 @@
 	<div class="content-box" style="width: 940px">
 		<h2>All organizations <a class='btn btn-primary' href="{{ route('admin.organization.create') }}">Add</a></h2>
 		<br />
-		<table class="table table-middle">
+		<table class="table table-middle" >
 			<tr>
 				<th>Logo</th>
 				<th>Name</th>

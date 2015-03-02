@@ -14,8 +14,8 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
- mix.less(['app.less', 'beta.less', 'site.less', 'admin.less'])
+ mix.less(['app.less', 'beta.less', 'site.less', 'admin.less', 'admin_bootstrap_override.less'])
      .copy('resources/assets/images', 'public/images')
-     .version(['css/app.css', 'css/beta.css', 'css/site.css', 'css/admin.css'])
+     .version(['css/app.css', 'css/beta.css', 'css/site.css', 'css/admin.css', 'css/admin_bootstrap_override.css'])
 
 });
