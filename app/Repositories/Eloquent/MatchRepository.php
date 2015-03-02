@@ -51,6 +51,15 @@ class MatchRepository implements MatchRepositoryInterface {
 		$this->addMatches($match, $t1, $t2);
 	}
 
+	public function change(Match $match, $bo, $start) {
+		$match->bo = (int)$bo;
+		if(!empty($start)) {
+			$match->start = new \DateTime($start);
+		}
+
+		$match->save();
+	}
+
 	public function allDesc()
 	{
 		return Match::orderBy('id', 'DESC')->get();

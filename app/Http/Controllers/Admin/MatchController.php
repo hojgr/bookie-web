@@ -1,6 +1,8 @@
 <?php namespace BookieGG\Http\Controllers\Admin;
 
+use BookieGG\Http\Requests\MatchEditRequest;
 use BookieGG\Commands\CreateMatch;
+use BookieGG\Commands\EditMatch;
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
@@ -79,7 +81,7 @@ class MatchController extends Controller {
 		);
 
 		\Session::flash('message',
-			[['type' => 'success', 'message' => "Match <b>{$t1->name}</b> vs. <b>{$t2->name}</b> was successfully edited"]]);
+			[['type' => 'success', 'message' => "Match <b>{$t1->name}</b> vs. <b>{$t2->name}</b> was successfully created"]]);
 
 		return \Redirect::route('admin.match.index');
 	}
@@ -98,23 +100,40 @@ class MatchController extends Controller {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param MatchRepositoryInterface $mri
+	 * @param  int $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{
-		//
+	public function edit(MatchRepositoryInterface $mri, $id) {
+		$_bos = [1, 3, 5];
+		$bos = [];
+
+		foreach($_bos as $b) {
+			$bos[$b] = "BO$b";
+		}
+
+		return view('admin/match/edit')
+			->with('match', $mri->find($id))
+			->with('all_bos', $bos);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param MatchEditRequest $request
+	 * @param  int $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(MatchEditRequest $request, $id)
 	{
-		//
+		$this->dispatch(
+			new EditMatch($id, \Input::get('bo'), \Input::get('start'))
+		);
+
+		\Session::flash('message',
+			[['type' => 'success', 'message' => "Match was successfully edited"]]);
+
+		return \Redirect::route('admin.match.index');
 	}
 
 	/**
