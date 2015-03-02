@@ -9,7 +9,7 @@
 				</div>
 				<div class="info">
 					<div class="team-name">{{ (strlen($m->teams[0]->name) > 10) ? $m->teams[0]->short_name: $m->teams[0]->name }}</div>
-					<div class="odds">99%</div>
+					<div class="odds">50%</div>
 				</div>
 			</div>
 
@@ -24,7 +24,7 @@
 
 				<div class="info">
 					<div class="team-name">{{ (strlen($m->teams[1]->name) > 10) ? $m->teams[1]->short_name: $m->teams[1]->name }}</div>
-					<div class="odds">99%</div>
+					<div class="odds">50%</div>
 				</div>
 			</div>
 			<div style="clear: both"></div>
