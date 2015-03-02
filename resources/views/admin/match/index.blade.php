@@ -6,18 +6,24 @@
 
 		<table class="table vertical">
 			<tr>
-				<th>vs.</th>
+				<th></th>
+				<th></th>
+				<th></th>
 				<th>BO#</th>
 				<th>Starts</th>
 			</tr>
 			@foreach($matches as $m)
 				<tr>
-					<td>
-						{!! LogoUtil::render($m->teams[0]) !!}
+					<td style="text-align: right">
 						<b>{{ $m->teams[0]->name }}</b>
+						{!! LogoUtil::render($m->teams[0]) !!}
+					</td>
+					<td>
 						vs.
-						<b>{{ $m->teams[1]->name }}</b>
+					</td>
+					<td>
 						{!! LogoUtil::render($m->teams[1]) !!}
+						<b>{{ $m->teams[1]->name }}</b>
 					</td>
 					<td>BO{{ $m->bo }}</td>
 					<td>{{ $m->start }}</td>
