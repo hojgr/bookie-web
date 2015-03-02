@@ -5,7 +5,10 @@
 		<h2>Welcome to administration!</h2>
 		<span style="margin-left: 5px">As of now, you can do</span>
 		<ul>
-			<li>manage news</li>
+			<li>Manage news</li>
+			<li>Manage organizations</li>
+			<li>Manage teams</li>
+			<li>Manage matches</li>
 		</ul>
 	</div>
 @endsection
