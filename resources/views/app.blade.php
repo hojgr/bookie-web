@@ -23,7 +23,7 @@
 			<div class="nav center">
 				<ul>
 					<li class="active"><a href="{{ route('home') }}">Matches</a></li>
-					<li><a href="http://reddit.com/r/bookie.gg">Reddit</a></li>
+					<li><a href="http://reddit.com/r/bookiegg">Reddit</a></li>
 				</ul>
 			</div>
 		</div>
