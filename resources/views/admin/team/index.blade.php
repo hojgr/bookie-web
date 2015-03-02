@@ -13,7 +13,12 @@
 			@foreach($teams as $t)
 			<tr>
 				<td>{!! LogoUtil::render($t) !!}</td>
-				<td>{{ $t->name }}</td>
+				<td>
+					{{ $t->name }}
+					@if($t->name != $t->short_name)
+						({{ $t->short_name }})
+					@endif
+				</td>
 				<td><a class="btn btn-info" href="{{ route('admin.team.edit', $t->id) }}">edit</a></td>
 			</tr>
 			@endforeach

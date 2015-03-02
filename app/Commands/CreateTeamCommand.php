@@ -14,22 +14,28 @@ class CreateTeamCommand extends Command implements SelfHandling {
 	/**
 	 * @var
 	 */
-	private $team;
+	private $name;
 	/**
 	 * @var UploadedFile
 	 */
 	private $logo;
+	/**
+	 * @var
+	 */
+	private $shortname;
 
 	/**
 	 * Create a new command instance.
-	 * @param $team
+	 * @param $name
+	 * @param $shortname
 	 * @param UploadedFile $logo
 	 */
-	public function __construct($team, UploadedFile $logo)
+	public function __construct($name, $shortname, UploadedFile $logo)
 	{
 		//
-		$this->team = $team;
+		$this->name = $name;
 		$this->logo = $logo;
+		$this->shortname = $shortname;
 	}
 
 	/**
@@ -42,16 +48,20 @@ class CreateTeamCommand extends Command implements SelfHandling {
 	{
 		$filename = $imi->storeLogo($this->logo);
 
-		$organization = new Team();
+		$team = new Team();
 
-		$organization->name = $this->team;
+		$team->name = $this->name;
+		if($this->shortname == "")
+			$team->short_name = $this->name;
+		else
+			$team->short_name = $this->shortname;
 
 		$image_type = ImageType::where('type', '=', 'logo')->firstOrFail();
 
 		$team_image = new TeamImage();
 		$team_image->filename = $filename;
 
-		$tri->save($organization, $team_image, $image_type);
+		$tri->save($team, $team_image, $image_type);
 	}
 
 }

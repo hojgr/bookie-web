@@ -41,10 +41,12 @@ class TeamController extends Controller {
 	public function store(Requests\TeamAddRequest $request)
 	{
 		$name = \Input::get('name');
+		$shortname = \Input::get('shortname');
 		$logo = \Input::file('logo');
 
 		$this->dispatch(new CreateTeamCommand(
 			$name,
+			$shortname,
 			$logo
 		));
 

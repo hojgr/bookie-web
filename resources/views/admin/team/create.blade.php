@@ -19,6 +19,11 @@
 			</tr>
 
 			<tr>
+				<td>{!! Form::label('shortname', 'Short name') !!}</td>
+				<td>{!! Form::text('shortname', null, ['placeholder' => 'Leave empty if it\'s the same as name', 'class' => 'form-control']) !!}</td>
+			</tr>
+
+			<tr>
 				<td>{!! Form::label('logo', 'Logo') !!}</td>
 				<td>{!! Form::file('logo') !!}</td>
 			</tr>
