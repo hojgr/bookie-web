@@ -35,10 +35,17 @@ class MatchController extends Controller {
 		$organizers = $this->getRight($ori->getAll());
 		$teams = $this->getRight($tri->getAll());
 
+		$_bos = [1, 3, 5];
+		$bos = [];
+
+		foreach($_bos as $b) {
+			$bos[$b] = "BO$b";
+		}
+
 		return view('admin/match/create')
 			->with('organizers', $organizers)
 			->with('teams', $teams)
-			->with('all_bos', array_map(function($e) { return "BO$e"; }, [1, 3, 5, 7, 9, 11]));
+			->with('all_bos', $bos);
 	}
 
 	public function getRight($col) {
