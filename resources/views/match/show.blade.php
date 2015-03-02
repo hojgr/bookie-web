@@ -29,18 +29,19 @@
 		<div style="clear: both"></div>
 
 		<div class="details">
-			<div class="time-from-now">{{ TimeUtil::formatTimestampFromNow($match->start) }} from now</div>
+			<div class="time-from-now">{{ TimeUtil::formatTimestampFromNow($match->start) }}</div>
 			<div class="bo-style"><span>Best of {{ $match->bo }}</span></div>
 			<div class="time-start">{{ TimeUtil::formatTimestamp($match->start) }}</div>
 		</div>
 	</div>
-
+{{--
 	<div class="streambox">
 		<iframe src="http://www.twitch.tv/suchCow/embed" frameborder="0" scrolling="no" height="378" width="620"></iframe>
 	</div>
 	<div class="chatbox">
 		<iframe src="http://www.twitch.tv/suchCow/chat?popout=" frameborder="0" scrolling="no" height="500" width="620"></iframe>
 	</div>
+	--}}
 @endsection
 
 @section('rightside')

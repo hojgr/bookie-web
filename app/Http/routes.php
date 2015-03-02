@@ -15,6 +15,8 @@ Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
 	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 	Route::get('/article/{id}', ['as' => 'article', 'uses' => 'ArticleController@show']);
 	Route::get('/match/{id}', ['as' => 'match', 'uses' => 'MatchController@show']);
+	Route::get('/rules', ['as' => 'rules', 'uses' => 'SubpageController@rules']);
+	Route::get('/tos', ['as' => 'tos', 'uses' => 'SubpageController@tos']);
 });
 
 Route::group(['middleware' => 'beta.redirect_activated'], function() {
@@ -30,6 +32,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admi
 	Route::resource('organization', 'OrganizationController');
 	Route::resource('team', 'TeamController');
 	Route::resource('match', 'MatchController');
+	Route::resource('subpage', 'SubpageController');
 });
 
 Route::get('/login', ['as' => 'login', 'uses' => 'SteamController@login']);

@@ -30,7 +30,7 @@
 			<div style="clear: both"></div>
 
 			<div class="details">
-				<div class="time-from-now">{{ TimeUtil::formatTimestampFromNow($m->start) }} from now</div>
+				<div class="time-from-now">{{ TimeUtil::formatTimestampFromNow($m->start) }}</div>
 				<div class="bo-style"><span>Best of {{ $m->bo }}</span></div>
 				<div class="time-start">{{ TimeUtil::formatTimestamp($m->start) }}</div>
 			</div>

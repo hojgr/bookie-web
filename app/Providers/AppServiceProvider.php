@@ -4,10 +4,12 @@ use BookieGG\Repositories\Eloquent\ArticleRepository;
 use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
 use BookieGG\Repositories\Eloquent\OrganizationRepository;
 use BookieGG\Repositories\Eloquent\MatchRepository;
+use BookieGG\Repositories\Eloquent\SubpageRepository;
 use BookieGG\Repositories\Eloquent\TeamRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
 use BookieGG\Services\ImageManager;
 use BookieGG\Services\LogoUtility;
+use BookieGG\Services\SubpageService;
 use BookieGG\Services\TimeUtility;
 use Illuminate\Support\ServiceProvider;
 use BookieGG\Services\SteamUtility;
@@ -45,8 +47,11 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\Repositories\TeamRepositoryInterface' => TeamRepository::class,
 			'BookieGG\Contracts\Repositories\MatchRepositoryInterface' => MatchRepository::class,
 			'BookieGG\Contracts\Repositories\ArticleRepositoryInterface' => ArticleRepository::class,
+			'BookieGG\Contracts\Repositories\SubpageRepositoryInterface' => SubpageRepository::class,
 			'BookieGG\Contracts\ImageManagerInterface' => ImageManager::class,
 			'BookieGG\Contracts\TimeUtilityInterface' => TimeUtility::class,
+			'BookieGG\Contracts\SubpageServiceInterface' => SubpageService::class,
+
 		];
 
 		foreach($binds as $interface => $implementation) {

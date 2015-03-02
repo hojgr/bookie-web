@@ -51,6 +51,9 @@
 					<li @if(Request::is('admin/match*'))class="active" @endif>
 						<a href="{{ route("admin.match.index") }}">Matches</a>
 					</li>
+					<li @if(Request::is('admin/subpage*'))class="active" @endif>
+						<a href="{{ route("admin.subpage.create") }}">Subpages</a>
+					</li>
 				</ul>
 			</div>
 		</div>

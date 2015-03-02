@@ -37,8 +37,16 @@ class TimeUtility implements TimeUtilityInterface {
 	public function formatTimestampFromNow($string_format)
 	{
 		$timestamp = strtotime($string_format);
+		$future = true;
 
 		$time_diff = $timestamp - time();
+		if($time_diff == 0)
+			return 'now';
+
+		if($time_diff < 0) {
+			$future = false;
+			$time_diff *= -1;
+		}
 
 		$days = (int)($time_diff / (24 * 3600));
 		$time_diff -= $days * (24*3600);
@@ -62,7 +70,7 @@ class TimeUtility implements TimeUtilityInterface {
 			$out .= $this->formatOut($minutes, "minute");
 		}
 
-		return $out;
+		return $out . " " . ($future ? "from now" : "ago");
 	}
 
 	public function formatOut($amt, $str) {

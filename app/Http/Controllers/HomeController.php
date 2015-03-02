@@ -8,7 +8,6 @@ use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 
 class HomeController extends Controller {
 	public function index(MatchRepositoryInterface $mri) {
-
 		$form = function($time) {
 
 		};
