@@ -1,6 +1,7 @@
 <?php namespace BookieGG\Http\Controllers\Admin;
 
 use BookieGG\Commands\CreateTeamCommand;
+use BookieGG\Commands\EditTeamCommand;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Http\Requests;
 use BookieGG\Http\Controllers\Controller;
@@ -67,23 +68,33 @@ class TeamController extends Controller {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param TeamRepositoryInterface $tri
+	 * @param  int $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(TeamRepositoryInterface $tri, $id)
 	{
-		//
+		return view('admin/team/edit')->with('team', $tri->getById($id));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
+	 * @param Requests\TeamEditRequest $request
+	 * @param  int $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Requests\TeamEditRequest $request, $id)
 	{
-		//
+		$name = \Input::get('name');
+		$image = \Input::file('logo');
+
+		$this->dispatch(new EditTeamCommand($id, $name, $image));
+
+		\Session::flash('message',
+			[['type' => 'success', 'message' => "Team <i>$name</i> was successfully edited"]]);
+
+		return \Redirect::route('admin.team.index');
 	}
 
 	/**
