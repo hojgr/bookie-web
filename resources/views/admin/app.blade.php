@@ -101,6 +101,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.4/js/bootstrap-select.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.0.0/js/bootstrap-datetimepicker.min.js"></script>
 
-		<script src="http://localhost:8000/js/live.js"></script>
+		<script src="{{ asset('js/live.js') }}"></script>
 </body>
 </html>
