@@ -1,21 +1,26 @@
 <?php namespace BookieGG\Http\Controllers\Admin;
 
 use BookieGG\Commands\CreateMatch;
+use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Http\Requests;
 use BookieGG\Http\Controllers\Controller;
+use BookieGG\Repositories\Eloquent\MatchRepository;
 
 class MatchController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param MatchRepositoryInterface $mri
 	 * @return Response
 	 */
-	public function index()
+	public function index(MatchRepositoryInterface $mri)
 	{
-		return view('admin/match/index');
+		return view('admin/match/index')
+			->with('matches', $mri->allDesc())
+			->with('hide_right_side', true);
 	}
 
 	/**

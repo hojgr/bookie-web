@@ -49,7 +49,7 @@
 						<a href="{{ route("admin.team.index") }}">Teams</a>
 					</li>
 					<li @if(Request::is('admin/match*'))class="active" @endif>
-						<a href="{{ route("admin.match.create") }}">Matches</a>
+						<a href="{{ route("admin.match.index") }}">Matches</a>
 					</li>
 				</ul>
 			</div>

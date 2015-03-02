@@ -50,4 +50,9 @@ class MatchRepository implements MatchRepositoryInterface {
 		$this->save($org, $match);
 		$this->addMatches($match, $t1, $t2);
 	}
+
+	public function allDesc()
+	{
+		return Match::orderBy('id', 'DESC')->get();
+	}
 }

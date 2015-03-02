@@ -19,4 +19,6 @@ interface MatchRepositoryInterface {
 	public function find($id);
 	public function addMatches(Match $match, Team $team1, Team $team2);
 	public function create(Organization $org, Team $t1, Team $t2, $bo, \DateTime $time);
+
+	public function allDesc();
 }
