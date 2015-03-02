@@ -10,4 +10,9 @@ class Match extends Model {
 	public function organization() {
 		return $this->belongsTo('BookieGG\Models\Organization');
 	}
+
+	public function getStartDateAttribute()
+	{
+		return Carbon::parse($this->start);
+	}
 }

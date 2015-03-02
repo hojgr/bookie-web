@@ -8,6 +8,7 @@ use BookieGG\Repositories\Eloquent\TeamRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
 use BookieGG\Services\ImageManager;
 use BookieGG\Services\LogoUtility;
+use BookieGG\Services\TimeUtility;
 use Illuminate\Support\ServiceProvider;
 use BookieGG\Services\SteamUtility;
 
@@ -45,6 +46,7 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\Repositories\MatchRepositoryInterface' => MatchRepository::class,
 			'BookieGG\Contracts\Repositories\ArticleRepositoryInterface' => ArticleRepository::class,
 			'BookieGG\Contracts\ImageManagerInterface' => ImageManager::class,
+			'BookieGG\Contracts\TimeUtilityInterface' => TimeUtility::class,
 		];
 
 		foreach($binds as $interface => $implementation) {

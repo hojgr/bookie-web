@@ -180,39 +180,91 @@ a {
 		box-shadow: 0 0 15px #888888;
 		background-color: #fff;
 		width: 620px;
-		height: 120px;
+		height: 160px;
 
-		.team1 {
-			padding: 10px;
-			float: left;
-			height: 85px;
+		position: relative;
 
-			.team-name {
-				margin-left: 90px;
-				position: relative;
-				top: 50%;
-				transform: translateY(-50%)
+		.details {
+			margin-top: 30px;
+
+			div {
+				float: left;
 			}
 
+			.time-from-now {
+				width: 250px;
+				padding-left: 10px;
+			}
+
+			.bo-style {
+				width: 100px;
+				text-align: center;
+
+				span {
+					color: #02a4d9;
+				}
+			}
+
+			.time-start {
+				float: right;
+				padding-right: 10px;
+				width: 250px;
+				text-align: right;
+			}
+		}
+
+		.organization {
+			position: absolute;
+			left: 260px;
+			top: 10px;
+
+			width: 100px;
+			height: 100px;
+
 			img {
+				opacity: 0.3;
+			}
+		}
+
+		.team1, .team2 {
+			margin: 10px 0 0 10px;
+			float: left;
+
+			.logo {
 				float: left;
+			}
+
+			.info {
+				float: left;
+				margin-top: 25px;
+				margin-left: 10px;
+				text-align: right;
+				width: 120px;
+
+				.team-name {
+					color: #02a4d9;
+					font-weight: bold;
+					font-size: 20px;
+				}
+
+				.odds {
+					color: #000000;
+				}
 			}
 		}
 
 		.team2 {
-			padding: 10px;
-			text-align: right;
-			height: 85px;
+			float: right;
+			margin-right: 10px;
 
-			.team-name {
-				margin-right: 90px;
-				position: relative;
-				top: 50%;
-				transform: translateY(-50%)
+			.logo {
+				float: right;
 			}
 
-			img {
-				margin-top: -20px; /* todo: figure out why this is necessary */
+			.info {
+				float: right;
+				margin-right: 10px;
+				text-align: left;
 			}
 		}
 	}

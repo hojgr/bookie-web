@@ -39,7 +39,7 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'GMT+1',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -206,6 +206,7 @@ return [
 
 		'SteamUtil' => 'BookieGG\Facades\SteamUtil',
 		'LogoUtil' => 'BookieGG\Facades\LogoUtil',
+		'TimeUtil' => 'BookieGG\Facades\TimeUtil',
 
 		// NOT a typo! Laravel docs refer to Socialite facade as Socialize
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
