@@ -1,5 +1,6 @@
 <?php namespace BookieGG\Http\Controllers\Admin;
 
+use BookieGG\Commands\CreateMatch;
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Http\Requests;
@@ -14,7 +15,7 @@ class MatchController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return view('admin/match/index');
 	}
 
 	/**
@@ -53,7 +54,22 @@ class MatchController extends Controller {
 	 */
 	public function store(Requests\MatchCreateRequest $request)
 	{
-		dd(\Input::all());
+		$all = \Input::all();
+
+		list($t1, $t2) = $this->dispatch(
+			new CreateMatch(
+				$all['organizer'],
+				$all['t1'],
+				$all['t2'],
+				$all['bo'],
+				new \DateTime($all['start'])
+			)
+		);
+
+		\Session::flash('message',
+			[['type' => 'success', 'message' => "Match <b>{$t1->name}</b> vs. <b>{$t2->name}</b> was successfully edited"]]);
+
+		return \Redirect::route('admin.match.index');
 	}
 
 	/**
