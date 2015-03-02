@@ -17,8 +17,4 @@ class HomeController extends Controller {
 			->with('matches', $mri->allDesc())
 			->with('format_date', $form);
 	}
-
-	public function live() {
-		return view("home/live");
-	}
 }

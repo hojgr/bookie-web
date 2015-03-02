@@ -2,7 +2,7 @@
 
 @section('content')
 	@foreach($matches as $m)
-		<div class="matchbox">
+		<a class="matchbox" href="{{ route('match', $m->id) }}">
 			<div class="team1">
 				<div class="logo">
 					{!! LogoUtil::renderBig($m->teams[0]) !!}
@@ -34,6 +34,6 @@
 				<div class="bo-style"><span>Best of {{ $m->bo }}</span></div>
 				<div class="time-start">{{ TimeUtil::formatTimestamp($m->start) }}</div>
 			</div>
-		</div>
+		</a>
 	@endforeach
 @endsection

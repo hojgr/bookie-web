@@ -14,7 +14,7 @@
 Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
 	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 	Route::get('/article/{id}', ['as' => 'article', 'uses' => 'ArticleController@show']);
-	Route::get('/live', ['as' => 'live', 'uses' => 'HomeController@live']);
+	Route::get('/match/{id}', ['as' => 'match', 'uses' => 'MatchController@show']);
 });
 
 Route::group(['middleware' => 'beta.redirect_activated'], function() {
@@ -22,7 +22,7 @@ Route::group(['middleware' => 'beta.redirect_activated'], function() {
 	Route::post('/subscribe', ['as' => 'subscribe', 'uses' => 'BetaSubscribeController@index']);
 });
 
-// TODO: add admin middleware & roles
+// TODO: add admin roles
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin.protect'], function() {
 	Route::get('/', ['as' => 'admin_home', 'uses' => 'HomeController@index']);
 
