@@ -18,7 +18,7 @@ class ArticleRepository implements ArticleRepositoryInterface {
 
 	public function all()
 	{
-		return Article::all();
+		return Article::orderBy('id', 'DESC')->get();
 	}
 
 	public function save(User $author, Article $article)
