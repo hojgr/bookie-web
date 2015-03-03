@@ -20,6 +20,13 @@
 	<![endif]-->
 </head>
 <body>
+@if(Session::has('message'))
+	@foreach(Session::get('message') as $m)
+		<div class="notice notice-{{ $m['type'] }}">
+			{!! $m['message'] !!}
+		</div>
+	@endforeach
+@endif
 	@section('header')
 		<div class="header">
 			<div class="logo"><div></div></div>
@@ -45,7 +52,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="container center" style="@if($wide) width: 1260px @endif"> {{--todo: consider options for this opener--}}
+		<div class="container center" style="@if(isset($wide) and $wide) width: 1260px @endif"> {{--todo: consider options for this opener--}}
 	@show
 
 	@section('leftside')

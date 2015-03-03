@@ -11,20 +11,13 @@
 |
 */
 
-Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
-	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-	Route::get('/article/{id}', ['as' => 'article', 'uses' => 'ArticleController@show']);
-	Route::get('/match/{id}', ['as' => 'match', 'uses' => 'MatchController@show']);
-	Route::get('/rules', ['as' => 'rules', 'uses' => 'SubpageController@rules']);
-	Route::get('/tos', ['as' => 'tos', 'uses' => 'SubpageController@tos']);
-	Route::get('/contact', ['as' => 'contact', 'uses' => 'SubpageController@contact']);
-	Route::get('/partners', ['as' => 'partners', 'uses' => 'SubpageController@partners']);
-});
-
-Route::group(['middleware' => 'beta.redirect_activated'], function() {
-	Route::get('/beta', ['as' => 'beta_home', 'uses' => 'BetaController@index']);
-	Route::post('/subscribe', ['as' => 'subscribe', 'uses' => 'BetaSubscribeController@index']);
-});
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/article/{id}', ['as' => 'article', 'uses' => 'ArticleController@show']);
+Route::get('/match/{id}', ['as' => 'match', 'uses' => 'MatchController@show']);
+Route::get('/rules', ['as' => 'rules', 'uses' => 'SubpageController@rules']);
+Route::get('/tos', ['as' => 'tos', 'uses' => 'SubpageController@tos']);
+Route::get('/contact', ['as' => 'contact', 'uses' => 'SubpageController@contact']);
+Route::get('/partners', ['as' => 'partners', 'uses' => 'SubpageController@partners']);
 
 // TODO: add admin roles
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin.protect'], function() {

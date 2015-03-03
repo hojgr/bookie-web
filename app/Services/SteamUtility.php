@@ -31,6 +31,8 @@ class SteamUtility implements SteamUtilityInterface {
 	 */
 	public function profileURLToProfileName($profileURL)
 	{
+		if($profileURL === null)
+			return '';
 		if(!preg_match("-/id/([^\\^/]+)-", $profileURL, $matches))
 			throw new InvalidSteamProfileURL("Unable to parse profileURL (profile url: {$profileURL}");
 		return $matches[1];
@@ -45,6 +47,8 @@ class SteamUtility implements SteamUtilityInterface {
 	 */
 	public function avatarPathToAvatarURL($avatarPath)
 	{
+		if($avatarPath == '')
+			return asset('images/no_avatar.jpg');
 		return self::STEAM_AVATAR_CDN_AKAMAI . $avatarPath;
 	}
 

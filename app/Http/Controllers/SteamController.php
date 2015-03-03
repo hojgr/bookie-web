@@ -27,6 +27,13 @@ class SteamController extends Controller {
 		$auth->authenticate();
 		$steam_user = $auth->getUser();
 
+		if(empty($steam_user['display_name'])) {
+			\Session::flash('message',
+				[['type' => 'error', 'message' => "Authentication failed. Try again later or contact Bookie.GG staff"]]);
+
+			return \Redirect::route('home');
+		}
+
 		$user = $user->where('steam_id', '=', $steam_user['steam_id'])->first();
 
 		if(!$user)
@@ -36,7 +43,7 @@ class SteamController extends Controller {
 
 		\Auth::login($user, true);
 
-		return \Redirect::route('beta_home');
+		return \Redirect::route('home');
 	}
 
 	/**
@@ -51,7 +58,7 @@ class SteamController extends Controller {
 	public function logout(Hybrid_Auth $ha) {
 		$ha->logoutAllProviders();
 		\Auth::logout();
-		return \Redirect::route('beta_home');
+		return \Redirect::route('home');
 	}
 
 }
