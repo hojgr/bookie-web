@@ -62,6 +62,6 @@ class MatchRepository implements MatchRepositoryInterface {
 
 	public function allDesc()
 	{
-		return Match::orderBy('id', 'DESC')->get();
+		return Match::orderBy('status', 'ASC')->orderBy('start', 'ASC')->get();
 	}
 }
