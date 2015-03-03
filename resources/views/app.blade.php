@@ -22,7 +22,16 @@
 			<div class="logo"><div></div></div>
 			<div class="nav center">
 				<ul>
-					<li class="active"><a href="{{ route('home') }}">Matches</a></li>
+					<li @if(Request::is(''))class="active" @endif>
+						<a href="{{ route('home') }}">Matches</a>
+					</li>
+					<li @if(Request::is('rules'))class="active" @endif>
+						<a href="{{ route('rules') }}">Rules</a>
+					</li>
+					<li @if(Request::is('tos'))class="active" @endif>
+						<a href="{{ route('tos') }}">Terms of Service</a>
+					</li>
+
 					<li><a href="http://reddit.com/r/bookiegg">Reddit</a></li>
 				</ul>
 			</div>
