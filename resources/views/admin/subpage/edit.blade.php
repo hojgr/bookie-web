@@ -15,9 +15,9 @@
 
 		{!! Form::label('name', 'Subpage name') !!}
 		{!! Form::text('name', $subpage->name, ['placeholder' => 'Terms of Service', 'class' => 'form-control']) !!}
-
+		<small>Changing name will break the subpage! Do not do it! Never. Only <b>teb</b> can do it.</small>
 		<br />
-
+		<br />
 		{!! Form::label('content', 'Content') !!}
 		{!! Form::textarea('content', $subpage->content, ['placeholder' => 'Content of subpage', 'class' => 'form-control']) !!}
 

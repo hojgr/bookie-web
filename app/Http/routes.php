@@ -17,6 +17,7 @@ Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
 	Route::get('/match/{id}', ['as' => 'match', 'uses' => 'MatchController@show']);
 	Route::get('/rules', ['as' => 'rules', 'uses' => 'SubpageController@rules']);
 	Route::get('/tos', ['as' => 'tos', 'uses' => 'SubpageController@tos']);
+	Route::get('/contact', ['as' => 'contact', 'uses' => 'SubpageController@contact']);
 });
 
 Route::group(['middleware' => 'beta.redirect_activated'], function() {

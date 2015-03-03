@@ -31,6 +31,9 @@
 					<li @if(Request::is('tos'))class="active" @endif>
 						<a href="{{ route('tos') }}">Terms of Service</a>
 					</li>
+					<li @if(Request::is('contact'))class="active" @endif>
+						<a href="{{ route('contact') }}">Contact us</a>
+					</li>
 
 					<li><a href="http://reddit.com/r/bookiegg">Reddit</a></li>
 				</ul>
