@@ -8,7 +8,7 @@
 					{!! LogoUtil::renderBig($m->teams[0]) !!}
 					@if($m->teams[0]->id == $m->winner_id)
 						<div style="clear: both; width: 75px; text-align: center; color: #00E600"><b>Winner</b></div>
-					@elseif($m->teams[0]->id != $m->winner_id)
+					@elseif($m->winner_id != 0)
 						<div style="clear: both; width: 75px; text-align: center;">Loser</div>
 					@endif
 
@@ -30,7 +30,7 @@
 					{!! LogoUtil::renderBig($m->teams[1]) !!}
 					@if($m->teams[1]->id == $m->winner_id)
 						<div style="clear: both; width: 75px; text-align: center; color: #00E600"><b>Winner</b></div>
-					@elseif($m->teams[1]->id != $m->winner_id)
+					@elseif($m->winner_id != 0)
 						<div style="clear: both; width: 75px; text-align: center;">Loser</div>
 					@endif
 				</div>
