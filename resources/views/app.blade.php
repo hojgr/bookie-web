@@ -22,7 +22,7 @@
 			<div class="logo"><div></div></div>
 			<div class="nav center">
 				<ul>
-					<li @if(Request::is(''))class="active" @endif>
+					<li @if(Request::is('/'))class="active" @endif>
 						<a href="{{ route('home') }}">Matches</a>
 					</li>
 					<li @if(Request::is('rules'))class="active" @endif>
@@ -33,6 +33,9 @@
 					</li>
 					<li @if(Request::is('contact'))class="active" @endif>
 						<a href="{{ route('contact') }}">Contact us</a>
+					</li>
+					<li @if(Request::is('partners'))class="active" @endif>
+						<a href="{{ route('partners') }}">Partners</a>
 					</li>
 
 					<li><a href="http://reddit.com/r/bookiegg">Reddit</a></li>

@@ -8,6 +8,7 @@ use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Http\Requests;
 use BookieGG\Http\Controllers\Controller;
+use BookieGG\Models\Match;
 use BookieGG\Repositories\Eloquent\MatchRepository;
 
 class MatchController extends Controller {
@@ -147,4 +148,18 @@ class MatchController extends Controller {
 		//
 	}
 
+
+	public function pickwinner($matchid, $tid) {
+		// TODO: move it to repository :'(
+		$match = Match::find($matchid);
+
+		$match->winner_id = $tid;
+
+		$match->save();
+
+		\Session::flash('message',
+			[['type' => 'success', 'message' => "Winner was successfully picked"]]);
+
+		return \Redirect::route('admin.match.index');
+	}
 }

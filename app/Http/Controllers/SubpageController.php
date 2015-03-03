@@ -21,4 +21,8 @@ class SubpageController extends Controller {
 		return view('subpage/index')
 			->with('data', $ssi->getPage('Contact us'));
 	}
+
+	public function partners() {
+		return view('subpage/partners');
+	}
 }

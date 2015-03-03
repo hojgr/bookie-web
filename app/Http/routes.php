@@ -18,6 +18,7 @@ Route::group(['middleware' => 'beta.redirect_not_activated'], function() {
 	Route::get('/rules', ['as' => 'rules', 'uses' => 'SubpageController@rules']);
 	Route::get('/tos', ['as' => 'tos', 'uses' => 'SubpageController@tos']);
 	Route::get('/contact', ['as' => 'contact', 'uses' => 'SubpageController@contact']);
+	Route::get('/partners', ['as' => 'partners', 'uses' => 'SubpageController@partners']);
 });
 
 Route::group(['middleware' => 'beta.redirect_activated'], function() {
@@ -33,6 +34,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admi
 	Route::resource('organization', 'OrganizationController');
 	Route::resource('team', 'TeamController');
 	Route::resource('match', 'MatchController');
+	Route::get('match/pickwinner/{matchid}/{tid}', ['as' => 'admin.match.pickwinner', 'uses' => 'MatchController@pickwinner']);
 	Route::resource('subpage', 'SubpageController');
 });
 
