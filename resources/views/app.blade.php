@@ -6,6 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Bookie.GG - Upcoming Matches</title>
 
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<link href="{{ asset('libs/simplyscroll/jquery.simplyscroll.css') }}" rel="stylesheet">
 	<link href="{{ elixir('css/app.css') }}" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,100,900' rel='stylesheet' type='text/css'>
 
@@ -42,7 +45,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="container center"> {{--todo: consider options for this opener--}}
+		<div class="container center" style="@if($wide) width: 1260px @endif"> {{--todo: consider options for this opener--}}
 	@show
 
 	@section('leftside')
@@ -94,9 +97,9 @@
 	</div> {{--todo: remember that weird opener earlier?--}}
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
+	<script src="{{ asset('libs/simplyscroll/jquery.simplyscroll.min.js') }}"></script>
 	<script src="http://localhost:8000/js/live.js"></script>
 </body>
 </html>

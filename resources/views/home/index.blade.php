@@ -2,7 +2,7 @@
 
 @section('content')
 	@foreach($matches as $m)
-		<a class="matchbox" href="{{ route('match', $m->id) }}">
+		<div class="matchbox">
 			<div class="team1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
 				<div class="logo">
 					{!! LogoUtil::renderBig($m->teams[0]) !!}
@@ -49,6 +49,33 @@
 				<div class="bo-style"><span>Best of {{ $m->bo }}</span></div>
 				<div class="time-start">{{ TimeUtil::formatTimestamp($m->start) }}</div>
 			</div>
-		</a>
+		</div>
 	@endforeach
+@endsection
+
+@section('rightside')
+	@foreach($matches as $m)
+		<div class="right-side placed_bets">
+			<span class="title">Placed items (example!)</span>
+
+			<div style="height: 110px; margin-top: 36px" class="scroller">
+				@for($i=0;$i<10;$i++)
+					<div class="itembox">
+						<div class="stattrak">ST</div>
+						<div class="price">$0.00</div>
+						<div class="image">
+							<img src="{{ $weapons[rand(0, count($weapons)-1)] }}" />
+						</div>
+						<div class="wear mw">Minimum Wear</div>
+					</div>
+				@endfor
+			</div>
+		</div>
+	@endforeach
+
+	<script>
+		$(document).ready(function() {
+			$(".scroller").simplyScroll();
+		});
+	</script>
 @endsection
