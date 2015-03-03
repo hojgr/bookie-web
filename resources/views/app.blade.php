@@ -54,8 +54,6 @@
 						<h2>{{ Auth::user()->display_name }}</h2>
 					</div>
 					<ul>
-						<li>Bets</li>
-						<li>Settings</li>
 						@if(Auth::check() and Auth::user()->admin == "1")
 							<li><a href="{{ route('admin_home') }}">Administration</a></li>
 						@endif
