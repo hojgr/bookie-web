@@ -154,6 +154,7 @@ class MatchController extends Controller {
 		$match = Match::find($matchid);
 
 		$match->winner_id = $tid;
+		$match->status = Match::STATUS_FINISHED;
 
 		$match->save();
 
