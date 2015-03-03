@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder {
 
 		// $this->call('UserTableSeeder');
 
-		$type = new \BookieGG\ImageType;
+		$type = new \BookieGG\Models\ImageType;
 		$type->type = "logo";
 		$type->save();
 	}
