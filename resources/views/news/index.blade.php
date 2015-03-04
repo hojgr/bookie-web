@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-	<div class="content-box">
+	<div class="content-box news">
 		<div style="padding: 10px">
 			<h1>{{ $article->title }}</h1>
 			<small>{{ $article->created_at->format('n/j/Y H:i') }}</small>
