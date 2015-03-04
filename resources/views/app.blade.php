@@ -65,7 +65,7 @@
 						<a href="{{ route('partners') }}">Partners</a>
 					</li>
 
-					<li><a href="http://reddit.com/r/bookiegg">Reddit</a></li>
+					<li><a href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li>
 				</ul>
 			</div>
 		</div>
