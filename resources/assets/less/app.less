@@ -11,6 +11,7 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #f5f5f5;
+	text-align: center;
 }
 
 a {
@@ -55,6 +56,11 @@ a {
 	}
 
 	.nav {
+		text-align: left;
+		display: inline-block;
+		/* for ie6/7: */
+		*display: inline;
+		zoom: 1;
 		ul {
 			list-style-type: none;
 			margin: 0;
@@ -83,6 +89,7 @@ a {
 }
 
 .center {
+	text-align: left;
 //	@media (max-width: 1359px) {
 		width: 940px;
 //	}

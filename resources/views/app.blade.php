@@ -47,7 +47,7 @@
 	@section('header')
 		<div class="header">
 			<div class="logo"><div></div></div>
-			<div class="nav center">
+			<div class="nav">
 				<ul>
 					<li @if(Request::is('/'))class="active" @endif>
 						<a href="{{ route('home') }}">Matches</a>
