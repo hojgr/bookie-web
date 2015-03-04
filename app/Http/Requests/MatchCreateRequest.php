@@ -1,6 +1,6 @@
 <?php namespace BookieGG\Http\Requests;
 
-class MatchCreateRequest extends Request {
+class 	MatchCreateRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -20,9 +20,9 @@ class MatchCreateRequest extends Request {
 	public function rules()
 	{
 		return [
-			'organizer' => 'required|integer',
-			't1' => 'required|integer',
-			't2' => 'required|integer',
+			'organizer' => 'required|integer|not_in:0',
+			't1' => 'required|integer|not_in:0',
+			't2' => 'required|integer|not_in:0',
 			'bo' => 'required|integer',
 			'start' => 'required'
 		];

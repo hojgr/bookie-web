@@ -37,6 +37,8 @@ class MatchController extends Controller {
 	{
 		$organizers = $this->getRight($ori->getAll());
 		$teams = $this->getRight($tri->getAll());
+		array_unshift($organizers, 'None selected');
+		array_unshift($teams, 'None selected');
 
 		$_bos = [1, 3, 5];
 		$bos = [];
