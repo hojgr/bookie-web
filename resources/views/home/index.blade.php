@@ -62,23 +62,29 @@
 @endsection
 
 @section('rightside')
-	@foreach($matches as $m)
-		<div class="right-side placed_bets">
-			<span class="title">Placed items (example!)</span>
+	@foreach($matches as $k => $m)
+		@if($m->winner_id == 0)
+			<div class="right-side placed_bets @if($k == $first_key) placed-bets-title-side @endif">
+				@if($k == $first_key)
+					<div class="placed-bets-title">Your bets (example)</div>
+				@endif
 
-			<div style="height: 110px; margin-top: 36px" class="scroller">
-				@for($i=0;$i<10;$i++)
-					<div class="itembox">
-						<div class="stattrak">ST</div>
-						<div class="price">$0.00</div>
-						<div class="image">
-							<img src="{{ $weapons[rand(0, count($weapons)-1)] }}" />
-						</div>
-						<div class="wear mw">Minimum Wear</div>
+					<div class="placed-title">You have these placed on <b>{{ $m->teams[0]->short_name }}</b></div>
+
+					<div style="height: 110px; margin-top: 7px" class="scroller">
+						@for($i=0;$i<10;$i++)
+							<div class="itembox">
+								<div class="stattrak">ST</div>
+								<div class="price">$0.00</div>
+								<div class="image">
+									<img src="{{ $weapons[rand(0, count($weapons)-1)] }}" />
+								</div>
+								<div class="wear mw">Minimal Wear</div>
+							</div>
+						@endfor
 					</div>
-				@endfor
 			</div>
-		</div>
+		@endif
 	@endforeach
 
 	<script>
