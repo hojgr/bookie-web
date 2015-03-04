@@ -46,7 +46,7 @@
 @endif
 	@section('header')
 		<div class="header">
-			<div class="logo"><div></div></div>
+			<div class="logo"><a href="{{ route('home') }}"><div></div></a></div>
 			<div class="nav">
 				<ul>
 					<li @if(Request::is('/'))class="active" @endif>
