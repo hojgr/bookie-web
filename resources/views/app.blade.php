@@ -13,9 +13,9 @@
 	<link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-touch-icon-144x144.png">
 	<link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-touch-icon-152x152.png">
 	<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon-180x180.png">
-	<link rel="icon" type="image/png" href="/favicon/favicon-32x32.png?v=2" sizes="32x32">
-	<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png?v=2" sizes="96x96">
-	<link rel="icon" type="image/png" href="/favicon/favicon-16x16.png?v=2" sizes="16x16">
+	<link rel="icon" type="image/png" href="/favicon/favicon-32x32.png?v=3" sizes="32x32">
+	<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png?v=3" sizes="96x96">
+	<link rel="icon" type="image/png" href="/favicon/favicon-16x16.png?v=3" sizes="16x16">
 	<link rel="manifest" href="/favicon/manifest.json">
 	<meta name="msapplication-TileColor" content="#2d89ef">
 	<meta name="msapplication-TileImage" content="/favicon/mstile-144x144.png">
