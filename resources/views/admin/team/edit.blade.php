@@ -20,7 +20,7 @@
 
 			<tr>
 				<td>{!! Form::label('shortname', 'Short name') !!}</td>
-				<td>{!! Form::text('shortname', $team->name, ['placeholder' => 'Leave empty if it\'s the same as name', 'class' => 'form-control']) !!}</td>
+				<td>{!! Form::text('shortname', $team->short_name, ['placeholder' => 'Leave empty if it\'s the same as name', 'class' => 'form-control']) !!}</td>
 			</tr>
 
 			<tr>
