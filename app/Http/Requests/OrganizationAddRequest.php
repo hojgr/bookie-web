@@ -23,7 +23,7 @@ class OrganizationAddRequest extends Request {
 	{
 		return [
 			'name' => 'required',
-			'url' => 'required|active_url',
+			'url' => 'required|url',
 			'logo' => 'required|image'
 		];
 	}
