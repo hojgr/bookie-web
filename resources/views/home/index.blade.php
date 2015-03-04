@@ -6,11 +6,13 @@
 			<div class="team1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
 				<div class="logo">
 					{!! LogoUtil::renderBig($m->teams[0]) !!}
-					@if($m->teams[0]->id == $m->winner_id)
-						<div style="clear: both; width: 75px; text-align: center; color: #00E600"><b>Winner</b></div>
-					@elseif($m->winner_id != 0)
-						<div style="clear: both; width: 75px; text-align: center;">Loser</div>
-					@endif
+					<div style="clear: both; width: 75px; text-align: center; height: 15px;">
+						@if($m->teams[0]->id == $m->winner_id)
+							<b style="color: #00E600">Winner</b>
+						@elseif($m->winner_id != 0)
+							Loser
+						@endif
+					</div>
 
 				</div>
 				<div class="info">
