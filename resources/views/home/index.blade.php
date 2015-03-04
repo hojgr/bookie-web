@@ -1,8 +1,14 @@
 @extends('app')
 
 @section('content')
-	@foreach($matches as $m)
-		<div class="matchbox">
+	@foreach($matches as $k => $m)
+		<div class="matchbox @if($k == $first_key || $k == $first_finished_key) matchbox-has-title @endif">
+			@if($k == $first_key)
+				<div class="matchbox-title">Upcoming matches</div>
+			@elseif($k == $first_finished_key)
+				<div class="matchbox-title">Finished matches</div>
+			@endif
+
 			<div class="team1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
 				<div class="logo">
 					{!! LogoUtil::renderBig($m->teams[0]) !!}

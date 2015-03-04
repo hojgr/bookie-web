@@ -24,9 +24,19 @@ class HomeController extends Controller {
 			'http://steamcommunity-a.akamaihd.net/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZYMUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz52YOLkDyRufgHMAqVMY_Q3ywW4CHZ_-_hiWNu57oQJO12x49epbuV4aZ0RcJyBGKHTeAv77x44gqUJfcPYoi6-3C3hOmpeU0fi-DhXy7TT7rpvizlHRSey-eSS6Z6uOk_crRE/90fx60f',
 		];
 
+		$finished_key = null;
+		foreach($all_matches as $k => $m) {
+			if($m->winner_id != 0) {
+				$finished_key = $k;
+				break;
+			}
+		}
+
 		return view("home/index")
 			->with('matches', $all_matches)
 			->with('wide', true)
-			->with('weapons', $weapons);
+			->with('weapons', $weapons)
+			->with('first_key', key($all_matches))
+			->with("first_finished_key", $finished_key);
 	}
 }
