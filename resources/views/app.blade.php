@@ -77,7 +77,7 @@
 			<div class="user-left">
 				@if (!Auth::check())
 					<div class="steam-button">
-						<a href="{{ route('login') }}" class="connect"><img src="{{ asset('images/steamsignin.png') }}"/></a>
+						<a href="{{ route('login') }}" class="connect"><img alt="steam sign in" src="{{ asset('images/steamsignin.png') }}"/></a>
 					</div>
 				@else
 					<div class="username-container">
