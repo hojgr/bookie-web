@@ -77,7 +77,7 @@
 								<div class="stattrak">ST</div>
 								<div class="price">$0.00</div>
 								<div class="image">
-									<img src="{{ $weapons[rand(0, count($weapons)-1)] }}" />
+									<img alt="csgo weapon" src="{{ $weapons[rand(0, count($weapons)-1)] }}" />
 								</div>
 								<div class="wear mw">Minimal Wear</div>
 							</div>
