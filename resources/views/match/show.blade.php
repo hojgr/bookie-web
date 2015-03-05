@@ -34,39 +34,28 @@
 			<div class="time-start">{{ TimeUtil::formatTimestamp($match->start) }}</div>
 		</div>
 	</div>
-{{--
 	<div class="streambox">
 		<iframe src="http://www.twitch.tv/suchCow/embed" frameborder="0" scrolling="no" height="378" width="620"></iframe>
 	</div>
 	<div class="chatbox">
 		<iframe src="http://www.twitch.tv/suchCow/chat?popout=" frameborder="0" scrolling="no" height="500" width="620"></iframe>
 	</div>
-	--}}
 @endsection
 
 @section('rightside')
-	{{--
     <div class="bet-locked">
         <h1>Bet Locked</h1>
         <h3>Total Value: $5.93</h3>
     </div>
     <div class="bet">
         <h3>Your bet:</h3>
-		{{--
-        <div class="itembox">
-            <div class="stattrak">ST</div>
-            <div class="price">$0.00</div>
-            <div class="image">
-                <img src="https://steamcommunity-a.akamaihd.net/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZYMUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz58OOy2OwhkZzvFDa9dV7g2_Rn5DDQx7cl3a9u_8LMSZw3qtdfPNrR5ZNwdSpbSUqXVNQz4vktr0aUPK5bYp37m2yntbG0MCkD1ujVTR3uA_-U/90fx60f" />
-            </div>
-            <div class="wear mw">Minimum Wear</div>
-        </div>
+
 		@for($i=0; $i<10; $i++)
         	<div class="itembox" data-contains="empty">Empty</div>
 		@endfor
     </div>
 
-    {{--
+
 	<div class="inventory">
         <h3>Your inventory:</h3>
         <div class="itembox">
@@ -182,5 +171,4 @@
             <div class="wear mw">Minimum Wear</div>
         </div>
     </div>
-    --}}
 @endsection
