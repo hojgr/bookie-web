@@ -124,6 +124,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 	<script src="{{ asset('libs/simplyscroll/jquery.simplyscroll.min.js') }}"></script>
-	<script src="http://localhost:8000/js/live.js"></script>
+	<script src="js/live.js"></script>
+	<script src="js/app.js"></script>
 </body>
 </html>

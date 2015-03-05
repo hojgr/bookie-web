@@ -2,7 +2,7 @@
 
 @section('content')
 	@foreach($matches as $k => $m)
-		<div class="matchbox @if($k == $first_key || $k == $first_finished_key) matchbox-has-title @endif">
+		<div class="matchbox @if($k == $first_key || $k == $first_finished_key) matchbox-has-title @endif" data-mid="{{ $m->id }}">
 			@if($k == $first_key)
 				<div class="matchbox-title">Upcoming matches</div>
 			@elseif($k == $first_finished_key)
