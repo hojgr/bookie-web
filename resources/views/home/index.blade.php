@@ -65,27 +65,26 @@
 					<div class="placed-bets-title">Your bets (example)</div>
 				@endif
 
+					{{-- */ $x = rand(0, 10); /*--}}
+					@if($x == 0)
+						<div class="placed-title" style="padding-top: 50px;">You have not placed any bets on this match.</div>
+					@else
 					<div class="placed-title">You have these placed on <b>{{ $m->teams[0]->short_name }}</b></div>
 
-					<div style="height: 110px; margin-top: 7px" class="scroller">
-						@for($i=0;$i<10;$i++)
-							<div class="itembox">
-								<div class="stattrak">ST</div>
-								<div class="price">$0.00</div>
-								<div class="image">
-									<img alt="csgo weapon" src="{{ $weapons[rand(0, count($weapons)-1)] }}" />
+						<div class="item-holder @if($x <= 5) item-holder-few @endif">
+							@for($i=0;$i<$x;$i++)
+								<div class="itembox small">
+									<div class="stattrak">ST</div>
+									<div class="price">$60.00</div>
+									<div class="image">
+										<img alt="csgo weapon" class="csgo-weapon" src="{{ $weapons[rand(0, count($weapons)-1)] }}" />
+									</div>
 								</div>
-								<div class="wear mw">Minimal Wear</div>
-							</div>
-						@endfor
-					</div>
+							@endfor
+						</div>
+					@endif
 			</div>
 		@endif
 	@endforeach
 
-	<script>
-		$(document).ready(function() {
-			$(".scroller").simplyScroll();
-		});
-	</script>
 @endsection
