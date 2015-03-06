@@ -66,17 +66,17 @@
 				@endif
 
 					{{-- */ $x = rand(0, 10); /*--}}
-					@if($x == 0)
-						<div class="placed-title" style="padding-top: 50px;">You have not placed any bets on this match.</div>
-					@else
 					<div class="placed-title">You bet these items on <b>{{ $m->teams[0]->short_name }}</b></div>
 
-						<div class="item-holder @if($x <= 5) item-holder-few @endif">
-							@for($i=0;$i<$x;$i++)
+					<div class="item-holder">
+						@for($i=0;$i<10;$i++)
+							@if($i < $x)
 								@include('partials/small_item', ['wep_img' => $weapons[rand(0, count($weapons)-1)]])
-							@endfor
-						</div>
-					@endif
+							@else
+								<div class="itembox small" data-contains="empty">Empty</div>
+							@endif
+						@endfor
+					</div>
 			</div>
 		@endif
 	@endforeach

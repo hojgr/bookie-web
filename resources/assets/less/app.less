@@ -494,6 +494,12 @@ a.noblue {
 	display: inline-block;
 	float: left;
 
+	&[data-contains='empty'] {
+		font-size: 12px;
+		line-height: 45px;
+		vertical-align: middle;
+	}
+
 	.stattrak, .price {
 		height: 14px;
 		line-height: 14px;
