@@ -40,7 +40,7 @@ class TimeUtility implements TimeUtilityInterface {
 		$future = true;
 
 		$time_diff = $timestamp - time();
-		if($time_diff <= 60)
+		if($time_diff <= 60 && $time_diff >= 0)
 			return 'Less than a minute from now';
 
 		if($time_diff < 0) {
