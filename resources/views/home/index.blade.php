@@ -73,13 +73,7 @@
 
 						<div class="item-holder @if($x <= 5) item-holder-few @endif">
 							@for($i=0;$i<$x;$i++)
-								<div class="itembox small">
-									<div class="stattrak">ST</div>
-									<div class="price">$60.00</div>
-									<div class="image">
-										<img alt="csgo weapon" class="csgo-weapon" src="{{ $weapons[rand(0, count($weapons)-1)] }}" />
-									</div>
-								</div>
+								@include('partials/small_item', ['wep_img' => $weapons[rand(0, count($weapons)-1)]])
 							@endfor
 						</div>
 					@endif
