@@ -2,13 +2,13 @@
 
 @section('content')
 	@foreach($matches as $k => $m)
-		<div class="matchbox @if(in_array($k, [$keys['upcoming'], $keys['finished']]) || $is_live($m)) matchbox-has-title @endif">
+		<div class="matchbox @if(in_array($k, [$keys['live'], $keys['upcoming'], $keys['finished']])) matchbox-has-title @endif">
 			@if($k == $keys['upcoming'])
 				<div class="matchbox-title">Upcoming matches</div>
 			@elseif($k == $keys['finished'])
 				<div class="matchbox-title">Finished matches</div>
-			@elseif($is_live($m))
-				<div class="matchbox-title">Live match</div>
+			@elseif($k == $keys['live'])
+				<div class="matchbox-title">Live matches</div>
 			@endif
 
 			<div class="team1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
@@ -62,15 +62,15 @@
 @section('rightside')
 	@foreach($matches as $k => $m)
 		@if($m->winner_id == 0)
-			<div class="right-side placed_bets @if(in_array($k, [$keys['upcoming']]) || $is_live($m)) placed-bets-title-side @endif">
-				@if($k == $keys['upcoming'])
+			<div class="right-side placed_bets @if(in_array($k, [$keys['upcoming'], $keys['live']])) placed-bets-title-side @endif">
+				@if($k == $keys['live'])
 					<div class="placed-bets-title">Your bets (example)</div>
 				@endif
 
 					{{-- */ $x = rand(0, 10); /*--}}
 					<div class="placed-title">You bet these items on <b>{{ $m->teams[0]->short_name }}</b></div>
 
-					<div class="item-holder">
+					<div class="item-holder @if($k == $keys['upcoming']) item-holder-tall @endif">
 						@for($i=0;$i<10;$i++)
 							@if($i < $x)
 								@include('partials/small_item', ['wep_img' => $weapons[rand(0, count($weapons)-1)]])
