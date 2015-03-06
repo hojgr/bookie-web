@@ -26,11 +26,13 @@ class NewRelicRouterMatched {
 	 */
 	public function handle(Route $route, Request $request)
 	{
+		/*
 		$name = $route->getActionName();
 
 		$name = preg_replace('/BookieGG\\\\Http\\\\Controllers\\\\/', '', $name);
 
 		newrelic_name_transaction($name);
+		*/
 	}
 
 }
