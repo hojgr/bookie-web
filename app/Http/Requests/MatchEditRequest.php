@@ -22,7 +22,6 @@ class MatchEditRequest extends Request {
 	{
 		return [
 			'bo' => 'required|integer',
-			'note' => 'max:60'
 		];
 	}
 }
