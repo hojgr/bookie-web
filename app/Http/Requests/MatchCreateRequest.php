@@ -25,7 +25,7 @@ class 	MatchCreateRequest extends Request {
 			't2' => 'required|integer|not_in:0',
 			'bo' => 'required|integer',
 			'start' => 'required',
-			'note' => 'digits_between:0,60'
+			'note' => 'max:60'
 		];
 	}
 

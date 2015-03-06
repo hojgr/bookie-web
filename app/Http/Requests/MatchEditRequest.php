@@ -22,7 +22,7 @@ class MatchEditRequest extends Request {
 	{
 		return [
 			'bo' => 'required|integer',
-			'note' => 'digits_between:0,60'
+			'note' => 'max:60'
 		];
 	}
 }
