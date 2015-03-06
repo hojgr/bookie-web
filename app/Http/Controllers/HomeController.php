@@ -24,19 +24,28 @@ class HomeController extends Controller {
 			'http://steamcommunity-a.akamaihd.net/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZYMUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz52YOLkDyRufgHMAqVMY_Q3ywW4CHZ_-_hiWNu57oQJO12x49epbuV4aZ0RcJyBGKHTeAv77x44gqUJfcPYoi6-3C3hOmpeU0fi-DhXy7TT7rpvizlHRSey-eSS6Z6uOk_crRE/90fx60f',
 		];
 
-		$finished_key = null;
+		$first_upcoming_key = null;
+		$first_finished_key = null;
 		foreach($all_matches as $k => $m) {
-			if($m->winner_id != 0) {
-				$finished_key = $k;
+			if($first_upcoming_key === null && $m->winner === null && strtotime($m->start) >= time()) {
+				$first_upcoming_key = $k;
+			}
+
+			if($first_finished_key === null && 	$m->winner_id != 0) {
+				$first_finished_key = $k;
 				break;
 			}
 		}
+
+		$is_live = function($m) {
+			return $m->winner === null && strtotime($m->time) < time();
+		};
 
 		return view("home/index")
 			->with('matches', $all_matches)
 			->with('wide', true)
 			->with('weapons', $weapons)
-			->with('first_key', key($all_matches))
-			->with("first_finished_key", $finished_key);
+			->with('keys', ['live' => null, 'upcoming' => $first_upcoming_key, 'finished' => $first_finished_key])
+			->with('is_live', $is_live);
 	}
 }

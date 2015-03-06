@@ -2,11 +2,13 @@
 
 @section('content')
 	@foreach($matches as $k => $m)
-		<div class="matchbox @if($k == $first_key || $k == $first_finished_key) matchbox-has-title @endif">
-			@if($k == $first_key)
+		<div class="matchbox @if(in_array($k, [$keys['upcoming'], $keys['finished']]) || $is_live($m)) matchbox-has-title @endif">
+			@if($k == $keys['upcoming'])
 				<div class="matchbox-title">Upcoming matches</div>
-			@elseif($k == $first_finished_key)
+			@elseif($k == $keys['finished'])
 				<div class="matchbox-title">Finished matches</div>
+			@elseif($is_live($m))
+				<div class="matchbox-title">Live match</div>
 			@endif
 
 			<div class="team1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
@@ -60,8 +62,8 @@
 @section('rightside')
 	@foreach($matches as $k => $m)
 		@if($m->winner_id == 0)
-			<div class="right-side placed_bets @if($k == $first_key) placed-bets-title-side @endif">
-				@if($k == $first_key)
+			<div class="right-side placed_bets @if(in_array($k, [$keys['upcoming']]) || $is_live($m)) placed-bets-title-side @endif">
+				@if($k == $keys['upcoming'])
 					<div class="placed-bets-title">Your bets (example)</div>
 				@endif
 
