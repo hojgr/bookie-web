@@ -64,7 +64,9 @@
 		@if($m->winner_id == 0)
 			<div class="right-side placed_bets @if(in_array($k, [$keys['upcoming'], $keys['live']])) placed-bets-title-side @endif">
 				@if($k == $keys['live'])
-					<div class="placed-bets-title">Your bets (example)</div>
+					<div class="placed-bets-title">Your bets on live matches</div>
+				@elseif($k == $keys['upcoming'])
+					<div class="placed-bets-title placed-bets-title-small">Your bets on upcoming matches</div>
 				@endif
 
 					{{-- */ $x = rand(0, 10); /*--}}
