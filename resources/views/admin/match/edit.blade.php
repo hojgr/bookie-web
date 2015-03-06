@@ -29,7 +29,7 @@
 			<tr class="ignore-a-css">
 				<td>{!! Form::label('note', 'Note') !!}</td>
 				<td style="position: relative">
-					{!! Form::text('note', $match->note ? $match->note->note : '', ['placeholder' => 'A note for a match', 'class' => 'form-control']) !!}
+					{!! Form::text('note', $match->note ? $match->note->note : '', ['placeholder' => 'A note for a match', 'class' => 'form-control', 'maxlength' => '60']) !!}
 				</td>
 			</tr>
 
