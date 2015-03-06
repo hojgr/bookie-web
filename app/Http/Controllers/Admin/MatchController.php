@@ -35,10 +35,8 @@ class MatchController extends Controller {
 	 */
 	public function create(OrganizationRepositoryInterface $ori, TeamRepositoryInterface $tri)
 	{
-		$organizers = $this->getRight($ori->getAll());
-		$teams = $this->getRight($tri->getAll());
-		array_unshift($organizers, 'None selected');
-		array_unshift($teams, 'None selected');
+		$organizers = ['None selected'] + $this->getRight($ori->getAll());
+		$teams = ['None selected'] + $this->getRight($tri->getAll());
 
 		$_bos = [1, 3, 5];
 		$bos = [];
@@ -79,7 +77,8 @@ class MatchController extends Controller {
 				$all['t1'],
 				$all['t2'],
 				$all['bo'],
-				new \DateTime($all['start'])
+				new \DateTime($all['start']),
+				$all['note']
 			)
 		);
 
@@ -130,7 +129,7 @@ class MatchController extends Controller {
 	public function update(MatchEditRequest $request, $id)
 	{
 		$this->dispatch(
-			new EditMatch($id, \Input::get('bo'), \Input::get('start'))
+			new EditMatch($id, \Input::get('bo'), \Input::get('start'), \Input::get('note'))
 		);
 
 		\Session::flash('message',

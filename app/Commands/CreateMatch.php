@@ -2,6 +2,7 @@
 
 use BookieGG\Commands\Command;
 
+use BookieGG\Contracts\Repositories\MatchNoteRepositoryInterface;
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
@@ -29,6 +30,10 @@ class CreateMatch extends Command implements SelfHandling {
 	 * @var \DateTime
 	 */
 	private $start;
+	/**
+	 * @var
+	 */
+	private $note;
 
 	/**
 	 * Create a new command instance.
@@ -38,8 +43,9 @@ class CreateMatch extends Command implements SelfHandling {
 	 * @param $t2
 	 * @param $bo
 	 * @param \DateTime $start
+	 * @param $note
 	 */
-	public function __construct($org_id, $t1, $t2, $bo, \DateTime $start)
+	public function __construct($org_id, $t1, $t2, $bo, \DateTime $start, $note)
 	{
 		//
 		$this->org_id = $org_id;
@@ -47,6 +53,7 @@ class CreateMatch extends Command implements SelfHandling {
 		$this->t2 = $t2;
 		$this->bo = $bo;
 		$this->start = $start;
+		$this->note = $note;
 	}
 
 	/**
@@ -55,6 +62,7 @@ class CreateMatch extends Command implements SelfHandling {
 	 * @param OrganizationRepositoryInterface $ori
 	 * @param TeamRepositoryInterface $tri
 	 * @param MatchRepositoryInterface $mri
+	 * @param MatchNoteRepositoryInterface $mnri
 	 * @return array
 	 */
 	public function handle(
@@ -66,7 +74,7 @@ class CreateMatch extends Command implements SelfHandling {
 		$team1 = $tri->getById($this->t1);
 		$team2 = $tri->getById($this->t2);
 
-		$mri->create($organization, $team1, $team2, $this->bo, $this->start);
+		$mri->create($organization, $team1, $team2, $this->bo, $this->start, $this->note);
 
 		return [$team1, $team2];
 	}

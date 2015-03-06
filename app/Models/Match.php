@@ -11,6 +11,10 @@ class Match extends Model {
 		return $this->belongsToMany('BookieGG\Models\Team');
 	}
 
+	public function note() {
+		return $this->hasOne('BookieGG\Models\MatchNote');
+	}
+
 	public function organization() {
 		return $this->belongsTo('BookieGG\Models\Organization');
 	}

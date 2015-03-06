@@ -18,18 +18,24 @@ class EditMatch extends Command implements SelfHandling {
 	 * @var \DateTime
 	 */
 	private $start;
+	/**
+	 * @var
+	 */
+	private $note;
 
 	/**
 	 * Create a new command instance.
 	 * @param $match_id
 	 * @param $bo
 	 * @param \DateTime $start
+	 * @param $note
 	 */
-	public function __construct($match_id, $bo, $start)
+	public function __construct($match_id, $bo, $start, $note)
 	{
 		$this->match_id = $match_id;
 		$this->bo = $bo;
 		$this->start = $start;
+		$this->note = $note;
 	}
 
 	/**
@@ -39,6 +45,6 @@ class EditMatch extends Command implements SelfHandling {
 	 */
 	public function handle(MatchRepositoryInterface $mri)
 	{
-		$mri->change($mri->find($this->match_id), $this->bo, $this->start);
+		$mri->change($mri->find($this->match_id), $this->bo, $this->start, $this->note);
 	}
 }

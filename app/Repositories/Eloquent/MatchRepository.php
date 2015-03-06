@@ -6,6 +6,7 @@ namespace BookieGG\Repositories\Eloquent;
 
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Models\Match;
+use BookieGG\Models\MatchNote;
 use BookieGG\Models\Organization;
 use BookieGG\Models\Team;
 
@@ -40,7 +41,7 @@ class MatchRepository implements MatchRepositoryInterface {
 		$match->teams()->saveMany([$team1, $team2]);
 	}
 
-	public function create(Organization $org, Team $t1, Team $t2, $bo, \DateTime $start)
+	public function create(Organization $org, Team $t1, Team $t2, $bo, \DateTime $start, $note)
 	{
 		$match = new Match();
 
@@ -49,12 +50,27 @@ class MatchRepository implements MatchRepositoryInterface {
 
 		$this->save($org, $match);
 		$this->addMatches($match, $t1, $t2);
+
+		$match_note = new MatchNote();
+		$match_note->note = $note;
+
+		$match->note()->save($match_note);
 	}
 
-	public function change(Match $match, $bo, $start) {
+	public function change(Match $match, $bo, $start, $note) {
 		$match->bo = (int)$bo;
 		if(!empty($start)) {
 			$match->start = new \DateTime($start);
+		}
+
+		if($match->note) {
+			$match->note->note = $note;
+			$match->note->save();
+		} else {
+			$match_note = new MatchNote();
+			$match_note->note = $note;
+
+			$match->note()->save($match_note);
 		}
 
 		$match->save();

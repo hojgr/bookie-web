@@ -36,6 +36,10 @@
 				<td>{!! Form::label('start', 'Start') !!}</td>
 				<td style="position: relative">{!! Form::text('start', null, ['class' => 'timepicker form-control']) !!}</td>
 			</tr>
+			<tr>
+				<td>{!! Form::label('note', 'Note') !!}</td>
+				<td style="position: relative">{!! Form::text('note', null, ['placeholder' => 'Note for a match', 'class' => 'form-control']) !!}</td>
+			</tr>
 
 			<tr>
 				<td></td>
