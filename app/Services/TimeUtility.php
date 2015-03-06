@@ -40,8 +40,8 @@ class TimeUtility implements TimeUtilityInterface {
 		$future = true;
 
 		$time_diff = $timestamp - time();
-		if($time_diff == 0)
-			return 'now';
+		if($time_diff <= 60)
+			return 'Less than a minute from now';
 
 		if($time_diff < 0) {
 			$future = false;
@@ -70,7 +70,7 @@ class TimeUtility implements TimeUtilityInterface {
 			$out .= $this->formatOut($minutes, "minute");
 		}
 
-		return $out . " " . ($future ? "from now" : "ago");
+		return $out . " " . ($future ? "from now" : "ago ");
 	}
 
 	public function formatOut($amt, $str) {
