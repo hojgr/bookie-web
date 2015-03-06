@@ -42,6 +42,11 @@
 			</tr>
 
 			<tr>
+				<td>Preview</td>
+				<td class="note-preview"></td>
+			</tr>
+
+			<tr>
 				<td></td>
 				<td>{!! Form::submit('Add match', ['class' => 'btn btn-primary']) !!}</td>
 			</tr>
@@ -54,6 +59,20 @@
 			$(document).ready(function() {
 				$('.selectpicker').selectpicker();
 				$('.timepicker').datetimepicker();
+			});
+
+			function format(inp) {
+
+				inp = inp.replace(/\*([^\*]+)\*/g, "<b>$1</b>");
+				inp = inp.replace(/_([^_]+)_/g, "<i>$1</i>");
+
+				return inp;
+			}
+
+			$('input[name=note]').keyup(function() {
+				var note = format($('input[name=note]').val());
+
+				$('.note-preview').html(note);
 			});
 		</script>
 	</div>
