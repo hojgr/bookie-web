@@ -207,6 +207,7 @@ return [
 		'SteamUtil' => 'BookieGG\Facades\SteamUtil',
 		'LogoUtil' => 'BookieGG\Facades\LogoUtil',
 		'TimeUtil' => 'BookieGG\Facades\TimeUtil',
+		'Note' => 'BookieGG\Facades\Note',
 
 		// NOT a typo! Laravel docs refer to Socialite facade as Socialize
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',

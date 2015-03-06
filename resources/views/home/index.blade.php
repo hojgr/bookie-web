@@ -59,7 +59,7 @@
 			@if($m->note)
 				<div class="match-note">
 					<span class="match-note-title">Notes:</span>
-					<span class="match-note-text">{{ $m->note->note }}.</span>
+					<span class="match-note-text">{!! Note::format($m->note->note) !!}.</span>
 				</div>
 			@endif
 		</div>

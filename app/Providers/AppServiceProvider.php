@@ -9,6 +9,7 @@ use BookieGG\Repositories\Eloquent\TeamRepository;
 use BookieGG\Repositories\Eloquent\UserRepository;
 use BookieGG\Services\ImageManager;
 use BookieGG\Services\LogoUtility;
+use BookieGG\Services\NoteHelper;
 use BookieGG\Services\SubpageService;
 use BookieGG\Services\TimeUtility;
 use Illuminate\Support\ServiceProvider;
@@ -51,6 +52,7 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\ImageManagerInterface' => ImageManager::class,
 			'BookieGG\Contracts\TimeUtilityInterface' => TimeUtility::class,
 			'BookieGG\Contracts\SubpageServiceInterface' => SubpageService::class,
+			'BookieGG\Contracts\NoteHelperInterface' => NoteHelper::class,
 
 		];
 
