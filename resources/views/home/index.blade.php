@@ -2,7 +2,7 @@
 
 @section('content')
 	@foreach($matches as $k => $m)
-		<div class="matchbox @if(in_array($k, [$keys['live'], $keys['upcoming'], $keys['finished']])) matchbox-has-title @endif">
+		<div class="matchbox @if(in_array($k, [$keys['live'], $keys['upcoming'], $keys['finished']])) matchbox-has-title @endif matchbox-has-note">
 			@if($k == $keys['upcoming'])
 				<div class="matchbox-title">Upcoming matches</div>
 			@elseif($k == $keys['finished'])
@@ -55,6 +55,11 @@
 				<div class="bo-style"><span>Best of {{ $m->bo }}</span></div>
 				<div class="time-start">{{ TimeUtil::formatTimestamp($m->start) }}</div>
 			</div>
+				<div style="clear: both"></div>
+			<div class="match-note">
+				<span class="match-note-title">Notes:</span>
+				<span class="match-note-text">This a text of this note. It can be pretty long but not too long.</span>
+			</div>
 		</div>
 	@endforeach
 @endsection
@@ -62,7 +67,7 @@
 @section('rightside')
 	@foreach($matches as $k => $m)
 		@if($m->winner_id == 0)
-			<div class="right-side placed_bets @if(in_array($k, [$keys['upcoming'], $keys['live']])) placed-bets-title-side @endif">
+			<div class="right-side placed_bets @if(in_array($k, [$keys['upcoming'], $keys['live']])) placed-bets-title-side @endif placed-bets-has-note placed-bets-has-items">
 				@if($k == $keys['live'])
 					<div class="placed-bets-title">Your bets on live matches</div>
 				@elseif($k == $keys['upcoming'])
@@ -81,6 +86,7 @@
 							@endif
 						@endfor
 					</div>
+					<div class="match-note-items"></div>
 			</div>
 		@endif
 	@endforeach
