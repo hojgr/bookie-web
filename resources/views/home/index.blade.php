@@ -89,9 +89,9 @@
 							@endif
 						@endfor
 					</div>
-					@if($m->note)
+					{{-- @if($m->note)
 						<div class="match-note-items"></div>
-					@endif
+					@endif --}}
 			</div>
 		@endif
 	@endforeach
