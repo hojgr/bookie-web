@@ -2,14 +2,15 @@
 
 @section('content')
 	@foreach($matches as $k => $m)
-		<div class="matchbox @if(in_array($k, [$keys['live'], $keys['upcoming'], $keys['finished']])) matchbox-has-title @endif @if($m->note) matchbox-has-note @endif">
-			@if($k == $keys['upcoming'])
-				<div class="matchbox-title">Upcoming matches</div>
-			@elseif($k == $keys['finished'])
-				<div class="matchbox-title">Finished matches</div>
-			@elseif($k == $keys['live'])
-				<div class="matchbox-title">Live matches</div>
-			@endif
+		@if($k == $keys['upcoming'])
+			<div class="matchbox-title">Upcoming matches</div>
+		@elseif($k == $keys['finished'])
+			<div class="matchbox-title">Finished matches</div>
+		@elseif($k == $keys['live'])
+			<div class="matchbox-title">Live matches</div>
+		@endif
+
+		<div class="matchbox @if($m->note) matchbox-has-note @endif">
 
 			<div class="team1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
 				<div class="logo">
