@@ -81,8 +81,12 @@ a {
 					}
 				}
 
-				&.active {
+				&.active:not(:hover) {
 					border-bottom: 3px solid #f8ce2f;
+				}
+
+				&:hover {
+					border-bottom: 3px solid #fff;
 				}
 			}
 		}
