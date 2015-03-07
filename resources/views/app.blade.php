@@ -59,7 +59,7 @@
 						<a href="{{ route('tos') }}">Terms of Service</a>
 					</li>
 					<li @if(Request::is('contact'))class="active" @endif>
-						<a href="{{ route('contact') }}">Contact us</a>
+						<a href="{{ route('contact') }}">Contact Us</a>
 					</li>
 					<li @if(Request::is('partners'))class="active" @endif>
 						<a href="{{ route('partners') }}">Partners</a>
