@@ -64,14 +64,21 @@ class MatchRepository implements MatchRepositoryInterface {
 		if(!empty($start)) {
 			$match->start = new \DateTime($start);
 		}
-		if($match->note) {
-			$match->note->note = $note;
-			$match->note->save();
-		} else {
-			$match_note = new MatchNote();
-			$match_note->note = $note;
 
-			$match->note()->save($match_note);
+		if(strlen($note) == 0) {
+			if($match->note) {
+				$match->note->delete();
+			}
+		} else {
+			if ($match->note) {
+				$match->note->note = $note;
+				$match->note->save();
+			} else {
+				$match_note = new MatchNote();
+				$match_note->note = $note;
+
+				$match->note()->save($match_note);
+			}
 		}
 
 		$match->save();
