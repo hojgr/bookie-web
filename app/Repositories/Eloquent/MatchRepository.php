@@ -51,10 +51,12 @@ class MatchRepository implements MatchRepositoryInterface {
 		$this->save($org, $match);
 		$this->addMatches($match, $t1, $t2);
 
-		$match_note = new MatchNote();
-		$match_note->note = $note;
+		if(strlen($note) > 0) {
+			$match_note = new MatchNote();
+			$match_note->note = $note;
 
-		$match->note()->save($match_note);
+			$match->note()->save($match_note);
+		}
 	}
 
 	public function change(Match $match, $bo, $start, $note) {
