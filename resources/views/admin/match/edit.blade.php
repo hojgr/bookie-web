@@ -14,6 +14,14 @@
 
 		<table class="form-table">
 			<tr>
+				<td>Teams</td>
+				<td>
+					{!! Form::select('t1', $teams, $match->teams[0]->id, ['class' => 'selectpicker', 'data-live-search' => "true"]) !!}
+					vs.
+					{!! Form::select('t2', $teams, $match->teams[1]->id, ['class' => 'selectpicker', 'data-live-search' => "true"]) !!}
+				</td>
+			</tr>
+			<tr>
 				<td>{!! Form::label('bo', 'Style') !!}</td>
 				<td>
 					{!! Form::select('bo', $all_bos, $match->bo, ['class' => 'selectpicker']) !!}

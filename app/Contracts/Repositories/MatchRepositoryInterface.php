@@ -20,7 +20,7 @@ interface MatchRepositoryInterface {
 	public function addMatches(Match $match, Team $team1, Team $team2);
 
 	public function create(Organization $org, Team $t1, Team $t2, $bo, \DateTime $time, $note);
-	public function change(Match $match, $bo, $start, $note);
+	public function change(Match $match, $bo, $start, $note, Team $t1, Team $t2);
 
 	public function allDesc();
 }

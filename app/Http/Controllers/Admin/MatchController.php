@@ -103,12 +103,15 @@ class MatchController extends Controller {
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param MatchRepositoryInterface $mri
+	 * @param TeamRepositoryInterface $tri
 	 * @param  int $id
 	 * @return Response
 	 */
-	public function edit(MatchRepositoryInterface $mri, $id) {
+	public function edit(MatchRepositoryInterface $mri, TeamRepositoryInterface $tri, $id) {
 		$_bos = [1, 3, 5];
 		$bos = [];
+
+		$teams = $this->getRight($tri->getAll());
 
 		foreach($_bos as $b) {
 			$bos[$b] = "BO$b";
@@ -116,7 +119,8 @@ class MatchController extends Controller {
 
 		return view('admin/match/edit')
 			->with('match', $mri->find($id))
-			->with('all_bos', $bos);
+			->with('all_bos', $bos)
+			->with('teams', $teams);
 	}
 
 	/**
@@ -129,7 +133,7 @@ class MatchController extends Controller {
 	public function update(MatchEditRequest $request, $id)
 	{
 		$this->dispatch(
-			new EditMatch($id, \Input::get('bo'), \Input::get('start'), \Input::get('note'))
+			new EditMatch($id, \Input::get('bo'), \Input::get('start'), \Input::get('note'), \Input::get('t1'), \Input::get('t2'))
 		);
 
 		\Session::flash('message',

@@ -59,7 +59,7 @@ class MatchRepository implements MatchRepositoryInterface {
 		}
 	}
 
-	public function change(Match $match, $bo, $start, $note) {
+	public function change(Match $match, $bo, $start, $note, Team $t1, Team $t2) {
 		$match->bo = (int)$bo;
 		if(!empty($start)) {
 			$match->start = new \DateTime($start);
@@ -79,6 +79,13 @@ class MatchRepository implements MatchRepositoryInterface {
 
 				$match->note()->save($match_note);
 			}
+		}
+
+		if($t1 !== $match->teams[0]) {
+			\DB::update(\DB::raw('UPDATE match_team SET team_id=? WHERE match_id=? and team_id=?'), [$t1->id, $match->id, $match->teams[0]->id]);
+		}
+		if($t2 !== $match->teams[1]) {
+			\DB::update(\DB::raw('UPDATE match_team SET team_id=? WHERE match_id=? and team_id=?'), [$t2->id, $match->id, $match->teams[1]->id]);
 		}
 
 		$match->save();
