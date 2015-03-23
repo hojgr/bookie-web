@@ -28,6 +28,15 @@ class HomeController extends Controller {
 		$first_upcoming_key = null;
 		$first_finished_key = null;
 		foreach($all_matches as $k => $m) {
+			if ($m->winner === null && strtotime($m->start) < time()) {
+				$m->type = 'live';
+			}
+			if ($m->winner === null && strtotime($m->start) >= time()) {
+				$m->type = 'upcoming';
+			}
+			if ($m->winner_id != 0) {
+				$m->type = 'finished';
+			}
 			if($first_live_key === null && $m->winner === null && strtotime($m->start) < time()) {
 				$first_live_key = $k;
 			}
