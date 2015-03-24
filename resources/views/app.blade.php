@@ -56,7 +56,9 @@
 			<li class="item @if(Request::is('partners'))active @endif">
 				<a href="{{ route('partners') }}">Partners</a>
 			</li>
-			<li><a class="item" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li>
+			<li class="item"><a href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li>
+
+			<div id="nav-indicator"></div>
 		</ul>
 	</div>
 	@show
@@ -104,8 +106,10 @@
 		@yield('content')
 	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<script src="{{ asset('libs/simplyscroll/jquery.simplyscroll.min.js') }}"></script>
-	<script src="http://localhost:8000/js/live.js"></script>
+	<!--<script src="http://localhost:8000/js/live.js"></script>-->
+	<script src="{{ asset('js/common.js') }}"></script>
 </body>
 </html>
