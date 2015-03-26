@@ -28,14 +28,14 @@ class HomeController extends Controller {
 		$first_upcoming_key = null;
 		$first_finished_key = null;
 		foreach($all_matches as $k => $m) {
-			if ($m->winner === null && strtotime($m->start) < time()) {
+			if ($m->winner_id == 0 && strtotime($m->start) < time()) {
 				$m->type = 'live';
-			}
-			if ($m->winner === null && strtotime($m->start) >= time()) {
+			} elseif ($m->winner_id == 0 && strtotime($m->start) >= time()) {
 				$m->type = 'upcoming';
-			}
-			if ($m->winner_id != 0) {
+			} elseif ($m->winner_id != 0) {
 				$m->type = 'finished';
+			} else {
+				$m->type = 'undefined';
 			}
 			if($first_live_key === null && $m->winner === null && strtotime($m->start) < time()) {
 				$first_live_key = $k;
@@ -53,7 +53,6 @@ class HomeController extends Controller {
 
 		return view("home/index")
 			->with('matches', $all_matches)
-			->with('wide', true)
 			->with('weapons', $weapons)
 			->with('keys', ['live' => $first_live_key, 'upcoming' => $first_upcoming_key, 'finished' => $first_finished_key]);
 	}

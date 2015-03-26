@@ -20,6 +20,7 @@
 	<title>Bookie.GG</title>
 	<link href="/css/beta-20150323.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,100,900' rel='stylesheet' type='text/css'>
+	@yield('css')
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,6 +28,10 @@
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="{{ asset('js/common.js') }}"></script>
 </head>
 <body>
 	@if(Session::has('message'))
@@ -105,11 +110,5 @@
 
 		@yield('content')
 	</div>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	<script src="{{ asset('libs/simplyscroll/jquery.simplyscroll.min.js') }}"></script>
-	<!--<script src="http://localhost:8000/js/live.js"></script>-->
-	<script src="{{ asset('js/common.js') }}"></script>
 </body>
 </html>

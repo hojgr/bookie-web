@@ -12,8 +12,10 @@
 */
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/profile/{id}', ['as' => 'profile', 'uses' => 'ProfileController@show']);
 Route::get('/article/{id}', ['as' => 'article', 'uses' => 'ArticleController@show']);
 Route::get('/match/{id}', ['as' => 'match', 'uses' => 'MatchController@show']);
+Route::get('/bank', ['as' => 'bank', 'uses' => 'BankController@show']);
 Route::get('/rules', ['as' => 'rules', 'uses' => 'SubpageController@rules']);
 Route::get('/tos', ['as' => 'tos', 'uses' => 'SubpageController@tos']);
 Route::get('/contact', ['as' => 'contact', 'uses' => 'SubpageController@contact']);

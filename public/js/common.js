@@ -12,7 +12,7 @@ $(function() {
     });
 
     // header indicator
-    var $active = $(".item.active"),
+    var $active = $(".item.active, .item:first-of-type"),
         $indicator = $("#nav-indicator"),
         indicatorTimer;
 
@@ -36,4 +36,16 @@ $(function() {
         backgroundColor: $elm.css("color")
       })
     }
+
+    // match streams
+    var $streamContainer = $(".stream-container");
+    $(".streams > a").click(function(){
+        $streamContainer.toggleClass("hidden");
+    });
+    $(".languages li").click(function(){
+        var $streamElm = $("#"+this.getAttribute("for"));
+        console.log(this,$streamElm);
+        $(".stream.active").removeClass("active").hide();
+        $streamElm.addClass("active").show();
+    });
 });
