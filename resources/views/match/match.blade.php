@@ -7,13 +7,19 @@
 	<div class="module match-module">
 		@include('partials/match_overview', array('m' => $match, 'type' => 'match'))
 		
+		<!-- If user has yet to bet -->
+		<div class="user-bet">
+			<h1>Betting <button disabled id="bet-team-1" class="btn btn-right btn-primary">Bet on {{ $match->teams[0]->name }}</button><button disabled id="bet-team-2" class="btn btn-right btn-primary">Bet on {{ $match->teams[1]->name }}</button></h1>
+			@include('partials/inventory', ['items' => $userBet, 'btns' => ['#bet-team-1', '#bet-team-2']])
+		</div>
+
 		@if(count($streams))
 		<div class="streams">
-			<a class="btn-wide">Show livestreams</a>
+			<a class="btn btn-wide btn-primary">Show livestreams</a>
 			<div class="stream-container hidden">
 				<ul class="languages">
 					@foreach($streams as $lang => $url)
-						<li for="{{ strtolower($lang) }}-stream">{{ $lang }}</li>
+						<li class="btn" for="{{ strtolower($lang) }}-stream">{{ $lang }}</li>
 					@endforeach
 				</ul>
 				@foreach($streams as $lang => $url)
@@ -23,6 +29,7 @@
 		</div>
 		@endif
 
+		<!-- If user has bet -->
 		<div class="user-bet">
 			<h1>Betting</h1>
 			<h3>You placed the following items on <em>Cloud9</em>:</h3>
@@ -31,6 +38,10 @@
 				@include('partials/small_item', ['wep_img' => $url])
 			@endforeach
 			</div>
+
+			<!-- If user can add more items to bet -->
+			<h3>Add items to your bet:</h3>
+			@include('partials/inventory', ['items' => $userBet])
 		</div>
 	</div>
 </div>

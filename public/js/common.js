@@ -40,6 +40,11 @@ $(function() {
     // match streams
     var $streamContainer = $(".stream-container");
     $(".streams > a").click(function(){
+        var txt = "Show livestreams";
+        if ($streamContainer.hasClass("hidden")) {
+            txt = "Hide livestreams";
+        }
+        $(this).text(txt);
         $streamContainer.toggleClass("hidden");
     });
     $(".languages li").click(function(){
@@ -47,5 +52,29 @@ $(function() {
         console.log(this,$streamElm);
         $(".stream.active").removeClass("active").hide();
         $streamElm.addClass("active").show();
+    });
+
+    // inventories
+    $(".inventory .itembox").click(function(){
+        var $this = $(this),
+            inv = $(this).closest(".inventory")[0],
+            $btns = $(inv.getAttribute("data-bound-buttons"));
+
+        $this.toggleClass("selected");
+
+        // add to inventory's list of items
+        if (!inv.selectedItems) { inv.selectedItems = [] }
+        var items = inv.selectedItems;
+
+        if ($this.hasClass("selected")) {
+            items.push(this);
+        } else {
+            var i = items.indexOf(this);
+
+            if (i !== -1) items.splice(i, 1);
+        }
+
+        if (items.length) { $btns.prop("disabled", false) }
+        else { $btns.prop("disabled", true) }
     });
 });

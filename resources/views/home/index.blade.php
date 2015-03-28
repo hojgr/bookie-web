@@ -3,7 +3,7 @@
 @section('content')
 <div class="column match-column-container">
 	@foreach(['upcoming'=>'upcoming', 'live'=>'live', 'finished'=>'past'] as $t => $s)
-	<div class="column column-container">
+	<div class="column col-md-9 column-container">
 		<div class="sub-column match-column">
 			@foreach($matches as $k => $m)
 			@if($m->type == $t)

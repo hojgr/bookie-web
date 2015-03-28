@@ -64,6 +64,31 @@ input[type="text"]:focus {
 	border-color: #02a4d9;
 }
 
+.btn {
+	background: none;
+	color: #8b8b8b;
+	padding: .5em;
+	border: 1px solid;
+
+	cursor: pointer;
+	border-radius: 3px;
+	text-align: center;
+
+	transition: all .2s ease;
+}
+.btn:hover {
+	color: #02a4d9;
+}
+.btn:disabled {
+	background: #ddd;
+	color: #8b8b8b;
+	border-color: #ccc;
+	cursor: default;
+}
+.btn-right {
+	margin-right: .2em;
+	float: right;
+}
 .btn-wide {
 	display: inline-block;
 	outline: none;
@@ -73,10 +98,39 @@ input[type="text"]:focus {
 	padding: .8em 0;
 
 	text-align: center;
-	font-weight: 700;
 	font-size: 12pt;
-	color: #02a4d9;
 }
+.btn-primary {
+	background: #02a4d9;
+	color: #fff;
+	font-weight: 700;
+	border: none;
+}
+.btn-primary:disabled {
+	background: #66c2e0;
+	color: #fff;
+	cursor: default;
+}
+.btn-primary:hover {
+	color: #fff;
+	text-deocration: underline;
+}
+.btn-no-style {
+	border: none;
+}
+.btn-container {
+	color: #8b8b8b;
+	border-radius: 3px;
+}
+.btn-container .btn {
+	width: 49%;
+	margin-right: 1%;
+	padding: .8em 0;
+}
+.btn-container .btn:last-child {
+	margin-right: 0;
+}
+
 .hidden { display: none; }
 
 /* =====
@@ -197,6 +251,7 @@ input[type="text"]:focus {
 	padding: 10px;
 }
 
+.inventory .itembox { cursor: pointer; }
 /* =====
  * MISC MODULES
  * ===== */
@@ -223,15 +278,13 @@ input[type="text"]:focus {
 	text-align: center;
 }
 .tweet-module { padding: .5em; }
-.match-module > *:not(:last-child) {
-	border-bottom: 1px solid #dcdcdc;
-}
 
 /* =====
  * MATCHBOX
  * ===== */
 .match-column {
   min-width: 530px;
+  max-width: 620px;
   width: 60%;
 }
 .match-module, a.matchbox-link {
@@ -345,6 +398,20 @@ h1 + .matchbox-link {
 	font-size: 10pt;
 	text-align: center;
 }
+.itembox.selected::after {
+	content: "✓";
+	position: absolute;
+	bottom: .2em;
+	right: .2em;
+	width: 1.5em;
+	height: 1.5em;
+
+	background: #fff;
+	border-radius: 50%;
+	border: 2px solid #32a550;
+	color: green;
+	font-weight: 700;
+}
 .itembox.small {
 	min-width: 70px;
 	max-width: 92px;
@@ -361,6 +428,9 @@ h1 + .matchbox-link {
 /* =====
  * MATCH PAGE
  * ===== */
+.match-module > * {
+	margin-bottom: 1em;
+}
 .team.selected { font-weight: 700; }
 .team.selected::after {
 	content: "Selected";
@@ -373,10 +443,9 @@ h1 + .matchbox-link {
 	max-width: 100%;
 	width: 620px;
 	min-width: 500px;
-	padding: 1em 0 0;
 }
 .module h1 { padding-left: .25em; }
-h1 + h3 {
+h1 ~ h3 {
 	font-size: 12pt;
 	padding: 0 0 .5em .5em;
 }
@@ -387,6 +456,9 @@ h1 + h3 {
 }
 .item-list .itembox {
 	margin: 4px 4px;
+}
+.stream-container {
+	padding: .5em 0;
 }
 .stream-container .languages {
 	display: flex;
