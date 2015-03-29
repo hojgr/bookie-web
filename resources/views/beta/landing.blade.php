@@ -153,13 +153,13 @@
 			@if(Auth::user()->subscription)
 				<p>Congratulations!<br>
 				You've signed up for your spot in the Bookie.GG beta.<br>
-				You will receive an e-mail at {{ Auth::user()->subscription->email }} with an access code soon.</p>
+				You will receive an e-mail at {{ Auth::user()->subscription->email }} once closed beta becomes available.</p>
 				<p>When you receive your code, fill field below.</p>
 				@if(Session::get('error', false))
 					<span id="invalid_code">Invalid code!</span>
 				@endif
 				{!! Form::open(['route' => 'beta.activate']) !!}
-				{!! Form::text('code', null, array('placeholder' => 'Q8U1C5A', 'class' => 'activate-input')) !!}
+				{!! Form::text('code', null, array('placeholder' => 'Activation code', 'class' => 'activate-input')) !!}
 
 				{!! Form::submit('Activate!', ['class' => 'activate-submit']) !!}
 				{!! Form::close() !!}
