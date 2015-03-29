@@ -166,9 +166,9 @@
 
 				<p>If you want to learn more about us, or be the first to know when we are released, you can find us on the following sites:</p>
 				<div class="btn-container">
-					<a class="btn" href="//twitter.com/bookie_gg">Twitter</a>
-					<a class="btn" href="//reddit.com/r/bookiegg">Reddit</a>
-					<a class="btn" href="//steamcommunity.com/groups/bookiegg">Steam</a>
+					<a class="btn" target="_blank" href="//twitter.com/bookie_gg">Twitter</a>
+					<a class="btn" target="_blank" href="//reddit.com/r/bookiegg">Reddit</a>
+					<a class="btn" target="_blank" href="//steamcommunity.com/groups/bookiegg">Steam</a>
 				</div>
 			@else
 				<p>Thanks a lot for your interest in Bookie.GG! We're currently in closed beta. If you want to be amongst the first to try us out, you can sign up below.</p>
