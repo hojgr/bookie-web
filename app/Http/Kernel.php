@@ -25,8 +25,8 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-        'beta.redirect_not_activated' => 'BookieGG\Http\Middleware\RedirectNonActivatedAccounts',
-        'beta.redirect_activated' => 'BookieGG\Http\Middleware\RedirectActivatedAccounts',
+        'beta.active_only' => 'BookieGG\Http\Middleware\RedirectNonActivatedAccounts',
+        'beta.not_active_only' => 'BookieGG\Http\Middleware\RedirectActivatedAccounts',
 		'admin.protect' => 'BookieGG\Http\Middleware\ProtectAdmin'
 	];
 

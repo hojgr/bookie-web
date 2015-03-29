@@ -97,7 +97,7 @@
 
 		.btn {
 			display: inline-block;
-			width: 32%;
+			width: 31%;
 			padding: .5em 1em;
 			margin-right: 1%;
 
@@ -109,8 +109,25 @@
 
 			transition: background .2s;
 		}
+
+		.btn-logout {
+			float: right;
+		}
+
+		.activate-input {
+			width: 80%;
+		}
+
+		.activate-submit {
+			padding: 12px;
+		}
+
 		input[type="submit"]:hover, .btn:hover {
 			background: #2db7e4;
+		}
+
+		#invalid_code {
+			color: rgb(255, 156, 160);
 		}
 	</style>
 
@@ -136,21 +153,31 @@
 				<img src="{{ asset('images/steamsignin.png') }}">
 			</a>
 		@else
-			<p>Hi {{ Auth::user()->display_name }}.
+			<p>Hi {{ Auth::user()->display_name }}. <a class="btn btn-logout" href="{{ route('logout') }}">Logout</a>
 
 			@if(Auth::user()->subscription)
 				<p>Congratulations!<br>
 				You've signed up for your spot in the Bookie.GG beta.<br>
-				You're currently in spot #{{ $user->queue_spot }}, and will receive an e-mail at {{ $user->email }} once it's your turn.</p>
+				You will receive an e-mail at {{ Auth::user()->subscription->email }} with an access code soon.</p>
+				<p>When you receive your code, fill field below.</p>
+				@if(Session::get('error', false))
+					<span id="invalid_code">Invalid code!</span>
+				@endif
+				{!! Form::open(['route' => 'beta.activate']) !!}
+				{!! Form::text('code', null, array('placeholder' => 'Q8U1C5A', 'class' => 'activate-input')) !!}
+
+				{!! Form::submit('Activate!', ['class' => 'activate-submit']) !!}
+				{!! Form::close() !!}
+
 				<p>If you want to learn more about us, or be the first to know when we are released, you can find us on the following sites:</p>
 				<div class="btn-container">
-					<a class="btn" href="://twitter.com/bookie_gg">Twitter</a><a class="btn" href="://reddit.com/r/bookiegg">Reddit</a><a class="btn" href="://steamcommunity.com/groups/bookiegg">Steam</a>
+					<a class="btn" href="//twitter.com/bookie_gg">Twitter</a>
+					<a class="btn" href="//reddit.com/r/bookiegg">Reddit</a>
+					<a class="btn" href="//steamcommunity.com/groups/bookiegg">Steam</a>
 				</div>
 			@else
 				<p>Thanks a lot for your interest in Bookie.GG! We're currently in closed beta. If you want to be amongst the first to try us out, you can sign up below.</p>
-				<p>There are currently {{ $queue_size }} others in the beta queue.
-				</p>
-				{!! Form::open(['route' => 'home']) !!}
+				{!! Form::open(['route' => 'beta.subscribe']) !!}
 				{!! Form::text('email', null, array('placeholder' => 'Your Email')) !!}
 				{!! Form::text('name', null, array('placeholder' => 'Your Name')) !!}
 
@@ -159,6 +186,25 @@
 			@endif
 		@endif
 	</div>
+	<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			var s = $('#invalid_code');
+			s.animate({'margin-left': "20px"}, 100, function() {
+				s.animate({'margin-left': "-20px"}, 100, function() {
+					s.animate({'margin-left': "10px"}, 150, function() {
+						s.animate({'margin-left': "-10px"}, 150, function() {
+							s.animate({'margin-left': "5px"}, 200, function() {
+								s.animate({'margin-left': "-5px"}, 200, function() {
+									s.animate({'margin-left': "0px"}, 300);
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	</script>
 </body>
 </html>
 
