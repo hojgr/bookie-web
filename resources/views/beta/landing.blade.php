@@ -50,14 +50,13 @@
 			vertical-align: middle;
 			white-space: initial;
 		}
-		.logo-container { display: table; }
-		.logo {
-			display: table-cell;
-			width: 128px;
+		.logo-container {
+			width: 300px;
+			margin: 0 auto;
+			padding-bottom: 20px;
 		}
-		.title-container {
-			display: table-cell;
-			vertical-align: middle;
+		.logo {
+			width: 300px;
 		}
 		h1 { margin: 0; font-size: 56pt; }
 		h2 { margin: 0; font-size: 16pt; }
@@ -141,11 +140,7 @@
 <body>
 	<div class="center">
 		<div class="logo-container">
-			<img class="logo" src="{{ asset('images/logo_beta.png') }}" />
-			<div class="title-container">
-				<h1>Bookie.GG</h1>
-				<h2 class="subheader">A Revolution for E-Sports Betting</h2>
-			</div>
+			<img class="logo" src="{{ asset('images/header.png') }}" />
 		</div>
 
 		@if(!Auth::check())
