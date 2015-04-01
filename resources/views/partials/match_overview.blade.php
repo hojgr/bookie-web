@@ -1,17 +1,17 @@
 @section('details')
-	<div class="match-details @if($m->winner_id != 0) greyout @endif">
+	<div class="faint flex-fill flex-fill-text match-details @if($m->winner_id != 0) greyout @endif">
 		<div class="time-from-now">{{ TimeUtil::formatTimestampFromNow($m->start) }}</div>
 		<div class="bo-style"><span>Best of {{ $m->bo }}</span></div>
 		<div class="time-start">{{ TimeUtil::formatTimestamp($m->start) }}</div>
 	</div>
 @endsection
 
-@if($type != 'match')<a class="matchbox-link" href="/match/{{ $m->id }}">@endif
-<div class="matchbox @if($m->note)has-note @endif">
+@if($type != 'match')<a class="no-style matchbox-link" href="/match/{{ $m->id }}">@endif
+<div class="matchbox">
 	@yield('details')
 
-	<div class="match-data">
-		<div class="team team-1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
+	<div class="flex-fill flex-nowrap match-data">
+		<div class="flex-between flex-center team-1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
 			{!! LogoUtil::renderBig($m->teams[0]) !!}
 
 			<div class="team-info">
@@ -27,13 +27,11 @@
 			</div>
 		</div>
 
-		<div class="organization">
+		<div class="flex-around flex-center organization">
 			{!! LogoUtil::renderSpecial($m->organization, 100) !!}
 		</div>
 
-		<div class="team team-2 {{ ($m->teams[1]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
-			{!! LogoUtil::renderBig($m->teams[1]) !!}
-
+		<div class="flex-between flex-center team-2 {{ ($m->teams[1]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
 			<div class="team-info">
 				<div class="team-name">
 					{{ (strlen($m->teams[1]->name) > 10) ? $m->teams[1]->short_name: $m->teams[1]->name }}
@@ -45,6 +43,8 @@
 				<div class="team-status">Loser</div>
 				@endif
 			</div>
+
+			{!! LogoUtil::renderBig($m->teams[1]) !!}
 		</div>
 	</div>
 

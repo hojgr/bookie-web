@@ -1,3 +1,5 @@
+{{-- */ if (!isset($wideLayout)) $wideLayout = false; /*--}}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,10 +32,36 @@
 	<![endif]-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<script src="{{ asset('js/common.js') }}"></script>
 </head>
 <body>
+	@section('header')
+	<div class="header">
+		<a class="logo" href="{{ route('home') }}"><img src="{{ asset('images/header.png') }}"></a>
+		
+		{{-- */ $header_links = ['home' => 'Matches', 'rules' => 'Rules', 'contact' => 'Halp!', 'partners' => 'Partners']; /*--}}		
+		<ul class="nav hide-xs">
+			@foreach ($header_links as $l=>$s)
+			<li class="item">
+				<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+			</li>
+			@endforeach
+			<li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li>
+
+			<div id="nav-indicator"></div>
+		</ul>
+		<ul class="mobile-nav visible-xs">
+			@foreach ($header_links as $l=>$s)
+			<li class="item">
+				<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+			</li>
+			@endforeach
+			
+			<li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li>			
+		</ul>
+	</div>
+	@show
+
 	@if(Session::has('message'))
 		@foreach(Session::get('message') as $m)
 			<div class="notice notice-{{ $m['type'] }}">
@@ -41,50 +69,21 @@
 			</div>
 		@endforeach
 	@endif
-	@section('header')
-	<div class="header">
-		<a class="logo" href="{{ route('home') }}"><img src="{{ asset('images/header.png') }}"></a>
-		
-		<ul class="nav">
-			<li class="item @if(Request::is('/'))active @endif">
-				<a href="{{ route('home') }}">Matches</a>
-			</li>
-			<li class="item @if(Request::is('rules'))active @endif">
-				<a href="{{ route('rules') }}">Rules</a>
-			</li>
-			<li class="item @if(Request::is('tos'))active @endif">
-				<a href="{{ route('tos') }}">Terms of Service</a>
-			</li>
-			<li class="item @if(Request::is('contact'))active @endif">
-				<a href="{{ route('contact') }}">Contact Us</a>
-			</li>
-			<li class="item @if(Request::is('partners'))active @endif">
-				<a href="{{ route('partners') }}">Partners</a>
-			</li>
-			<li class="item"><a href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li>
 
-			<div id="nav-indicator"></div>
-		</ul>
-	</div>
-	@show
-
-	<div class="page">
+	<div class="page @if($wideLayout)wide @endif">
 		@section('misc-column')
-		<div class="column misc-column">
+		<div class="column small misc-column">
 			<div class="module user-module">
-				<div class="center-wrap">
+				<h2>{{ Auth::check() ? "Profile" : "Login" }}</h2>
+				<div class="flex-column flex-center">
 					@if (!Auth::check())
 					<a class="steam-button" href="{{ route('login') }}">
 						<img alt="Steam sign-in" src="{{ asset('images/steamsignin.png') }}"/>
 					</a>
 					@else
-					<div class="username-container">
-						<div class="avatar">
-							<img src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
-						</div>
-						<h2>{{ Auth::user()->display_name }}</h2>
-					</div>
-					<ul>
+					<img class="user-avatar" src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
+					<h3 class="user-name">{{ Auth::user()->display_name }}</h3>
+					<ul class="user-navigation">
 						@if(Auth::check() and Auth::user()->admin == "1")
 							<li><a href="{{ route('admin_home') }}">Administration</a></li>
 						@endif
@@ -93,12 +92,12 @@
 					@endif
 				</div>
 			</div>
-			<div class="module tweet-module">
+			<div class="module tweet-module flex-center flex-fill">
 				<a class="twitter-timeline" data-tweet-limit="1" data-chrome="nofooter" href="https://twitter.com/Bookie_GG" data-widget-id="571912429093662720">Tweets by @Bookie_GG</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			</div>
 			<div class="module news-module">
-				<h3>News</h3>
+				<h2>News</h2>
 				<ul>
 					@foreach($articles as $a)
 						<li><a href="{{ route('article', $a->id) }}">{{ str_limit($a->title, 32) }}</a></li>
