@@ -85,7 +85,7 @@
 										<p style="Margin-top: 0;color: #565656;font-size: 16px;line-height: 25px;Margin-bottom: 25px">During closed beta, users will be able to deposit/withdraw items from our banking system, place bets on their favourite CS:GO teams, and provide important feedback, allowing us to improve the site before the release.</p>
 										<p style="Margin-top: 0;color: #565656;font-size: 16px;line-height: 25px;Margin-bottom: 25px">You can read our getting started guide on&nbsp;<a style="text-decoration: underline;transition: all .2s;color: #02a4d9" data-emb-href-display="www.bookie.gg/help" href="http://www.bookie.gg/help">www.bookie.gg/help</a>&nbsp;- if you run into any issues using our site, feel free to contact us at our official subreddit&nbsp;<a style="text-decoration: underline;transition: all .2s;color: #02a4d9" data-emb-href-display="reddit.com/r/bookiegg" href="http://reddit.com/r/bookiegg">/r/bookieGG</a>, email our support department at&nbsp;<a style="text-decoration: underline;transition: all .2s;color: #02a4d9" data-emb-href-display="support@bookie.gg" href="mailto:support@bookie.gg">support@bookie.gg</a>&nbsp;or use the built-in contact form at&nbsp;<a style="text-decoration: underline;transition: all .2s;color: #02a4d9" data-emb-href-display="www.bookie.gg/contact" href="http://www.bookie.gg/contact">www.bookie.gg/contact</a>
 										</p>
-										<p style="Margin-top: 0;color: #565656;font-size: 16px;line-height: 25px;Margin-bottom: 24px">Thanks,
+										<p style="Margin-top: 3em;color: #565656;font-size: 16px;line-height: 25px;Margin-bottom: 24px">Thanks,
 											<br>- The Bookie.GG staff</p>
 									</td>
 								</tr>
