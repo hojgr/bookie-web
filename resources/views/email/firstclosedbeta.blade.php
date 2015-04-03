@@ -1,4 +1,5 @@
-<center class="wrapper" style="display: table;table-layout: fixed;width: 100%;min-width: 620px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;background-color: #02a4d9;font-family: Roboto, sans-serif;">
+<style>body{margin:0;background:#02a4d9;}</style>
+<center class="wrapper" style="display: table;table-layout: fixed;width: 100%;min-width: 620px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;background-color: #02a4d9;font-family: Roboto, sans-serif;padding: 8px">
 	<table class="gmail" style="border-collapse: collapse;border-spacing: 0;width: 650px;min-width: 650px">
 		<tbody>
 		<tr>
