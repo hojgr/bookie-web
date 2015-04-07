@@ -1,80 +1,163 @@
-$(function() {
-    // sticky header
-    var $header = $(".header"),
-        headerLimit = $(".nav").offset().top;
+/**
+ * BookieUI object
+ * -
+ * Handles all basic interactions with the DOM
+ **/
+var BookieUI = {};
+// Initialize all JS-side UI interactions
+BookieUI.init = function(){
+    if (this.inited) return;
+
+    // make all forms submit over AJAX
+    $("*[type='submit']").click(function(e){
+        var $this = $(this),
+            name = $this.attr("name"),
+            val = $this.attr("value"),
+            $form = $this.closest("form"),
+            $inp = $("input[type='hidden'][name='"+name+"']");
+
+        // save clicked 'submit' button to hidden input
+        if ($inp.length) {
+            $inp.first().attr("value", val);
+        } else {
+            $form.prepend("<input type='hidden' name='"+name+"' value='"+val+"'>");
+        }
+    });
+    $("form").submit(function(e){
+        e.preventDefault();
+        var $this = $(this),
+            url = $this.attr("action"),
+            data = $this.serialize();
+
+        console.log(data);
+        $.post(url, data);
+    });
+
+    // initialize all inventories
+    $(".inventory").each(function(){
+        var inv = new BookieInventory($(this));
+    });
+
+    this.initHeader();
+    this.inited = true;
+};
+// Initialize the header UI interactions
+BookieUI.initHeader = function(){
+    if (this.inited) return;
+
+    var self = this,
+        $header = $(".header"),
+        scrollLimit = $(".nav").offset().top,
+        $active = $(".nav .item.active, .nav .item:first-of-type"),
+        $indicator = $("#nav-indicator"),
+        indicatorTimer;
+
+    self.header = {
+        fixed: $(window).scrollTop() > scrollLimit,
+        $elm: $header,
+        $indicator: $indicator
+    };
+
+    // sticky
     $(window).scroll(function(){
         var scrollVal = $(window).scrollTop();
-        if (scrollVal > headerLimit) {
+        if (!self.header.fixed && scrollVal > scrollLimit) {
+            self.header.fixed = true;
             $header.addClass("fixed");
-        } else {
+        } else if (self.header.fixed && scrollVal < scrollLimit) {
+            self.header.fixed = false;
             $header.removeClass("fixed");
         }
     });
 
-    // header indicator
-    var $active = $(".item.active, .item:first-of-type"),
-        $indicator = $("#nav-indicator"),
-        indicatorTimer;
-
-    $(".nav li").hover(function(){
+    // indicator
+    $(".nav .item").hover(function(){
         clearTimeout(indicatorTimer);
-        moveIndicator($(this));
+        self.moveIndicator($(this));
     }, function(){
         indicatorTimer = setTimeout(function(){
-            moveIndicator($active);
+            self.moveIndicator($active);
         }, 500);
     });
 
+    // move indicator on resize
     $(window).resize(function(){
-        moveIndicator($active);
+        self.moveIndicator($active);
     }).resize();
+};
+// Move the header indicator to a given element
+BookieUI.moveIndicator = function($elm){
+    if (!$elm.length) return;
+    
+    this.header.$indicator.css({
+      left: $elm.position().left,
+      width: $elm.width(),
+      backgroundColor: $elm.css("color")
+    })
+};
 
-    function moveIndicator($elm){
-      $indicator.css({
-        left: $elm.position().left,
-        width: $elm.width(),
-        backgroundColor: $elm.css("color")
-      })
+
+/**
+ * BookieInventory class
+ * -
+ * Handles all interaction with inventories
+ **/
+function BookieInventory($elm, opts) {
+    if (!$elm.length) return;
+
+    this.options = $.extend({}, this.defaults, opts);
+    this.$elm = $elm;
+    this.$items = $(".itembox", $elm);
+    this.$form = $("form", $elm);
+    this.$buttons = $(".btn-holder button", this.$form);
+    this.$selectedHolder = $(".item-holder", this.$form);
+    this.$itemHolder = $(".inventory-holder", $elm);
+    this.selectedItems = [];
+
+    this.$items.click(this.getItemClickHandler());
+}
+// Default settings for inventories
+BookieInventory.prototype.defaults = {
+    maxItems: 10
+};
+// Returns a function to be used as click event listener for items
+BookieInventory.prototype.getItemClickHandler = function(){
+    if (this.clickFunction) return this.clickFunction;
+
+    var inv = this;
+    // the actual click event listener
+    return this.clickFunction = function(){
+        var selectedInd = inv.selectedItems.indexOf(this),
+            selected = selectedInd !== -1,
+            $this = $(this);
+
+        if (selected) {
+            inv.selectedItems.splice(selectedInd, 1);
+            $(this).appendTo(inv.$itemHolder);
+        } else if (inv.selectedItems.length < inv.options.maxItems) {
+            inv.selectedItems.push(this);
+            $(this).appendTo(inv.$selectedHolder);
+        }
+
+        inv.clickHandler();
+    };
+};
+// Called on the inventory when an item has been clicked
+BookieInventory.prototype.clickHandler = function(){
+    if (this.selectedItems.length) {
+        this.$buttons.removeAttr("disabled");
+    } else {
+        this.$buttons.attr("disabled", "true");
     }
+};
 
-    // match streams
-    var $streamContainer = $(".stream-container");
-    $(".streams > a").click(function(){
-        var txt = "Show livestreams";
-        if ($streamContainer.hasClass("hidden")) {
-            txt = "Hide livestreams";
-        }
-        $(this).text(txt);
-        $streamContainer.toggleClass("hidden");
-    });
-    $(".languages li").click(function(){
-        var $streamElm = $("#"+this.getAttribute("for"));
-        console.log(this,$streamElm);
-        $(".stream.active").removeClass("active").hide();
-        $streamElm.addClass("active").show();
-    });
 
-    // inventories
-    $(".inventory .itembox").click(function(){
-        var $this = $(this),
-            inv = $(this).closest(".inventory")[0],
-            $btns = $(inv.getAttribute("data-bound-buttons"));
 
-        $this.toggleClass("selected");
-
-        // add to inventory's list of items
-        if (!inv.selectedItems) { inv.selectedItems = [] }
-        var items = inv.selectedItems;
-
-        if ($this.hasClass("selected")) {
-            items.push(this);
-        } else {
-            var i = items.indexOf(this);
-
-            if (i !== -1) items.splice(i, 1);
-        }
-
-        if (items.length) { $btns.prop("disabled", false) }
-        else { $btns.prop("disabled", true) }
-    });
+/**
+ * jQuery document.onready
+ * -
+ * Triggers once the DOM has loaded
+ **/
+$(function() {
+    BookieUI.init();
 });

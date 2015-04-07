@@ -32,6 +32,7 @@
 	<![endif]-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
 	<script src="{{ asset('js/common.js') }}"></script>
 </head>
 <body>
@@ -39,14 +40,14 @@
 	<div class="header">
 		<a class="logo" href="{{ route('home') }}"><img src="{{ asset('images/header.png') }}"></a>
 		
-		{{-- */ $header_links = ['home' => 'Matches', 'rules' => 'Rules', 'contact' => 'Halp!', 'partners' => 'Partners']; /*--}}		
+		{{-- */ $header_links = ['home' => 'Matches', 'bank' => 'Bank', 'rules' => 'Rules', 'help' => 'Help', 'partners' => 'Partners']; /*--}}		
 		<ul class="nav hide-xs">
 			@foreach ($header_links as $l=>$s)
 			<li class="item">
 				<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
 			</li>
 			@endforeach
-			<li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li>
+			{{-- <li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li> --}}
 
 			<div id="nav-indicator"></div>
 		</ul>
@@ -57,7 +58,7 @@
 			</li>
 			@endforeach
 			
-			<li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li>			
+			{{-- <li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li> --}}
 		</ul>
 	</div>
 	@show
@@ -83,11 +84,11 @@
 					@else
 					<img class="user-avatar" src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
 					<h3 class="user-name">{{ Auth::user()->display_name }}</h3>
-					<ul class="user-navigation">
+					<ul class="user-navigation flex-wrap no-padding">
 						@if(Auth::check() and Auth::user()->admin == "1")
-							<li><a href="{{ route('admin_home') }}">Administration</a></li>
+							<li class="btn btn-wide"><a class="noblue" href="{{ route('admin_home') }}">Administration</a></li>
 						@endif
-						<li><a href="{{ route('logout') }}">Logout</a></li>
+						<li class="btn btn-wide"><a class="noblue" href="{{ route('logout') }}">Logout</a></li>
 					</ul>
 					@endif
 				</div>

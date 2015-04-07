@@ -1,10 +1,10 @@
 @extends('app')
 
 @section('content')
-<div class="column medium-column">
+<div class="column medium">
 	<div class="module sub-module">
-		<h1>{{ $data->name }}</h1>
-		<div class="module-content">
+		<h2>{{ $data->name }}</h2>
+		<div class="text-content">
 			{!! $data->content !!}
 		</div>
 	</div>

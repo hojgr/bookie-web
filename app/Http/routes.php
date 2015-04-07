@@ -21,6 +21,7 @@ Route::get('/tos', ['as' => 'tos', 'uses' => 'SubpageController@tos']);
 Route::get('/contact', ['as' => 'contact', 'uses' => 'SubpageController@contact']);
 Route::get('/partners', ['as' => 'partners', 'uses' => 'SubpageController@partners']);
 Route::get('/beta', ['as' => 'beta', 'uses' => 'BetaController@index']);
+Route::get('/help', ['as' => 'help', 'uses' => 'HelpController@show']);
 
 // TODO: add admin roles
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'admin.protect'], function() {

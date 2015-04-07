@@ -1,14 +1,17 @@
 @extends('app')
 
 @section('content')
-<div class="column">
+<div class="column small-medium">
 	<div class="module profile-module">
 		<h2>My Profile</h2>
 
-		<div class="input-group">
+		{!! Form::open(array('url' => '/api/profile/tradeurl')) !!}
+		<div class="input-container">
 			<label for="steam-trade-url">Steam trade URL:</label>
 			<input type="text" value="{{ $tradeUrl }}" id="steam-trade-url" placeholder="Enter your Steam trade URL">
 		</div>
+		{!! Form::button("Save settings", array('onclick'=>'saveSettings()', 'class'=>'btn-primary', 'type'=>'submit')) !!}
+		{!! Form::close() !!}
 	</div>
 </div>
 
