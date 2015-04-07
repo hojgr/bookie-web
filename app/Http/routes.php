@@ -11,6 +11,7 @@
 |
 */
 
+Route::get('/help', ['as' => 'help', 'uses' => 'HelpController@show']);
 Route::get('/mailpreview', ['uses' => 'EmailController@firstclosedbeta']);
 
 Route::group(['middleware' => 'beta.active_only'], function() {
