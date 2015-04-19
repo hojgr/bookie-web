@@ -17,8 +17,61 @@ class BankController extends Controller {
 			'http://steamcommunity-a.akamaihd.net/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZYMUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz52YOLkDzRyTQmWAPRhXfs58Rv4GyY-18pmUN6j-oQKKE644ZyQMOUqZtAaHJaFWvGCZV_66k1qiPQMK5OA9C_m3ijubDpZDRPi-z1QhqbZ7Qj0BpNT/90fx60f',
 			'http://steamcommunity-a.akamaihd.net/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZYMUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz52YOLkDyRufgHMAqVMY_Q3ywW4CHZ_-_hiWNu57oQJO12x49epbuV4aZ0RcJyBGKHTeAv77x44gqUJfcPYoi6-3C3hOmpeU0fi-DhXy7TT7rpvizlHRSey-eSS6Z6uOk_crRE/90fx60f',
 		];
+		$qualities = ["Consumer", "Industrial", "Mil-Spec", "Restricted", "Classified", "Covert", "Melee", "Contraband"];
 		
+		// generate inventory
+		$invLength = rand(1,20);
+		$inv = [];
+		for ($i = 0; $i < $invLength; $i++) {
+			$inv[] = (object) [
+				"id" => 1, // this is used as index for all POST params - must be unique for inventory
+				"weaponName" => "AK-47 | Serpent Ward (Battle-Scarred)",
+				"exterior" => ["Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"][rand(0,4)],
+				"quality" =>  $qualities[rand(0,7)],
+				"price" => "60.00",
+				"stattrak" => !rand(0,1),
+				"image" => $weapons[rand(0,9)],
+				"steam_info" => [
+					"id" => "1234567890",
+					"context_id" => "4",
+					"instance_id" => "321",
+					"asset_id" => "123"
+				]
+			];
+		}
+
+		// generate bank
+		$bankLength = rand(1,20);
+		$bank = [];
+		for ($i = 0; $i < $bankLength; $i++) {
+			$bank[] = (object) [
+				"id" => 1,
+				"weaponName" => "AK-47 | Serpent Ward (Battle-Scarred)",
+				"exterior" => ["Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"][rand(0,4)],
+				"quality" =>  $qualities[rand(0,7)],
+				"price" => "60.00",
+				"stattrak" => !rand(0,1),
+				"image" => $weapons[rand(0,9)]
+			];
+		}
+
+		// sort inventory & bank by exterior
+		// this shouldn't happen in the controller
+		usort($inv, function($a,$b) {
+			$qualities = ["Consumer", "Industrial", "Mil-Spec", "Restricted", "Classified", "Covert", "Melee", "Contraband"];
+			if ($a->quality == $b->quality) { return 0; }
+
+			return array_search($b->quality, $qualities) - array_search($a->quality, $qualities);
+		});
+		usort($bank, function($a,$b) {
+			$qualities = ["Consumer", "Industrial", "Mil-Spec", "Restricted", "Classified", "Covert", "Melee", "Contraband"];
+			if ($a->quality == $b->quality) { return 0; }
+
+			return array_search($b->quality, $qualities) - array_search($a->quality, $qualities);
+		});
+
 		return view("bank/bank")
-			->with('weapons', $weapons);
+			->with('userInventory', $inv)
+			->with('userBank', $bank);
 	}
 }

@@ -40,10 +40,19 @@ class ProfileController extends Controller {
 				"timeStr" => "2015-02-11 12:34",
 				"matchId" => 1
 			]
-		];		
+		];
+
+		// Data for the user to display
+		// Route should support both /profile/{id} and /profile/me
+		$user = (object) [
+			"avatar_path" => "f5/f5779964fa870cad057ff80e21e5a4d450f31925_medium.jpg",
+			"display_name" => "Birjoylaxew",
+			"profile_name" => "birjolaxew"
+		];
 
 		return view("profile/profile")
 			->with('tradeUrl', $tradeUrl)
-			->with('matchHistory', $matchHistory);
+			->with('matchHistory', $matchHistory)
+			->with('userData', $user);
 	}
 }

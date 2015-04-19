@@ -18,7 +18,7 @@ Route::get('/match/{id}', ['as' => 'match', 'uses' => 'MatchController@show']);
 Route::get('/bank', ['as' => 'bank', 'uses' => 'BankController@show']);
 Route::get('/rules', ['as' => 'rules', 'uses' => 'SubpageController@rules']);
 Route::get('/tos', ['as' => 'tos', 'uses' => 'SubpageController@tos']);
-Route::get('/contact', ['as' => 'contact', 'uses' => 'SubpageController@contact']);
+Route::get('/contact', ['as' => 'contact', 'uses' => 'ContactController@show']);
 Route::get('/partners', ['as' => 'partners', 'uses' => 'SubpageController@partners']);
 Route::get('/beta', ['as' => 'beta', 'uses' => 'BetaController@index']);
 Route::get('/help', ['as' => 'help', 'uses' => 'HelpController@show']);

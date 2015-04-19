@@ -32,7 +32,6 @@
 	<![endif]-->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="{{ asset('js/jquery.min.js') }}"></script>
 	<script src="{{ asset('js/common.js') }}"></script>
 </head>
 <body>
@@ -41,11 +40,27 @@
 		<a class="logo" href="{{ route('home') }}"><img src="{{ asset('images/header.png') }}"></a>
 		
 		{{-- */ $header_links = ['home' => 'Matches', 'bank' => 'Bank', 'rules' => 'Rules', 'help' => 'Help', 'partners' => 'Partners']; /*--}}		
+		{{-- */ $help_links = ['help' => 'Getting started', 'contact' => 'Contact us'] /* --}}
 		<ul class="nav hide-xs">
 			@foreach ($header_links as $l=>$s)
-			<li class="item">
-				<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
-			</li>
+				@if ($l=='help')
+				<li class="item dropdown">
+					<span>{{ $s }}</span>
+					<div class="content">
+						<ul class="flex-column no-padding no-margin">
+						@foreach ($help_links as $l=>$s)
+							<li class="item">
+								<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+							</li>
+						@endforeach
+						</ul>
+					</div>
+				</li>
+				@else
+				<li class="item">
+					<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+				</li>
+				@endif
 			@endforeach
 			{{-- <li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li> --}}
 
@@ -53,9 +68,17 @@
 		</ul>
 		<ul class="mobile-nav visible-xs">
 			@foreach ($header_links as $l=>$s)
-			<li class="item">
-				<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
-			</li>
+				@if ($l=='help')
+					@foreach ($help_links as $l=>$s)
+						<li class="item">
+							<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+						</li>
+					@endforeach
+				@else
+				<li class="item">
+					<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+				</li>
+				@endif
 			@endforeach
 			
 			{{-- <li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li> --}}
@@ -64,11 +87,13 @@
 	@show
 
 	@if(Session::has('message'))
+		<div class="message-container">
 		@foreach(Session::get('message') as $m)
-			<div class="notice notice-{{ $m['type'] }}">
+			<div class="message message-{{ $m['type'] }}">
 				{!! $m['message'] !!}
 			</div>
 		@endforeach
+		</div>
 	@endif
 
 	<div class="page @if($wideLayout)wide @endif">
@@ -82,8 +107,10 @@
 						<img alt="Steam sign-in" src="{{ asset('images/steamsignin.png') }}"/>
 					</a>
 					@else
-					<img class="user-avatar" src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
-					<h3 class="user-name">{{ Auth::user()->display_name }}</h3>
+					<a href="/profile/me" class="flex-column flex-center">
+						<img class="user-avatar" src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
+						<h3 class="user-name">{{ Auth::user()->display_name }}</h3>
+					</a>
 					<ul class="user-navigation flex-wrap no-padding">
 						@if(Auth::check() and Auth::user()->admin == "1")
 							<li class="btn btn-wide"><a class="noblue" href="{{ route('admin_home') }}">Administration</a></li>
