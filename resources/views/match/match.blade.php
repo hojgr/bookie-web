@@ -16,7 +16,7 @@
 			@include('partials/inventory', ['submitUrl' => '/api/csgo/bet', 'items' => $userInv, 'btns' => ['Bet on '.$match->teams[0]->name => 'bet(0)', 'Bet on '.$match->teams[1]->name => 'bet(1)'], 'data'=>['match'=>$match->id], 'submitTeam' => true])
 		@else
 			<div class="bet-holder">
-				<div class="flex-between flex-center">
+				<div class="text-center">
 					<p>You've bet the following on <em>{{ $match->teams[$userBet->team]->name }}</em>:</p>
 					{!! Form::open(array('url' => '/api/csgo/bet/switch', 'class' => 'no-style')) !!}
 						{!! Form::hidden('bet', $userBet->id) !!}
@@ -24,7 +24,7 @@
 						{!! Form::button('Switch to '.$match->teams[1-$userBet->team]->short_name, ['class'=>'btn-primary', 'type'=>'submit']) !!}
 					{!! Form::close() !!}
 				</div>
-				<div class="item-holder flex-wrap">
+				<div class="item-holder">
 					@foreach($userBet->items as $item)
 						@include('partials/small_item', ['item' => $item])
 					@endforeach
@@ -43,7 +43,7 @@
 		<h2>Livestreams</h2>
 		@if(count($streams))
 		<div class="streams section">
-			<ul class="no-padding flex-fill">
+			<ul class="no-padding fill-3">
 				@foreach($streams as $lang)
 					<li class="btn btn-vert">{{ $lang }}</li>
 				@endforeach

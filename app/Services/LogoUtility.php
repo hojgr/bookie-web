@@ -43,6 +43,6 @@ class LogoUtility implements LogoUtilityInterface {
 		if($height === null)
 			$height = $width;
 
-		return "<img class='logo' style='width: " . $width . "px' src='$url' alt='Logo' />";
+		return "<img class='logo' style='max-width: " . $width . "px' src='$url' alt='Logo' />";
 	}
 }

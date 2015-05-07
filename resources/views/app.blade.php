@@ -22,7 +22,6 @@
 	<title>Bookie.GG</title>
 	<link href="/css/libs.css" rel="stylesheet" type="text/css">
 	<link href="/css/compiled.css" rel="stylesheet" type="text/css">
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,100,900' rel='stylesheet' type='text/css'>
 	@yield('css')
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -46,15 +45,16 @@
 		{{-- */ $help_links = ['help' => 'Getting started', 'contact' => 'Contact us'] /* --}}
 		{{-- */ $cur_route = Route::currentRouteName() /* --}}
 		<ul class="nav hide-xs">
+			@spaceless
 			@foreach ($header_links as $l=>$s)
 				@if ($l=='help')
 				<li class="item dropdown{{ array_key_exists($cur_route, $help_links) ? ' active' : '' }}">
 					<span>{{ $s }}</span>
 					<div class="content">
-						<ul class="flex-column no-padding no-margin">
+						<ul class="no-padding no-margin">
 						@foreach ($help_links as $l=>$s)
 							<li class="item">
-								<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+								<a class="no-style" href="{{ route($l) }}">{{ $s }}</a>
 							</li>
 						@endforeach
 						</ul>
@@ -62,31 +62,31 @@
 				</li>
 				@else
 				<li class="item{{ $l==$cur_route ? ' active' : '' }}">
-					<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+					<a class="no-style" href="{{ route($l) }}">{{ $s }}</a>
 				</li>
 				@endif
 			@endforeach
-			{{-- <li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li> --}}
-
+			{{-- <li class="item"><a class="no-style" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li> --}}
+			@endspaceless
 			<div id="nav-indicator"></div>
-		</ul>
-		<ul class="mobile-nav visible-xs">
+		</ul><!--
+		--><ul class="mobile-nav visible-xs">
 			<li class="item"><span>Menu</span></li>
 			@foreach ($header_links as $l=>$s)
 				@if ($l=='help')
 					@foreach ($help_links as $l=>$s)
 						<li class="item{{ $l==$cur_route ? ' active' : '' }}">
-							<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+							<a class="no-style" href="{{ route($l) }}">{{ $s }}</a>
 						</li>
 					@endforeach
 				@else
 				<li class="item{{ $l==$cur_route ? ' active' : '' }}">
-					<a class="noblue" href="{{ route($l) }}">{{ $s }}</a>
+					<a class="no-style" href="{{ route($l) }}">{{ $s }}</a>
 				</li>
 				@endif
 			@endforeach
 			
-			{{-- <li class="item"><a class="noblue" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li> --}}
+			{{-- <li class="item"><a class="no-style" href="http://reddit.com/r/bookiegg" target="_blank">Reddit</a></li> --}}
 		</ul>
 	</div>
 	@show
@@ -104,28 +104,29 @@
 	<div class="page fadein @if($wideLayout)wide @endif">
 		@section('misc-column')
 		<div class="column small misc-column">
+			@spaceless
 			<div class="module user-module">
 				<h2>{{ Auth::check() ? "Profile" : "Login" }}</h2>
-				<div class="flex-column flex-center">
+				<div class="text-center">
 					@if (!Auth::check())
 					<a class="steam-button no-smoothstate" href="{{ route('login') }}">
 						<img alt="Steam sign-in" src="{{ asset('images/steamsignin.png') }}"/>
 					</a>
 					@else
-					<a href="/profile/me" class="flex-column flex-center">
+					<a href="/profile/me">
 						<img class="user-avatar" src="{{ SteamUtil::avatarPathToAvatarURL(Auth::user()->avatar_path) }}" />
 						<h3 class="user-name">{{ Auth::user()->display_name }}</h3>
 					</a>
-					<ul class="user-navigation flex-wrap no-padding">
+					<ul class="user-navigation no-padding">
 						@if(Auth::check() and Auth::user()->admin == "1")
-							<li class="btn btn-wide"><a class="noblue no-smoothstate" href="{{ route('admin_home') }}">Administration</a></li>
+							<li class="btn btn-wide"><a class="no-style no-smoothstate" href="{{ route('admin_home') }}">Administration</a></li>
 						@endif
-						<li class="btn btn-wide"><a class="noblue no-smoothstate" href="{{ route('logout') }}">Logout</a></li>
+						<li class="btn btn-wide"><a class="no-style no-smoothstate" href="{{ route('logout') }}">Logout</a></li>
 					</ul>
 					@endif
 				</div>
 			</div>
-			<div class="module tweet-module flex-center flex-fill">
+			<div class="module tweet-module text-center">
 				<a class="twitter-timeline" data-tweet-limit="1" data-chrome="nofooter" href="https://twitter.com/Bookie_GG" data-widget-id="571912429093662720">Tweets by @Bookie_GG</a>
 				<script>function loadTwitter(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}};loadTwitter(document,"script","twitter-wjs")</script>
 			</div>
@@ -137,6 +138,7 @@
 					@endforeach
 				</ul>
 			</div>
+			@endspaceless
 		</div>
 		@show
 

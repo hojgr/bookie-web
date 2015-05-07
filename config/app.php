@@ -153,6 +153,11 @@ return [
 		'Intervention\Image\ImageServiceProvider',
 
 		'BookieGG\Providers\SteamAuthServiceProvider',
+
+		/*
+		 * Blade Extensions
+		 */
+		'solidew\SpacelessBlade\SpacelessBladeProvider'
 	],
 
 	/*
@@ -213,7 +218,7 @@ return [
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		'Debugbar' => 'Barryvdh\Debugbar\Facade',
 
-		'Image' => 'Intervention\Image\Facades\Image',
+		'Image' => 'Intervention\Image\Facades\Image'
 	],
 
 ];

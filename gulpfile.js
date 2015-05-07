@@ -38,7 +38,7 @@ gulp.task('libs', function(){
 gulp.task('css_libs', function(){
 	gulp.src('dev/css/libs/*.css')
 	    .pipe(cssmin())
-	    .pipe(concat('libraries.css'))
+	    .pipe(concat('libs.css'))
 	    .pipe(gulp.dest('public/css/'));
 });
 // concat, prefix and minify CSS

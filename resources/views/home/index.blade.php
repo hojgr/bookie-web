@@ -4,7 +4,8 @@
 @section('content')
 <div class="column large">
 	@foreach(['Live'=>$live_matches, 'Upcoming'=>$upcoming_matches, 'Finished'=>$past_matches] as $t => $a)
-		<div class="module match-container-module no-padding">
+		<div class="module match-container-module">
+			@spaceless
 			@if (count($a))
 			<div class="row">
 				<div class="sub-column medium header-column match-column">
@@ -16,15 +17,16 @@
 			</div>
 
 			@foreach($a as $k => $m)
-			<div class="row sm-column">
+			<div class="row">
 				<div class="sub-column medium match-column">
 					@include('partials/match_overview', array('m' => $m, 'type' => 'home'))
 				</div>
 
 				{{-- */ $x = rand(0,10); /*--}}
-				<div class="sub-column small-medium flex-center items-column @if($x==0) empty @endif">
+				<div class="sub-column small-medium items-column @if($x==0) empty @endif">
 					<p class="visible-sm">You bet:</p>
 					<div class="placed-items">
+						@spaceless
 						@if (count($m->userBet))				
 							@for($j=0;$j<2;$j++)
 								<div class="item-holder">
@@ -38,6 +40,7 @@
 								</div>
 							@endfor
 						@endif
+						@endspaceless
 					</div>
 				</div>
 			</div>
@@ -45,6 +48,7 @@
 			@else
 				<h2 class="text-center faint">No {{ strtolower($t) }} matches</h2>
 			@endif
+			@endspaceless
 		</div>
 	@endforeach
 </div>

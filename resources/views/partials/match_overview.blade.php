@@ -1,8 +1,10 @@
 @section('details')
-	<div class="faint flex-fill flex-fill-text match-details @if($m->winner_id != 0) greyout @endif">
+	<div class="faint text-fill-3 match-details">
+		@spaceless
 		<div class="time-from-now">{{ TimeUtil::formatTimestampFromNow($m->start) }}</div>
-		<div class="bo-style"><span>Best of {{ $m->bo }}</span></div>
+		<div class="bo-style">Best of {{ $m->bo }}</div>
 		<div class="time-start">{{ TimeUtil::formatTimestamp($m->start) }}</div>
+		@endspaceless
 	</div>
 @endsection
 
@@ -11,8 +13,9 @@
 <div class="matchbox">
 	@yield('details')
 
-	<div class="flex-fill flex-nowrap match-data">
-		<div class="flex-between flex-center team-1 {{ ($m->teams[0]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
+	<div class="fill-3 match-data">
+		@spaceless
+		<div class="team team-1{{ $m->teams[0]->id == $m->winner_id ? ' winner' : ($m->winner_id == 0 ? '' : ' loser') }}">
 			{!! LogoUtil::renderBig($m->teams[0]) !!}
 
 			<div class="team-info">
@@ -35,11 +38,11 @@
 			</div>
 		</div>
 
-		<div class="flex-around flex-center organization">
+		<div class="organization">
 			{!! LogoUtil::renderSpecial($m->organization, 100) !!}
 		</div>
 
-		<div class="flex-between flex-center team-2 {{ ($m->teams[1]->id == $m->winner_id ? 'winner' : ($m->winner_id == 0 ? '' : 'loser')) }}">
+		<div class="team team-2{{ ($m->teams[1]->id == $m->winner_id ? ' winner' : ($m->winner_id == 0 ? '' : ' loser')) }}">
 			<div class="team-info">
 				<div class="team-name">
 					{{ (strlen($m->teams[1]->name) > 10) ? $m->teams[1]->short_name: $m->teams[1]->name }}
@@ -61,6 +64,7 @@
 
 			{!! LogoUtil::renderBig($m->teams[1]) !!}
 		</div>
+		@endspaceless
 	</div>
 
 

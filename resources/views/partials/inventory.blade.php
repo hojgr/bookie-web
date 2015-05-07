@@ -2,14 +2,15 @@
 
 <div class="inventory">
 	@if(isset($submitUrl))
-	{!! Form::open(array('url' => $submitUrl, 'class' => 'inventory-selection')) !!}
+	{!! Form::open(array('url' => $submitUrl, 'class' => 'inventory-selection no-style')) !!}
+		@spaceless
 		@if(isset($data))
 			@foreach($data as $n=>$v)
 				{!! Form::hidden($n, $v) !!}
 			@endforeach
 		@endif
-		<div class="item-holder flex-wrap flex-start" data-if-empty="{{ $emptyText }}"></div><!--
-		--><div class="btn-holder">
+		<div class="item-holder" data-if-empty="{{ $emptyText }}"></div>
+		<div class="btn-holder">
 			{{--*/ $i = -1; /*--}}
 			@foreach($btns as $b=>$s)
 				{{--*/ $i++; $buttonOpts = ['disabled' => 'true', 'class' => 'btn-primary btn-wide', 'type' => 'submit']; if (!empty($s)) { $buttonOpts['onclick'] = $s; } /*--}}
@@ -17,12 +18,15 @@
 				{!! Form::button($b, $buttonOpts) !!}
 			@endforeach
 		</div>
+		@endspaceless
 	{!! Form::close() !!}
 	@endif
 	
-	<div class="inventory-holder item-holder flex-wrap">
+	<div class="inventory-holder item-holder">
+	@spaceless
 	@foreach($items as $item)
 		@include('partials/small_item', ['item' => $item])
 	@endforeach
+	@endspaceless
 	</div>
 </div>

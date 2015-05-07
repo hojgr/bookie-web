@@ -1,12 +1,11 @@
 @extends('app')
 
 @section('content')
-	<div class="content-box news">
-		<div style="padding: 10px">
-			<h1>{{ $article->title }}</h1>
+	<div class="column medium">
+		<div class="module article-module">
+			<h2>{{ $article->title }}</h2>
 			<small>{{ $article->created_at->format('n/j/Y H:i') }}</small>
-			<hr>
-			<div style="text-align: justify">
+			<div class="text-content">
 				{!! $article->content !!}
 			</div>
 		</div>
