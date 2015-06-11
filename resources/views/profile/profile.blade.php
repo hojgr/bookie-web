@@ -15,7 +15,7 @@
 			<input type="text" name="tradeURL" value="{{ $tradeUrl }}" id="steam-trade-url" placeholder="Enter your Steam trade URL">
 			<div class="focus-indicator"></div>
 		</div>
-		{!! Form::button("Submit", array('onclick'=>'saveSettings()', 'class'=>'btn-primary btn-wide', 'type'=>'submit')) !!}
+		{!! Form::button("Submit", array('class'=>'btn-primary btn-wide', 'type'=>'submit')) !!}
 		{!! Form::close() !!}
 	</div>
 </div>

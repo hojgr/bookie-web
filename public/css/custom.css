@@ -1,0 +1,64 @@
+/* =====
+ * UTILITY
+ * ===== */
+.table-row {
+	display: table;
+}
+.table-row > * {
+	display: table-cell;
+	vertical-align: middle;
+}
+.no-gutter [class*="col-"] {
+	padding: 0;
+}
+.vertical-center, .vertical-center-children > * {
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+}
+
+/* =====
+ * THEME
+ * ===== */
+body {
+	background: #eaeaea;
+	font-family: "Roboto", sans-serif;
+}
+.module {
+	margin: 15px 0;
+	padding: 15px;
+	background: #fff;
+	box-shadow: 0 1px 4px rgba(0,0,0,.2);
+	border-radius: 3px;
+}
+.module > h1 {
+	margin-top: 0;
+}
+
+/* =====
+ * SPECIFICS
+ * ===== */
+.logo { max-width: 100%; }
+.team .team-info {
+	font-size: 12pt;
+	padding-right: 1.5em;
+	text-align: right;
+}
+.team-2 .team-info {
+	text-align: left;
+	padding: 0 0 0 1.5em;
+}
+.organization { opacity: .4; }
+.header {
+	background: #02a4d9;
+	color: #fff;
+}
+.navbar-collapse { text-align: center; }
+.navbar-nav {
+	display: inline-block;
+	float: none;
+}
+
+.match-details > * {
+	text-align: center;
+}
