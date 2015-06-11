@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d8980cbb47e832bc356ec9d6c216f38",
+    "hash": "7b9fc5e58b74324c9cf4fc516ebe3dd3",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2291,6 +2291,46 @@
             ],
             "description": "A lightweight implementation of CommonJS Promises/A for PHP",
             "time": "2014-12-30 13:32:42"
+        },
+        {
+            "name": "solidew/spaceless-blade",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/solidew/SpacelessBlade.git",
+                "reference": "e03904a3207bdcead4784f5e0fbab09ad2538db9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/solidew/SpacelessBlade/zipball/e03904a3207bdcead4784f5e0fbab09ad2538db9",
+                "reference": "e03904a3207bdcead4784f5e0fbab09ad2538db9",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "solidew\\SpacelessBlade\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Omran Jamal",
+                    "email": "o.jamal97@gmail.com",
+                    "homepage": "http://about.me/omran.jamal"
+                }
+            ],
+            "description": "Adds the @spaceless tag to Blade. (works like in Twig)",
+            "keywords": [
+                "blade",
+                "laravel",
+                "spaceless",
+                "twig"
+            ],
+            "time": "2015-04-23 07:50:06"
         },
         {
             "name": "swiftmailer/swiftmailer",
