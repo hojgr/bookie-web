@@ -1,5 +1,5 @@
 /**
- * BookieUI object
+ * BookieUI singleton
  * -
  * Handles all basic interactions with the DOM
  **/
@@ -8,7 +8,7 @@ var BookieUI = {};
 BookieUI.init = function(){
     if (this.inited) return;
 
-    // make all forms submit over AJAX
+    // send the clicked 'submit' button as a POST param
     $("*[type='submit']").click(function(e){
         var $this = $(this),
             name = $this.attr("name"),
@@ -17,12 +17,15 @@ BookieUI.init = function(){
             $inp = $("input[type='hidden'][name='"+name+"']");
 
         // save clicked 'submit' button to hidden input
-        if ($inp.length) {
-            $inp.first().attr("value", val);
-        } else {
-            $form.prepend("<input type='hidden' name='"+name+"' value='"+val+"'>");
+        if (name && val) {
+            if ($inp.length) {
+                $inp.first().attr("value", val);
+            } else {
+                $form.prepend("<input type='hidden' name='"+name+"' value='"+val+"'>");
+            }
         }
     });
+    // make all forms submit over AJAX
     $("form").submit(function(e){
         e.preventDefault();
         var $this = $(this),
@@ -30,7 +33,28 @@ BookieUI.init = function(){
             data = $this.serialize();
 
         console.log(data);
-        $.post(url, data);
+        $.post(url, data, function(data){
+            // received message is JSON, as defined in our API documentation
+            // if action failed, show error message
+            if (!data.success) {
+                var msgType = data.messageType ? data.messageType : "error",
+                    msg = data.message ? data.message : "Whoops! Looks like something went wrong.";
+                
+                BookieUI.messages.add(msgType, msg);
+                return;
+            }
+
+            if (data.hasOwnProperty("message")) {
+                var msgType = data.messageType ? data.messageType : "default";
+
+                BookieUI.messages.add(msgType, data.message);
+                return;
+            }
+            if (data.hasOwnProperty("queue")) {
+                BookieUI.queue.set(data.queue);
+                return;
+            }
+        });
     });
 
     // initialize all inventories
@@ -47,7 +71,7 @@ BookieUI.initHeader = function(){
 
     var self = this,
         $header = $(".header"),
-        scrollLimit = $(".nav").offset().top,
+        scrollLimit = $(".nav").offset().top || $(".mobile-nav").offset().top,
         $active = $(".nav .item.active, .nav .item:first-of-type"),
         $indicator = $("#nav-indicator"),
         indicatorTimer;
@@ -71,7 +95,7 @@ BookieUI.initHeader = function(){
     });
 
     // indicator
-    $(".nav .item").hover(function(){
+    $(".nav > .item").hover(function(){
         clearTimeout(indicatorTimer);
         self.moveIndicator($(this));
     }, function(){
@@ -94,6 +118,101 @@ BookieUI.moveIndicator = function($elm){
       width: $elm.width(),
       backgroundColor: $elm.css("color")
     })
+};
+
+/**
+ * BookieUI.queue singleton
+ * -
+ * Handles setting/hiding the queue
+ */
+BookieUI.queue = {};
+BookieUI.queue.inited = false;
+BookieUI.queue.init = function(){
+    if (this.inited) { return; }
+
+    this.$elm = $('<div id="queue"></div>').hide().appendTo("body");
+    this.inited = true;
+};
+BookieUI.queue.set = function(html){
+    if (!this.inited) { this.init(); }
+
+    this.$elm.html(html);
+    this.$elm.fadeIn(200);
+};
+BookieUI.queue.remove = function(){
+    if (!this.inited) { return; }
+
+    var self = this;
+    self.inited = false;
+    this.$elm.fadeOut(200, function(){
+        self.$elm.remove();
+    });
+}
+
+/**
+ * BookieUI.messages singleton
+ * -
+ * Handles adding/removing simple text-only messages
+ * Also acts as an array of visible messages
+ **/
+BookieUI.messages = [];
+BookieUI.messages.inited = false;
+BookieUI.messages.init = function(){
+    if (this.inited) { return; }
+
+    this.$container = $('<div class="message-container"></div>').insertBefore(".page");
+    this.inited = true;
+};
+BookieUI.messages.add = function(type, text) {
+    if (!this.inited) { this.init(); }
+
+    // create the message element
+    var $msg = $('<div class="message message-'+type+'"></div>')
+                    .text(text)
+                    .appendTo(this.$container);
+    BookieUI.messages.push($msg[0]);
+
+    // remove the message after 3.5 seconds
+    $msg[0]._removeable = true;
+    $msg[0]._removeFunc = function self(){
+        // if we're allowed to remove
+        if ($msg[0]._removeable) {
+            clearTimeout($msg[0]._removeTimer);
+
+            // fade it out, then delete+remove from message list
+            $msg.fadeOut(200, function(){
+                var index = BookieUI.messages.indexOf($msg[0]);
+                if (index !== -1) { BookieUI.messages.splice(index,1); }
+
+                $msg.remove();
+            });
+        // if not allowed, try again in .25 seconds
+        } else {
+            $msg[0]._removeTimer = setTimeout(self, 250);
+        }
+    };
+    $msg[0]._removeTimer = setTimeout($msg[0]._removeFunc, 3500);
+
+    // make sure the message isn't removed while hovering it
+    $msg.hover(
+            function(){
+                // on mouseover, disallow removal
+                this._removeable = false;
+                clearTimeout(this._removeTimer);
+            },
+            function(){
+                // on mouseout, remove after 2.5 s
+                this._removeable = true;
+                $msg[0]._removeTimer = setTimeout(this._removeFunc, 2500);
+            })
+    // and that it is when clicking it
+        .click(function(){
+            this._removeable = true;
+            this._removeFunc();
+        });
+
+
+    return $msg;
 };
 
 

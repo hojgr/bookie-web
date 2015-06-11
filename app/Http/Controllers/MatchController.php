@@ -26,10 +26,59 @@ class MatchController extends Controller {
 			"Russian" => "http://www.twitch.tv/steel_tv/embed",
 			"German" => "http://www.hitbox.tv/embed/coolexit"
 		];
+
+		// generate user's inventory placeholder
+		$qualities = ["Consumer", "Industrial", "Mil-Spec", "Restricted", "Classified", "Covert", "Melee", "Contraband"];
+		
+		// generate inventory
+		$invLength = rand(1,20);
+		$inv = [];
+		for ($i = 0; $i < $invLength; $i++) {
+			$inv[] = (object) [
+				"id" => 1,
+				"weaponName" => "AK-47 | Serpent Ward (Battle-Scarred)",
+				"exterior" => ["Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"][rand(0,4)],
+				"quality" =>  $qualities[rand(0,7)],
+				"price" => "60.00",
+				"stattrak" => !rand(0,1),
+				"image" => $weapons[rand(0,9)]
+			];
+		}
+
+		// generate bet
+		$betLength = rand(0,10);
+		$bet = [];
+		for ($i = 0; $i < $betLength; $i++) {
+			$bet[] = (object) [
+				"id" => 1,
+				"weaponName" => "AK-47 | Serpent Ward (Battle-Scarred)",
+				"exterior" => ["Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"][rand(0,4)],
+				"quality" =>  $qualities[rand(0,7)],
+				"price" => "60.00",
+				"stattrak" => !rand(0,1),
+				"image" => $weapons[rand(0,9)]
+			];
+		}
+		$userBet = (object) [
+			"items" => $bet,
+			"team" => 0,
+			"id" => 237
+		];
+
+		// sort inventory & bank by exterior
+		// this shouldn't happen in the controller
+		usort($inv, function($a,$b) {
+			$qualities = ["Consumer", "Industrial", "Mil-Spec", "Restricted", "Classified", "Covert", "Melee", "Contraband"];
+			if ($a->quality == $b->quality) { return 0; }
+
+			return array_search($b->quality, $qualities) - array_search($a->quality, $qualities);
+		});
 		
 		return view("match/match")
 			->with('match', $mri->find($id))
 			->with('weapons', $weapons)
-			->with('streams', $streams);
+			->with('streams', $streams)
+			->with('userBet', $userBet)
+			->with('userInv', $inv);
 	}
 }
