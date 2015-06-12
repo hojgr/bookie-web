@@ -44,9 +44,11 @@
 		@if(count($streams))
 		<div class="streams section">
 			<ul class="no-padding fill-3">
+				@spaceless
 				@foreach($streams as $lang)
 					<li class="btn btn-vert">{{ $lang }}</li>
 				@endforeach
+				@endspaceless
 			</ul>
 		</div>
 		@endif
