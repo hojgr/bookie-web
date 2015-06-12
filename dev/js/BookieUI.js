@@ -31,59 +31,9 @@ BookieUI.init = function(){
         });
     }
 
-    // send the clicked 'submit' button as a POST param
-    $("*[type='submit']").click(function(e){
-        var $this = $(this),
-            name = $this.attr("name"),
-            val = $this.attr("value"),
-            $form = $this.closest("form"),
-            $inp = $("input[type='hidden'][name='"+name+"']");
-
-        // save clicked 'submit' button to hidden input
-        if (name && val) {
-            if ($inp.length) {
-                $inp.first().attr("value", val);
-            } else {
-                $form.prepend("<input type='hidden' name='"+name+"' value='"+val+"'>");
-            }
-        }
-    });
-
-    // make all forms submit over AJAX
-    $("form").submit(function(e){
-        e.preventDefault();
-        var $this = $(this),
-            url = $this.attr("action"),
-            data = $this.serialize();
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(data){
-                // received message is JSON, as defined in our API documentation
-                // if action failed, show error message
-                if (!data.success) {
-                    var msgType = data.messageType ? data.messageType : "error",
-                        msg = data.message ? data.message : "Whoops! Looks like something went wrong.";
-                    
-                    BookieUI.messages.add(msgType, msg);
-                    return;
-                }
-
-                if (data.hasOwnProperty("message")) {
-                    var msgType = data.messageType ? data.messageType : "default";
-
-                    BookieUI.messages.add(msgType, data.message);
-                    return;
-                }
-                if (data.hasOwnProperty("queue")) {
-                    BookieUI.queue.set(data.queue);
-                    return;
-                }
-            },
-            xhr: BookieUI.progressBar.getXHR
-        });
+    // create BookieForm's for each form
+    $("form").each(function(){
+        new BookieForm($(this));
     });
 
     // initialize all inventories
@@ -97,6 +47,7 @@ BookieUI.init = function(){
     this.header.init();
     this.inited = true;
 };
+
 /**
  * BookieUI.header singleton
  * -

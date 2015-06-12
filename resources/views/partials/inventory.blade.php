@@ -13,7 +13,7 @@
 		<div class="btn-holder">
 			{{--*/ $i = -1; /*--}}
 			@foreach($btns as $b=>$s)
-				{{--*/ $i++; $buttonOpts = ['disabled' => 'true', 'class' => 'btn-primary btn-wide', 'type' => 'submit']; if (!empty($s)) { $buttonOpts['onclick'] = $s; } /*--}}
+				{{--*/ $i++; $buttonOpts = ['disabled' => 'true', 'class' => 'btn-primary btn-wide', 'type' => 'submit']; /*--}}
 				{{--*/ if(isset($submitTeam) && $submitTeam) { $buttonOpts['name'] = 'team'; $buttonOpts['value'] = isset($btnVal) ? $btnVal : $i; } /*--}}
 				{!! Form::button($b, $buttonOpts) !!}
 			@endforeach

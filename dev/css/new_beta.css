@@ -244,7 +244,12 @@ html a.no-style {
 /**
  * Matchbox
  */
-.matchbox { padding: 15px; }
+.match-info { text-align: center; }
+.matchbox {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 15px;
+}
 .team > * { 
 	vertical-align: middle;
 	display: inline-block;
@@ -317,7 +322,7 @@ html a.no-style {
 	vertical-align: bottom;
 }
 .itembox.small {
-	min-width: 70px;
+	min-width: 69px;
 	max-width: 92px;
 	min-height: 75px;
 }
@@ -354,9 +359,6 @@ html a.no-style {
 .itembox-footer:hover > * { top: -100%; }
 .item-quality { color: #fff; }
 
-.itembox[data-contains="empty"] {
-	box-shadow: 0 0 0 1px #dcdcdc;
-}
 .itembox.consumer { color: #b0c3d9 }
 .itembox.mil-spec { color: #4b69ff }
 .itembox.industrial { color: #5e98d9 }
@@ -465,7 +467,7 @@ tr:nth-child(2n) {
 
 	background: #02a4d9;
 	transform: scaleX(0);
-	transition: all .4s cubic-bezier(.5, 0, .01, 1);
+	transition: all .2s cubic-bezier(.5, 0, .01, 1);
 }
 input:focus ~ .focus-indicator::after {
 	transform: scaleX(1);
@@ -518,6 +520,7 @@ button:last-child, .btn:last-child { margin: 0; }
 	text-deocration: underline;
 }
 
+.match-history .winner { text-shadow: 0 1px 1px rgba(0,0,0,.4); }
 .result {
 	display: block;
 	width: 4px;
@@ -531,6 +534,18 @@ button:last-child, .btn:last-child { margin: 0; }
 /**
  * Specific parts
  */
+#progress-bar {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	z-index: 99;
+
+	background: #fff;
+	box-shadow: 0 1px 8px rgba(0,0,0,.1);
+}
 .module {
 	background: #fff;
 	box-shadow: 0 1px 4px rgba(0,0,0,.2);
@@ -540,7 +555,19 @@ button:last-child, .btn:last-child { margin: 0; }
 	background: #fff;
 
 	border-radius: 3px;
-	box-shadow: 0 2px, 0 0 0 1px #dcdcdc;
+	box-shadow: inset 0 0 30px -10px rgba(0,0,0,0),
+	            0 2px,
+	            0 0 0 1px #dcdcdc;
+
+	transition: box-shadow .15s;
+}
+.itembox:not([data-contains="empty"]):hover {
+	box-shadow: inset 0 0 50px -10px rgba(0,0,0,.2),
+	            0 2px,
+	            0 0 0 1px #bbb;
+}
+.itembox[data-contains="empty"] {
+	box-shadow: 0 0 0 1px #dcdcdc;
 }
 .inventory, form:not(.no-style) {
 	padding: 8px;
@@ -550,6 +577,7 @@ button:last-child, .btn:last-child { margin: 0; }
 	border-radius: 3px;
 	box-shadow: inset 0 0 4px rgba(0,0,0,.2);
 }
+.inventory .itembox { cursor: pointer; }
 
 
 /* ====================
