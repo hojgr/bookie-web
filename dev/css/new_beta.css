@@ -385,6 +385,65 @@ html a.no-style {
 .itembox.melee .item-quality { background: #ef7f0d }
 .itembox.contraband .item-quality { background: #e4ae39 }
 
+/**
+ * Tooltips
+ */
+.tipped {
+	position: relative;
+	cursor: pointer;
+}
+.tip {
+	position: absolute;
+	left: 50%;
+	top: 100%;
+	transform: translate(-50%, .3em);
+	z-index: 8;
+	cursor: auto;
+
+	background: #444;
+	color: #fff;
+	padding: .25em .5em;
+
+	white-space: nowrap;
+	text-align: center;
+
+	transition: opacity .2s ease,
+	            transform .2s ease;
+	visibility: hidden;
+	opacity: 0;
+}
+/* allows you to hover to tooltip & slightly outside */
+.tip::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+
+	padding: .5em;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+/* arrow */
+.tip::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -.25em);
+
+	border: .35em solid transparent;
+	border-top-width: 0;
+	border-bottom-color: #444;
+	z-index: -1;
+}
+.tipped:hover .tip {
+	transform: translate(-50%, .5em);
+	visibility: visible;
+	opacity: 1;
+}
+
 
 /* ====================
  *        THEME

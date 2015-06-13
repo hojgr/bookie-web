@@ -32,7 +32,12 @@
 				@else
 					{{--*/ $rate = $m->odds[0] == 0 ? "0.00" : $m->odds[1] == 0 ? "0.00" : number_format($m->odds[1]/$m->odds[0]*0.98, 2, '.', '') /*--}}
 					@if($type == "match")
-						<div class="team-status" title="For every 1 value you bet, you are able to win another {{ $rate }} from winning">{{ $rate }} : 1</div>
+						<div class="team-status tipped">
+							{{ $rate }} : 1
+							<div class="tip">
+								<span>For every 1 value bet, <br />you are able to win another {{ $rate }}</span>
+							</div>
+						</div>
 					@endif
 				@endif
 			</div>
@@ -57,7 +62,12 @@
 				@else
 					{{--*/ $rate = $m->odds[0] == 0 ? "0.00" : $m->odds[1] == 0 ? "0.00" : number_format($m->odds[0]/$m->odds[1]*0.98, 2, '.', '') /*--}}
 					@if($type == "match")
-						<div class="team-status" title="For every 1 value you bet, you are able to win another {{ $rate }} from winning">1 : {{ $rate }}</div>
+						<div class="team-status tipped">
+							{{ $rate }} : 1
+							<div class="tip">
+								<span>For every 1 value bet, <br />you are able to win another {{ $rate }}</span>
+							</div>
+						</div>
 					@endif
 				@endif
 			</div>
