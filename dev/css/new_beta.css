@@ -45,6 +45,7 @@ td > a {
 .column:last-child { margin-right: 0; }
 .sub-column {
 	display: inline-block;
+	vertical-align: middle;
 	padding: 10px;
 }
 [class*="column"].small { width: 200px; }
@@ -53,7 +54,10 @@ td > a {
 
 
 .sub-column { border-right: 1px solid #eee; }
-.sub-column:last-child { border-right: none; }
+.sub-column:last-child {
+	border-right: none;
+	box-shadow: -1px 0 #eee;
+}
 .row { border-bottom: 1px solid #eee; }
 .row:first-child { border-bottom: none; }
 .row:last-child { border-bottom: none; }
@@ -227,6 +231,10 @@ html a.no-style {
 [class*="text-fill"] > * { text-align: center; }
 [class*="text-fill"] > :first-child { text-align: left; }
 [class*="text-fill"] > :last-child { text-align: right; }
+.fill-3 > .btn-vert {
+	margin-right: 1%;
+	width: 32%;
+}
 
 .text-center { text-align: center; }
 
@@ -579,6 +587,33 @@ button:last-child, .btn:last-child { margin: 0; }
 }
 .inventory .itembox { cursor: pointer; }
 
+.input-group.verifying::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	bottom: 8px;
+	width: 1em;
+	height: 1em;
+}
+.input-group.verifying::after {
+	border: 2px solid #02a4d9;
+	border-radius: 50%;
+	-webkit-animation: 1s ease loader infinite;
+	animation: 1s ease loader infinite;
+}
+.verified input { box-shadow: 0 2px #2c2; }
+.verified .focus-indicator { box-shadow: inset 0 1px #2c2; }
+.verified input:focus ~ .focus-indicator::after {
+	background: #2c2;
+	box-shadow: 0 1px 2px rgba(30,200,30,.4);
+}
+.error input { box-shadow: 0 2px; color: #fa6262; }
+.error .focus-indicator { box-shadow: inset 0 1px #fa6262; }
+.error input:focus ~ .focus-indicator::after {
+	background: #fa6262;
+	box-shadow: 0 1px 2px rgba(250,100,100,.4);
+}
+
 
 /* ====================
  *    MEDIA QUERIES
@@ -660,6 +695,14 @@ button:last-child, .btn:last-child { margin: 0; }
 
 	.hide-xs { display: none !important; }
 	.visible-xs { display: block !important; }
+
+	.user-navigation .btn-wide {
+		display: block !important;
+		width: 100% !important;
+	}
+	.user-navigation .btn-wide:first-child:not(:last-child) {
+		margin-top: -1em;
+	}
 }
 @media (max-width: 465px) {
 	.page { padding: 1em 0; }
@@ -764,5 +807,31 @@ button:last-child, .btn:last-child { margin: 0; }
 		opacity: 1;
 		-webkit-transform: translate(0, 0);
 		transform: translate(0, 0);
+	}
+}
+@keyframes loader {
+	0% {
+		opacity: 1;
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+	80% { opacity: 1; }
+	100% {
+		opacity: 0;
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@-webkit-keyframes loader {
+	0% {
+		opacity: 1;
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+	80% { opacity: 1; }
+	100% {
+		opacity: 0;
+		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 }

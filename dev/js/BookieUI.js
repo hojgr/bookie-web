@@ -41,6 +41,11 @@ BookieUI.init = function(){
         var inv = new BookieInventory($(this));
     });
 
+    // load twitter
+    if (typeof twttr !== "undefined" && twttr.widgets.hasOwnProperty("load")) {
+        twttr.widgets.load();
+    }
+
     this.progressBar.init();
     this.messages.init();
     this.queue.init();
@@ -89,7 +94,9 @@ BookieUI.header.init = function(){
 
         // move indicator on resize
         $(window).resize(function(){
-            scrollLimit = $(".nav").offset().top || $(".mobile-nav").offset().top;
+            if (!self.fixed) {
+                scrollLimit = $(".nav").offset().top || $(".mobile-nav").offset().top;
+            }
             self.moveIndicator(self.$active, true);
         });
     }
