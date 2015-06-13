@@ -1,12 +1,8 @@
 <?php namespace BookieGG\Commands;
 
-use BookieGG\Commands\Command;
-
-use BookieGG\Contracts\Repositories\MatchNoteRepositoryInterface;
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
-use BookieGG\Repositories\Eloquent\OrganizationRepository;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class CreateMatch extends Command implements SelfHandling {
@@ -62,7 +58,6 @@ class CreateMatch extends Command implements SelfHandling {
 	 * @param OrganizationRepositoryInterface $ori
 	 * @param TeamRepositoryInterface $tri
 	 * @param MatchRepositoryInterface $mri
-	 * @param MatchNoteRepositoryInterface $mnri
 	 * @return array
 	 */
 	public function handle(

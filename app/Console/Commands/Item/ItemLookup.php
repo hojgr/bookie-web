@@ -1,10 +1,6 @@
 <?php namespace BookieGG\Console\Commands\Item;
 
-use BookieGG\Models\Csgo\CsgoItem;
-use BookieGG\Models\Csgo\CsgoItemPrice;
-use BookieGG\Models\Csgo\CsgoItemSkin;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ItemLookup extends Command {
@@ -39,39 +35,7 @@ class ItemLookup extends Command {
 	 */
 	public function fire()
 	{
-		$keywords = explode(' ', $this->argument("keywords"));
-		$item = $this->option('item');
-
-		$data = null;
-
-		$i = 0;
-		foreach($keywords as $keyword) {
-			if($i == 0) {
-				$data = CsgoItemSkin::where('name', 'LIKE', "%$keyword%");
-			} else {
-				$data = $data->orWhere('name', 'LIKE', "%$keyword%");
-			}
-			$i++;
-		}
-
-		$tabular = [];
-
-		foreach($data->orderBy('csgo_item_id', 'DESC')->get() as $d) {
-			$itemname = $d->csgo_item->name;
-
-			if($d->stattrak)
-				$itemname = "StatTrak " . $itemname;
-
-			if($d->souvenir)
-				$itemname = "Souvenir " . $itemname;
-
-			$tabular[] = [
-				'item' => str_pad($itemname, 20, " ", STR_PAD_LEFT),
-				'skin' => $d->name
-			];
-		}
-
-		$this->table(['item', 'skin'], $tabular);
+		$this->comment("Not implemented");
 	}
 
 	/**

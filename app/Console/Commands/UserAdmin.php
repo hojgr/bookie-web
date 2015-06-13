@@ -2,7 +2,6 @@
 
 use BookieGG\Models\User;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class UserAdmin extends Command {

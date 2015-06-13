@@ -1,14 +1,11 @@
 <?php namespace BookieGG\Commands;
 
-use BookieGG\Commands\Command;
-
 use BookieGG\Contracts\ImageManagerInterface;
 use BookieGG\Contracts\Repositories\OrganizationRepositoryInterface;
 use BookieGG\Models\ImageType;
 use BookieGG\Models\Organization;
 use BookieGG\Models\OrganizationImage;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Intervention\Image\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CreateOrganizationCommand extends Command implements SelfHandling {

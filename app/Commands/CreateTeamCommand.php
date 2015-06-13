@@ -1,7 +1,5 @@
 <?php namespace BookieGG\Commands;
 
-use BookieGG\Commands\Command;
-
 use BookieGG\Contracts\ImageManagerInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Models\ImageType;

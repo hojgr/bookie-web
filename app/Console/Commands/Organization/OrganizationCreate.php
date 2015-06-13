@@ -27,7 +27,7 @@ class OrganizationCreate extends Command {
 
 	/**
 	 * Create a new command instance.
-	 * @param OrganizationRepository $mhr
+	 * @param OrganizationRepository $or
 	 */
 	public function __construct(OrganizationRepository $or)
 	{

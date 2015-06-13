@@ -1,6 +1,5 @@
 <?php namespace BookieGG\Http\Requests;
 
-use BookieGG\Http\Requests\Request;
 
 class AdminArticleCreate extends Request {
 

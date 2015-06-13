@@ -9,7 +9,6 @@ use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use BookieGG\Http\Requests;
 use BookieGG\Http\Controllers\Controller;
 use BookieGG\Models\Match;
-use BookieGG\Repositories\Eloquent\MatchRepository;
 
 class MatchController extends Controller {
 

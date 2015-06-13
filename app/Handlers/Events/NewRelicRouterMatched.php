@@ -2,8 +2,6 @@
 
 
 use Illuminate\Http\Request;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Illuminate\Routing\Route;
 
 class NewRelicRouterMatched {

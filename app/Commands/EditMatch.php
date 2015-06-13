@@ -1,7 +1,5 @@
 <?php namespace BookieGG\Commands;
 
-use BookieGG\Commands\Command;
-
 use BookieGG\Contracts\Repositories\MatchRepositoryInterface;
 use BookieGG\Contracts\Repositories\TeamRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -55,6 +53,7 @@ class EditMatch extends Command implements SelfHandling {
 	 * Execute the command.
 	 *
 	 * @param MatchRepositoryInterface $mri
+	 * @param TeamRepositoryInterface $tri
 	 */
 	public function handle(MatchRepositoryInterface $mri, TeamRepositoryInterface $tri)
 	{

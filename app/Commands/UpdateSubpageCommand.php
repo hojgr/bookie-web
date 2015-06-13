@@ -1,7 +1,5 @@
 <?php namespace BookieGG\Commands;
 
-use BookieGG\Commands\Command;
-
 use BookieGG\Contracts\Repositories\SubpageRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
 

@@ -39,9 +39,7 @@ class LogoUtility implements LogoUtilityInterface {
 		return route('uploaded_asset', ['logo', 'organization', $logo_filename]);
 	}
 
-	public function getImg($url, $width, $height = null) {
-		if($height === null)
-			$height = $width;
+	public function getImg($url, $width) {
 
 		return "<img class='logo' style='max-width: " . $width . "px' src='$url' alt='Logo' />";
 	}
