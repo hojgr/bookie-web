@@ -601,6 +601,18 @@ button:last-child, .btn:last-child { margin: 0; }
 /**
  * Specific parts
  */
+.loader {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 2em;
+	height: 2em;
+
+	border: 2px solid #02a4d9;
+	border-radius: 50%;
+	animation: 1s ease loader infinite;
+	z-index: 99;
+}
 #progress-bar {
 	display: none;
 	position: fixed;

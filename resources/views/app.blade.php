@@ -144,6 +144,7 @@
 
 		@yield('content')
 	</div>
+	<div class="loader hidden"></div>
 	</div>
 </body>
 </html>

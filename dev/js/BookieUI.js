@@ -20,14 +20,27 @@ BookieUI.init = function(){
 
     // initialize smoothState for smooth loading without the MVC structure
     if (!this.trueInited && matchMedia("max-width: 465px")) {
+        var $body = $("html, body");
+        
         $("#body").smoothState({
             callback: init, // call init when the DOM is ready
             onStart : { // animate out
                 duration: 100,
                 render: function(url, $cont) {
                     $(".page",$cont).addClass("fadeout");
+                    $("#body > .loader").removeClass("hidden");
                 }
-            }
+            },
+            onEnd: { // remove the loader
+                duration: 0,
+                render: function(url, $cont, $new){
+                    $body.css('cursor', 'auto');
+                    $body.find('a').css('cursor', 'auto');
+                    $cont.html($new);
+                    $cont.removeClass("fadeout");
+                }
+            },
+            development: true
         });
     }
 
