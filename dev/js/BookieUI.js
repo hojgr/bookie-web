@@ -31,15 +31,6 @@ BookieUI.init = function(){
                     $("#body > .loader").removeClass("hidden");
                 }
             },
-            onEnd: { // remove the loader
-                duration: 0,
-                render: function(url, $cont, $new){
-                    $body.css('cursor', 'auto');
-                    $body.find('a').css('cursor', 'auto');
-                    $cont.html($new);
-                    $cont.removeClass("fadeout");
-                }
-            },
             development: true
         });
     }
@@ -173,7 +164,7 @@ BookieUI.queue.remove = function(){
 /**
  * BookieUI.messages singleton
  * -
- * Handles adding/removing simple text-only messages
+ * Handles adding/removing popup messages
  * Also acts as an array of visible messages
  **/
 BookieUI.messages = [];
@@ -181,38 +172,41 @@ BookieUI.messages.inited = false;
 BookieUI.messages.init = function(){
     if (this.inited) return;
 
-    this.$container = $('<div class="message-container"></div>').insertBefore(".page");
+    this.$container = $(".popup");
     this.inited = true;
 };
-BookieUI.messages.add = function(type, text) {
+BookieUI.messages.add = function(type, html, time) {
     if (!this.inited) this.init();
 
-    // create the message element
-    var $msg = $('<div class="message message-'+type+'"></div>')
-                    .text(text)
-                    .appendTo(this.$container);
-    BookieUI.messages.push($msg[0]);
+    console.log(time);
 
-    // remove the message after 3.5 seconds
-    $msg[0]._removeable = true;
-    $msg[0]._removeFunc = function self(){
-        // if we're allowed to remove
-        if ($msg[0]._removeable) {
-            clearTimeout($msg[0]._removeTimer);
+    // create the message element
+    var $msg = $('<div class="message '+type+'"></div>')
+                    .html(html)
+                    .appendTo(this.$container),
+        msg = $msg[0];
+
+    BookieUI.messages.push(msg);
+
+    // method to remove the message
+    msg._removeable = true;
+    msg._removeFunc = function self(){
+        // if we're allowed to remove (ie. not hovering)
+        if (msg._removeable) {
+            clearTimeout(msg._removeTimer);
 
             // fade it out, then delete+remove from message list
             $msg.fadeOut(200, function(){
-                var index = BookieUI.messages.indexOf($msg[0]);
+                var index = BookieUI.messages.indexOf(msg);
                 if (index !== -1) { BookieUI.messages.splice(index,1); }
 
                 $msg.remove();
             });
         // if not allowed, try again in .25 seconds
         } else {
-            $msg[0]._removeTimer = setTimeout(self, 250);
+            msg._removeTimer = setTimeout(self, 250);
         }
     };
-    $msg[0]._removeTimer = setTimeout($msg[0]._removeFunc, 3500);
 
     // make sure the message isn't removed while hovering it
     $msg.hover(
@@ -222,9 +216,11 @@ BookieUI.messages.add = function(type, text) {
                 clearTimeout(this._removeTimer);
             },
             function(){
-                // on mouseout, remove after 2.5 s
+                // on mouseout, remove after 1.5 s
                 this._removeable = true;
-                $msg[0]._removeTimer = setTimeout(this._removeFunc, 2500);
+
+                if (time !== undefined)
+                    msg._removeTimer = setTimeout(this._removeFunc, 1500);
             })
     // and that it is when clicking it
         .click(function(){
@@ -232,8 +228,19 @@ BookieUI.messages.add = function(type, text) {
             this._removeFunc();
         });
 
+    // if time is given, remove message after time milliseconds
+    if (time !== undefined) {
+        msg._removeTimer = setTimeout(msg._removeFunc, time);
+    }
 
     return $msg;
+};
+BookieUI.messages.addText = function(type, text, time) {
+    // sanitize HTML
+    var div = document.createElement("div");
+    div.innerHTML = text;
+
+    return this.add(type, div.textContent, time);
 };
 
 /**

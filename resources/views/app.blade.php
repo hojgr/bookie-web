@@ -91,16 +91,6 @@
 	</div>
 	@show
 
-	@if(Session::has('message'))
-		<div class="message-container">
-		@foreach(Session::get('message') as $m)
-			<div class="message message-{{ $m['type'] }}">
-				{!! $m['message'] !!}
-			</div>
-		@endforeach
-		</div>
-	@endif
-
 	<div class="page fadein @if($wideLayout)wide @endif">
 		@section('misc-column')
 		<div class="column small misc-column">
@@ -144,7 +134,18 @@
 
 		@yield('content')
 	</div>
+	
 	<div class="loader hidden"></div>
+	</div>
+
+	<div class="popup">
+		@if(Session::has('message'))
+		@foreach(Session::get('message') as $m)
+			<div class="message message-{{ $m['type'] }}">
+				{!! $m['message'] !!}
+			</div>
+		@endforeach
+		@endif
 	</div>
 </body>
 </html>

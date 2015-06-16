@@ -444,6 +444,32 @@ html a.no-style {
 	opacity: 1;
 }
 
+/**
+ * Popup & messages
+ */
+.popup {
+	position: fixed;
+	right: 1em;
+	bottom: 1em;
+	max-width: 350px;
+}
+.message {
+	padding: .5em;
+	margin-top: .5em;
+
+	background: #02a4d9;
+	color: #fff;
+	border-radius: 3px;
+	box-shadow: 0 1px 4px rgba(0,0,0,.2);
+
+	cursor: pointer;
+}
+.message:first-child { margin-top: 0; }
+
+.message.error { background: #fa6262; }
+.message.warning { background: #ffb300; }
+.message.success { background: #2c2; }
+
 
 /* ====================
  *        THEME
