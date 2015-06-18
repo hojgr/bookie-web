@@ -46,7 +46,7 @@ BookieUI.init = function(){
     });
 
     // load twitter
-    if (typeof twttr !== "undefined" && twttr.widgets.hasOwnProperty("load")) {
+    if (typeof twttr !== "undefined" && twttr.hasOwnProperty("widgets") && twttr.widgets.hasOwnProperty("load")) {
         twttr.widgets.load();
     }
 
@@ -177,8 +177,6 @@ BookieUI.messages.init = function(){
 };
 BookieUI.messages.add = function(type, html, time) {
     if (!this.inited) this.init();
-
-    console.log(time);
 
     // create the message element
     var $msg = $('<div class="message '+type+'"></div>')

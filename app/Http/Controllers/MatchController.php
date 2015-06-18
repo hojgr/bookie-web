@@ -31,7 +31,7 @@ class MatchController extends Controller {
 		$qualities = ["Consumer", "Industrial", "Mil-Spec", "Restricted", "Classified", "Covert", "Melee", "Contraband"];
 		
 		// generate inventory
-		$invLength = rand(1,20);
+		$invLength = rand(175,200);
 		$inv = [];
 		for ($i = 0; $i < $invLength; $i++) {
 			$inv[] = (object) [

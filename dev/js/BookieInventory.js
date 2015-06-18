@@ -15,6 +15,9 @@ function BookieInventory($elm, opts) {
     this.$itemHolder = $(".inventory-holder", $elm);
     this.selectedItems = [];
 
+    // paginate the inventory
+    this.paginated = new BookiePaginated(this.$itemHolder);
+
     this.$items.click(this.getItemClickHandler());
 }
 // Default settings for inventories
