@@ -23,12 +23,23 @@ BookieUI.init = function(){
         var $body = $("html, body");
         
         $("#body").smoothState({
-            callback: init, // call init when the DOM is ready
             onStart : { // animate out
                 duration: 100,
                 render: function(url, $cont) {
                     $(".page",$cont).addClass("fadeout");
                     $("#body > .loader").removeClass("hidden");
+
+                    // animate to top
+                    $body.animate({scrollTop: 0}, 100);
+                }
+            },
+            onEnd : {
+                duration: 0,
+                render: function(url, $cont, $content) {
+                    $body.css('cursor', 'auto');
+                    $body.find('a').css('cursor', 'auto');
+                    $cont.html($content);
+                    init();
                 }
             },
             development: true

@@ -47,7 +47,6 @@ BookiePaginated.prototype.updateUI = function($children){
 
 	// if we only have one page, hide UI and end
 	if ($children.length <= this.options.pageSize) {
-		console.log("Too few children, yargh",$children.length,$children);
 		this.$ui.addClass("hidden");
 		return;
 	}
