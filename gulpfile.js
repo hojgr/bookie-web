@@ -3,6 +3,7 @@ process.env.DISABLE_NOTIFIER = true;
 var elixir = require('laravel-elixir');
 
 var gulp = require('gulp'),
+    plumber = require('gulp-plumber'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	util = require('gulp-util'),
@@ -16,10 +17,28 @@ var gulp = require('gulp'),
  | Custom gulp tasks, for building JS/CSS files
  |
  */
+function errorHandler(err) {
+	var msg = err.message;
+	msg = msg.replace(err.fileName+": ", "");
+
+	util.beep();
+	util.log(util.colors.bgRed("ERROR in plugin "+err.plugin));
+
+	if (err.showProperties) {
+		util.log(util.colors.bgRed("Line "+err.lineNumber));
+		util.log(util.colors.bgRed(err.fileName+":"));
+	}
+
+	util.log(util.colors.bgRed(msg));
+
+	if (err.showStack)
+		util.log(util.colors.red(err.stack));
+};
 
 // concat and minify custom JS
 gulp.task('js', function(){
 	gulp.src('dev/js/*.js')
+	       .pipe(plumber({errorHandler: errorHandler}))
 		   .pipe(uglify())
 		   .pipe(concat('compiled.js'))
 		   .pipe(gulp.dest('public/js/'));
@@ -44,6 +63,7 @@ gulp.task('css_libs', function(){
 // concat, prefix and minify CSS
 gulp.task('css', function(){
 	gulp.src('dev/css/*.css')
+		.pipe(plumber({errorHandler: errorHandler}))
 	    .pipe(autoprefix({browsers: 'last 2 versions', cascade: false}))
 	    .pipe(cssmin())
 	    .pipe(concat('compiled.css'))
