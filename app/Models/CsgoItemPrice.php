@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\Models;
+namespace BookieGG\Models;
 
 
 use Illuminate\Database\Eloquent\Model;

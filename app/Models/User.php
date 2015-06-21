@@ -24,6 +24,10 @@ class User extends Eloquent implements Authenticatable {
 		return $this->hasMany('BookieGG\Models\Article');
 	}
 
+	public function bank() {
+		return $this->hasMany('BookieGG\Models\UserBank');
+	}
+
 	/**
 	 * Activate user account
 	 *

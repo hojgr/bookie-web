@@ -3,8 +3,10 @@
 
 namespace BookieGG\Http\Controllers;
 
+use BookieGG\Repositories\Eloquent\BankRepository;
+
 class BankController extends Controller {
-	public function show() {
+	public function show(BankRepository $bankRepository) {
 		$weapons = [
 			'http://steamcommunity-a.akamaihd.net/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZYMUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz56P7fiDzRyTQXJVfdhX_o45gnTBCI24dJua9u35bwDZw2-tYrFNeMvMNhIG8OEXvKBYQGrvhg-g6AMe8eMpni93y7rbGZeCEH1ujVTFsKH5xI/90fx60f',
 			'https://steamcommunity-a.akamaihd.net/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZYMUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz58OOy2OwhkZzvFDa9dV7g2_Rn5DDQx7cl3a9u_8LMSZw3qtdfPNrR5ZNwdSpbSUqXVNQz4vktr0aUPK5bYp37m2yntbG0MCkD1ujVTR3uA_-U/90fx60f',
@@ -18,7 +20,7 @@ class BankController extends Controller {
 			'http://steamcommunity-a.akamaihd.net/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZYMUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz52YOLkDyRufgHMAqVMY_Q3ywW4CHZ_-_hiWNu57oQJO12x49epbuV4aZ0RcJyBGKHTeAv77x44gqUJfcPYoi6-3C3hOmpeU0fi-DhXy7TT7rpvizlHRSey-eSS6Z6uOk_crRE/90fx60f',
 		];
 		$qualities = ["Consumer", "Industrial", "Mil-Spec", "Restricted", "Classified", "Covert", "Melee", "Contraband"];
-		
+
 		// generate inventory
 		$invLength = rand(1,20);
 		$inv = [];
@@ -40,18 +42,20 @@ class BankController extends Controller {
 			];
 		}
 
+
+		$bankItems = $bankRepository->getBank(\Auth::getUser());
+
 		// generate bank
-		$bankLength = rand(1,20);
 		$bank = [];
-		for ($i = 0; $i < $bankLength; $i++) {
+		foreach($bankItems as $bankItem) {
 			$bank[] = (object) [
-				"id" => 1,
-				"weaponName" => "AK-47 | Serpent Ward (Battle-Scarred)",
-				"exterior" => ["Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"][rand(0,4)],
-				"quality" =>  $qualities[rand(0,7)],
-				"price" => "60.00",
-				"stattrak" => !rand(0,1),
-				"image" => $weapons[rand(0,9)]
+				"id" => $bankItem->id,
+				"weaponName" => $bankItem->csgo_item->market_name,
+				"exterior" => $bankItem->csgo_item->csgo_item_exterior->name,
+				"quality" =>  $bankItem->csgo_item->csgo_item_quality->name,
+				"price" => $bankItem->csgo_item->latestPrice->price,
+				"stattrak" => $bankItem->csgo_item->stattrak == 1,
+				"image" => $bankItem->csgo_item->getLogoURL()
 			];
 		}
 
