@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CsgoItem extends Model {
 
-	public function csgo_item_price() {
+	public function csgo_item_prices() {
 		return $this->hasMany('BookieGG\Models\CsgoItemPrice');
 	}
 
