@@ -7,6 +7,7 @@
  * @category Class
  * @package  BookieGG\Services
  * @author   Michal Hojgr <michal.hojgr@gmail.com>
+ * @author   Johan Fagerberg <not@known.com>
  * @license  MS Reference
  * @link     http://bookie.gg
  */
