@@ -1,4 +1,15 @@
 <?php
+/**
+ * BankController
+ *
+ * PHP version 5.6
+ *
+ * @category Class
+ * @package  BookieGG\Http\Controllers
+ * @author   Michal Hojgr <michal.hojgr@gmail.com>
+ * @license  MS Reference
+ * @link     http://bookie.gg
+ */
 
 namespace BookieGG\Http\Controllers;
 
@@ -8,11 +19,41 @@ use BookieGG\Repositories\Eloquent\BankRepository;
 use BookieGG\Contracts\InventoryLoaderInterface;
 use BookieGG\Contracts\BankLoaderInterface;
 use BookieGG\Services\ItemUtility;
+use \Illuminate\Auth\Guard;
 
-class BankController extends Controller {
-    public function show(InventoryLoaderInterface $inventoryLoader, BankLoaderInterface $bankLoader) {
+/**
+ * BankController
+ *
+ * @category Class
+ * @package  BookieGG\Http\Controllers
+ * @author   Michal Hojgr <michal.hojgr@gmail.com>
+ * @license  MS Reference
+ * @link     http://bookie.gg
+ */
+class BankController extends Controller
+{
+    /**
+     * Shows user's bank
+     *
+     * @param InventoryLoaderInterface $inventoryLoader Handles inventory loading
+     * @param BankLoaderInterface      $bankLoader      Handles bank loading
+     * @param Guard                    $guard           Guards user
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function show(
+        InventoryLoaderInterface $inventoryLoader,
+        BankLoaderInterface $bankLoader,
+        Guard $guard
+    ) {
+        $inventory = $inventoryLoader->loadSteamInventory(
+            $guard->getUser()->steam_id
+        );
+
+        $bank = $bankLoader->load($guard->getUser());
+
         return view("bank/bank")
-            ->with('userInventory', $inventoryLoader->loadSteamInventory(\Auth::getUser()->steam_id))
-            ->with('userBank', $bankLoader->load(\Auth::getUser()));
+            ->with('userInventory', $inventory)
+            ->with('userBank', $bank);
     }
 }
