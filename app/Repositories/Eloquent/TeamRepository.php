@@ -11,39 +11,39 @@ use BookieGG\Models\TeamImage;
 
 class TeamRepository implements TeamRepositoryInterface {
 
-	public function create($name)
-	{
-		$team = new Team();
+    public function create($name)
+    {
+        $team = new Team();
 
-		$team->name = $name;
+        $team->name = $name;
 
-		$team->save();
+        $team->save();
 
-		return $team;
-	}
+        return $team;
+    }
 
-	public function getAll()
-	{
-		return Team::all();
-	}
+    public function getAll()
+    {
+        return Team::all();
+    }
 
-	public function getById($id)
-	{
-		return Team::find($id);
-	}
+    public function getById($id)
+    {
+        return Team::find($id);
+    }
 
-	public function delete(Team $team) {
-		return $team->delete();
-	}
+    public function delete(Team $team) {
+        return $team->delete();
+    }
 
 
 
-	public function save(Team $t, TeamImage $ti, ImageType $it)
-	{
-		$t->save();
+    public function save(Team $t, TeamImage $ti, ImageType $it)
+    {
+        $t->save();
 
-		$ti->image_type_id = $it->id;
+        $ti->image_type_id = $it->id;
 
-		$t->images()->save($ti);
-	}
+        $t->images()->save($ti);
+    }
 }

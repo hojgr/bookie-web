@@ -7,12 +7,12 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class Controller extends BaseController {
 
-	use DispatchesCommands, ValidatesRequests;
+    use DispatchesCommands, ValidatesRequests;
 
-	public function __construct(ArticleRepositoryInterface $ari) {
-		// TODO: move to separate class ( http://laravel.com/docs/5.0/views#view-composers )
-		\View::composer('app', function($v) use ($ari) {
-			$v->with('articles', $ari->all());
-		});
-	}
+    public function __construct(ArticleRepositoryInterface $ari) {
+        // TODO: move to separate class ( http://laravel.com/docs/5.0/views#view-composers )
+        \View::composer('app', function($v) use ($ari) {
+            $v->with('articles', $ari->all());
+        });
+    }
 }

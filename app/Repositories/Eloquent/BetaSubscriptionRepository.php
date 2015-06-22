@@ -11,36 +11,36 @@ use BookieGG\Models\User;
 
 class BetaSubscriptionRepository implements BetaSubscriptionRepositoryInterface {
 
-	/**
-	 * @var UserRepositoryInterface
-	 */
-	private $userRepository;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private $userRepository;
 
-	public function __construct(UserRepositoryInterface $userRepo) {
+    public function __construct(UserRepositoryInterface $userRepo) {
 
-		$this->userRepository = $userRepo;
-	}
+        $this->userRepository = $userRepo;
+    }
 
-	/**
-	 * @param User $user
-	 * @param string $name
-	 * @param string $email
-	 * @return BetaSubscription
-	 */
-	public function create(User $user, $name, $email)
-	{
-		$subscription = new BetaSubscription(['name' => $name, 'email' => $email]);
-		$this->userRepository->subscribe($user, $subscription);
+    /**
+     * @param User $user
+     * @param string $name
+     * @param string $email
+     * @return BetaSubscription
+     */
+    public function create(User $user, $name, $email)
+    {
+        $subscription = new BetaSubscription(['name' => $name, 'email' => $email]);
+        $this->userRepository->subscribe($user, $subscription);
 
-		return $subscription;
-	}
+        return $subscription;
+    }
 
-	/**
-	 * @param User $user
-	 * @return mixed
-	 */
-	public function isSubscribed(User $user)
-	{
-		return $user->subscription;
-	}
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function isSubscribed(User $user)
+    {
+        return $user->subscription;
+    }
 }

@@ -4,6 +4,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class MatchNote extends Model {
 
-	//
+    //
 
 }

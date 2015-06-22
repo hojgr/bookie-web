@@ -5,9 +5,9 @@ use BookieGG\Http\Requests;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller {
-	public function show()
-	{
-		return view('contact/index');
-	}
+    public function show()
+    {
+        return view('contact/index');
+    }
 
 }

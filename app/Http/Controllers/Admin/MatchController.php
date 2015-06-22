@@ -12,159 +12,159 @@ use BookieGG\Models\Match;
 
 class MatchController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @param MatchRepositoryInterface $mri
-	 * @return Response
-	 */
-	public function index(MatchRepositoryInterface $mri)
-	{
-		return view('admin/match/index')
-			->with('matches', $mri->allDesc())
-			->with('hide_right_side', true);
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @param MatchRepositoryInterface $mri
+     * @return Response
+     */
+    public function index(MatchRepositoryInterface $mri)
+    {
+        return view('admin/match/index')
+            ->with('matches', $mri->allDesc())
+            ->with('hide_right_side', true);
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @param OrganizationRepositoryInterface $ori
-	 * @param TeamRepositoryInterface $tri
-	 * @return Response
-	 */
-	public function create(OrganizationRepositoryInterface $ori, TeamRepositoryInterface $tri)
-	{
-		$organizers = ['None selected'] + $this->getRight($ori->getAll());
-		$teams = ['None selected'] + $this->getRight($tri->getAll());
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param OrganizationRepositoryInterface $ori
+     * @param TeamRepositoryInterface $tri
+     * @return Response
+     */
+    public function create(OrganizationRepositoryInterface $ori, TeamRepositoryInterface $tri)
+    {
+        $organizers = ['None selected'] + $this->getRight($ori->getAll());
+        $teams = ['None selected'] + $this->getRight($tri->getAll());
 
-		$_bos = [1, 3, 5];
-		$bos = [];
+        $_bos = [1, 3, 5];
+        $bos = [];
 
-		foreach($_bos as $b) {
-			$bos[$b] = "BO$b";
-		}
+        foreach($_bos as $b) {
+            $bos[$b] = "BO$b";
+        }
 
-		return view('admin/match/create')
-			->with('organizers', $organizers)
-			->with('teams', $teams)
-			->with('all_bos', $bos);
-	}
+        return view('admin/match/create')
+            ->with('organizers', $organizers)
+            ->with('teams', $teams)
+            ->with('all_bos', $bos);
+    }
 
-	public function getRight($col) {
-		$select = [];
+    public function getRight($col) {
+        $select = [];
 
-		foreach($col as $o) {
-			$select[$o->id] = $o->name;
-		}
+        foreach($col as $o) {
+            $select[$o->id] = $o->name;
+        }
 
-		return $select;
-	}
+        return $select;
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param Requests\MatchCreateRequest $request
-	 * @return Response
-	 */
-	public function store(Requests\MatchCreateRequest $request)
-	{
-		$all = \Input::all();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Requests\MatchCreateRequest $request
+     * @return Response
+     */
+    public function store(Requests\MatchCreateRequest $request)
+    {
+        $all = \Input::all();
 
-		list($t1, $t2) = $this->dispatch(
-			new CreateMatch(
-				$all['organizer'],
-				$all['t1'],
-				$all['t2'],
-				$all['bo'],
-				new \DateTime($all['start']),
-				$all['note']
-			)
-		);
+        list($t1, $t2) = $this->dispatch(
+            new CreateMatch(
+                $all['organizer'],
+                $all['t1'],
+                $all['t2'],
+                $all['bo'],
+                new \DateTime($all['start']),
+                $all['note']
+            )
+        );
 
-		\Session::flash('message',
-			[['type' => 'success', 'message' => "Match <b>{$t1->name}</b> vs. <b>{$t2->name}</b> was successfully created"]]);
+        \Session::flash('message',
+            [['type' => 'success', 'message' => "Match <b>{$t1->name}</b> vs. <b>{$t2->name}</b> was successfully created"]]);
 
-		return \Redirect::route('admin.match.index');
-	}
+        return \Redirect::route('admin.match.index');
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param MatchRepositoryInterface $mri
-	 * @param TeamRepositoryInterface $tri
-	 * @param  int $id
-	 * @return Response
-	 */
-	public function edit(MatchRepositoryInterface $mri, TeamRepositoryInterface $tri, $id) {
-		$_bos = [1, 3, 5];
-		$bos = [];
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param MatchRepositoryInterface $mri
+     * @param TeamRepositoryInterface $tri
+     * @param  int $id
+     * @return Response
+     */
+    public function edit(MatchRepositoryInterface $mri, TeamRepositoryInterface $tri, $id) {
+        $_bos = [1, 3, 5];
+        $bos = [];
 
-		$teams = $this->getRight($tri->getAll());
+        $teams = $this->getRight($tri->getAll());
 
-		foreach($_bos as $b) {
-			$bos[$b] = "BO$b";
-		}
+        foreach($_bos as $b) {
+            $bos[$b] = "BO$b";
+        }
 
-		return view('admin/match/edit')
-			->with('match', $mri->find($id))
-			->with('all_bos', $bos)
-			->with('teams', $teams);
-	}
+        return view('admin/match/edit')
+            ->with('match', $mri->find($id))
+            ->with('all_bos', $bos)
+            ->with('teams', $teams);
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param MatchEditRequest $request
-	 * @param  int $id
-	 * @return Response
-	 */
-	public function update(MatchEditRequest $request, $id)
-	{
-		$this->dispatch(
-			new EditMatch($id, \Input::get('bo'), \Input::get('start'), \Input::get('note'), \Input::get('t1'), \Input::get('t2'))
-		);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param MatchEditRequest $request
+     * @param  int $id
+     * @return Response
+     */
+    public function update(MatchEditRequest $request, $id)
+    {
+        $this->dispatch(
+            new EditMatch($id, \Input::get('bo'), \Input::get('start'), \Input::get('note'), \Input::get('t1'), \Input::get('t2'))
+        );
 
-		\Session::flash('message',
-			[['type' => 'success', 'message' => "Match was successfully edited"]]);
+        \Session::flash('message',
+            [['type' => 'success', 'message' => "Match was successfully edited"]]);
 
-		return \Redirect::route('admin.match.index');
-	}
+        return \Redirect::route('admin.match.index');
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
 
-	public function pickwinner($matchid, $tid) {
-		// TODO: move it to repository :'(
-		$match = Match::find($matchid);
+    public function pickwinner($matchid, $tid) {
+        // TODO: move it to repository :'(
+        $match = Match::find($matchid);
 
-		$match->winner_id = $tid;
-		$match->status = Match::STATUS_FINISHED;
+        $match->winner_id = $tid;
+        $match->status = Match::STATUS_FINISHED;
 
-		$match->save();
+        $match->save();
 
-		\Session::flash('message',
-			[['type' => 'success', 'message' => "Winner was successfully picked"]]);
+        \Session::flash('message',
+            [['type' => 'success', 'message' => "Winner was successfully picked"]]);
 
-		return \Redirect::route('admin.match.index');
-	}
+        return \Redirect::route('admin.match.index');
+    }
 }

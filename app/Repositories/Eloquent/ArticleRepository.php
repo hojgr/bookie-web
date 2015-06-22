@@ -11,18 +11,18 @@ use BookieGG\Models\User;
 class ArticleRepository implements ArticleRepositoryInterface {
 
 
-	public function find($id)
-	{
-		return Article::find($id);
-	}
+    public function find($id)
+    {
+        return Article::find($id);
+    }
 
-	public function all()
-	{
-		return Article::orderBy('id', 'DESC')->get();
-	}
+    public function all()
+    {
+        return Article::orderBy('id', 'DESC')->get();
+    }
 
-	public function save(User $author, Article $article)
-	{
-		$author->articles()->save($article);
-	}
+    public function save(User $author, Article $article)
+    {
+        $author->articles()->save($article);
+    }
 }

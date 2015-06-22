@@ -5,10 +5,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model {
 
-	use HasLogo;
+    use HasLogo;
 
-	public function match() {
-		$this->belongsToMany('BookieGG\Models\Match');
-	}
+    public function match() {
+        $this->belongsToMany('BookieGG\Models\Match');
+    }
 
 }

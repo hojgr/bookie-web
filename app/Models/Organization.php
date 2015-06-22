@@ -5,11 +5,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model {
 
-	use HasLogo;
+    use HasLogo;
 
-	protected $fillable = ['name', 'url'];
+    protected $fillable = ['name', 'url'];
 
-	public function matches() {
-		return $this->hasMany('BookieGG\Models\Match');
-	}
+    public function matches() {
+        return $this->hasMany('BookieGG\Models\Match');
+    }
 }
