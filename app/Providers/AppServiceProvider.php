@@ -1,4 +1,5 @@
-<?php namespace BookieGG\Providers;
+<?php 
+namespace BookieGG\Providers;
 
 use BookieGG\Repositories\Eloquent\ArticleRepository;
 use BookieGG\Repositories\Eloquent\BetaSubscriptionRepository;
@@ -16,6 +17,7 @@ use BookieGG\Services\InventoryLoader;
 use Illuminate\Support\ServiceProvider;
 use BookieGG\Services\SteamUtility;
 use BookieGG\Services\ItemUtility;
+use BookieGG\Services\BankLoader;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -58,6 +60,7 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\NoteHelperInterface' => NoteHelper::class,
             'BookieGG\Contracts\InventoryLoaderInterface' => InventoryLoader::class,
             'BookieGG\Contracts\ItemUtilityContract' => ItemUtility::class,
+            'BookieGG\Contracts\BankLoaderInterface' => BankLoader::class,
 		];
 
 		foreach($binds as $interface => $implementation) {
