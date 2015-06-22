@@ -6,24 +6,19 @@ namespace BookieGG\Http\Controllers;
 use BookieGG\Models\CsgoItem;
 use BookieGG\Models\CsgoItemPrice;
 use BookieGG\Repositories\Eloquent\BankRepository;
+use BookieGG\Services\InventoryLoader;
+use BookieGG\Services\ItemUtility;
 
 class BankController extends Controller {
-	public function show(BankRepository $bankRepository) {
+    public function show(
+        BankRepository $bankRepository, 
+        InventoryLoader $invLoader,
+        ItemUtility $itemUtil 
+    ) {
 
-		$inventoryJsonURL = "http://steamcommunity.com/profiles/" . \Auth::getUser()->steam_id . "/inventory/json/730/2";
-		$inventoryJsonString = file_get_contents($inventoryJsonURL);
-		$inventoryJson = json_decode($inventoryJsonString);
+        $inventoryJson = $invLoader->load(\Auth::getUser()->steam_id);
 
-		$qualities = ["Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"];
 
-		$getQuality = function($market_name) use ($qualities) {
-			foreach($qualities as $quality) {
-				if(str_contains($market_name, $quality))
-					return $quality;
-			}
-
-			return "";
-		};
 
 		$inv = [];
 		$names = [];
@@ -38,7 +33,7 @@ class BankController extends Controller {
 			$inv[] = (object) [
 				"id" => $item->id, // this is used as index for all POST params - must be unique for inventory
 				"weaponName" => $itemDescription->market_hash_name,
-				"exterior" => $getQuality($itemDescription->market_hash_name),
+				"exterior" => $itemUtil->getExterior($itemDescription->market_hash_name),
 				"quality" =>  $itemDescription->type,
 				"price" => "??",
 				"stattrak" => str_contains($itemDescription->market_hash_name, "StatTrak"),

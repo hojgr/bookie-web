@@ -12,8 +12,10 @@ use BookieGG\Services\LogoUtility;
 use BookieGG\Services\NoteHelper;
 use BookieGG\Services\SubpageService;
 use BookieGG\Services\TimeUtility;
+use BookieGG\Services\InventoryLoader;
 use Illuminate\Support\ServiceProvider;
 use BookieGG\Services\SteamUtility;
+use BookieGG\Services\ItemUtility;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -53,6 +55,9 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\TimeUtilityInterface' => TimeUtility::class,
 			'BookieGG\Contracts\SubpageServiceInterface' => SubpageService::class,
 			'BookieGG\Contracts\NoteHelperInterface' => NoteHelper::class,
+			'BookieGG\Contracts\NoteHelperInterface' => NoteHelper::class,
+            'BookieGG\Contracts\InventoryLoaderInterface' => InventoryLoader::class,
+            'BookieGG\Contracts\ItemUtilityContract' => ItemUtility::class,
 
 		];
 
