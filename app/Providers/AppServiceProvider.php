@@ -58,7 +58,6 @@ class AppServiceProvider extends ServiceProvider {
 			'BookieGG\Contracts\NoteHelperInterface' => NoteHelper::class,
             'BookieGG\Contracts\InventoryLoaderInterface' => InventoryLoader::class,
             'BookieGG\Contracts\ItemUtilityContract' => ItemUtility::class,
-
 		];
 
 		foreach($binds as $interface => $implementation) {
