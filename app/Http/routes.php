@@ -31,6 +31,17 @@ Route::get('/help', ['as' => 'help', 'uses' => 'HelpController@show']);
 Route::group(
     ['middleware' => 'beta.active_only'],
     function () {
+        /**
+         * API Methods
+         *
+         * @see http://docs.bookiegg.apiary.io/
+         */
+        Route::post(
+            '/api/csgo/bank/deposit',
+            ['uses' => 'BankController@deposit']
+        );
+
+
         Route::get(
             '/',
             ['as' => 'home', 'uses' => 'HomeController@index']

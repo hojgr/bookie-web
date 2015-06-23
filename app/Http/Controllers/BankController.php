@@ -20,6 +20,8 @@ use BookieGG\Contracts\InventoryLoaderInterface;
 use BookieGG\Contracts\BankLoaderInterface;
 use BookieGG\Services\ItemUtility;
 use \Illuminate\Auth\Guard;
+use \Illuminate\Http\Request;
+use BookieGG\Commands\DepositItemsCommand;
 
 /**
  * BankController
@@ -55,5 +57,27 @@ class BankController extends Controller
         return view("bank/bank")
             ->with('userInventory', $inventory)
             ->with('userBank', $bank);
+    }
+
+    /**
+     * Initiates an operation for moving items from
+     * user's steam inventory to our bot's inventory
+     *
+     * @param Request $request HTTP Request
+     *
+     * @see http://docs.bookiegg.apiary.io/#reference/betting-api/make-bet
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deposit(Request $request)
+    {
+        $items = $request->input('items');
+
+        $this->dispatch(
+            new DepositItemsCommand(
+                \Auth::getUser(),
+                $items
+            )
+        );
     }
 }
