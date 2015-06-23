@@ -67,6 +67,10 @@ class UserTradeRepository
     {
         $trade = UserTrade::where('user_id', '=', $user->id)->get()->last();
 
+        if ($trade === null) {
+            return [[], []];
+        }
+
         if ($trade->type == "deposit") {
             $items = [];
             

@@ -59,7 +59,6 @@ class BankController extends Controller
 
         list($pendingDeposit, $pendingWithdraw) = $tradeRepo->getPendingTrade($guard->getUser());
 
-        dd($pendingDeposit);
         return view("bank/bank")
             ->with('userInventory', $inventory)
             ->with('userBank', $bank)
