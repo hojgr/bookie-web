@@ -1,4 +1,4 @@
-/**
+{{--
  * A view for main bank page
  *
  * PHP version 5.6
@@ -8,7 +8,7 @@
  * @author   Johan Fagerberg <now@known.com>
  * @license  MS Reference
  * @link     http://bookie.gg
- */
+--}} 
 {{-- */ $wideLayout=true; /*--}}
 @extends('app')
 
