@@ -1,10 +1,10 @@
 <div class="itembox small {{ strtolower($item->quality) }} tipped">
 	@if(isset($item->steam_info))
 		@foreach($item->steam_info as $n=>$v)
-			<input type="hidden" name="item[{{ $item->id }}][{{ $n }}]" value="{{ $v }}">
+			<input type="hidden" name="items[{{ $item->id }}][{{ $n }}]" value="{{ $v }}">
 		@endforeach
 	@else
-		<input type="hidden" name="item[]" value="{{ $item->id }}" />
+		<input type="hidden" name="items[]" value="{{ $item->id }}" />
 	@endif
 	<div class="itembox-header">
 		@if($item->stattrak)
