@@ -55,4 +55,32 @@ class UserTradeRepository
             $dbItem->save();
         }
     }
+
+    /**
+     * Returns all pending trades
+     *
+     * @param User $user User for which to get itt
+     *
+     * @return array
+     */
+    public function getPendingTrade(User $user)
+    {
+        $trade = UserTrade::where('user_id', '=', $user->id)->get()->last();
+
+        if ($trade->type == "deposit") {
+            $items = [];
+            
+            foreach ($trade->user_trade_deposit_items as $tradeDepositItem) {
+                $items[] = [
+                    'id' => $tradeDepositItem->steam_item_id,
+                    'class_id' => $tradeDepositItem->class_id,
+                    'instance_id' => $tradeDepositItem->instance_id
+                ];
+            }
+
+            // the expected return value is [pendingDeposit, pendingWithdraw]
+            return [$items, []];
+        }
+        throw new \Exception("Not implemented");
+    }
 }

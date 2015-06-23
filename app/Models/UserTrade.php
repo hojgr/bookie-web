@@ -31,7 +31,7 @@ class UserTrade extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userTadeDepositItems()
+    public function user_trade_deposit_items()
     {
         return $this->hasMany('BookieGG\Models\UserTradeDepositItem');
     }

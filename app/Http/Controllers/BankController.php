@@ -22,6 +22,7 @@ use BookieGG\Services\ItemUtility;
 use \Illuminate\Auth\Guard;
 use \Illuminate\Http\Request;
 use BookieGG\Commands\DepositItemsCommand;
+use BookieGG\Repositories\Eloquent\UserTradeRepository;
 
 /**
  * BankController
@@ -40,13 +41,15 @@ class BankController extends Controller
      * @param InventoryLoaderInterface $inventoryLoader Handles inventory loading
      * @param BankLoaderInterface      $bankLoader      Handles bank loading
      * @param Guard                    $guard           Guards user
+     * @param UserTradeRepository      $tradeRepo       User trade repository
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(
         InventoryLoaderInterface $inventoryLoader,
         BankLoaderInterface $bankLoader,
-        Guard $guard
+        Guard $guard,
+        UserTradeRepository $tradeRepo
     ) {
         $inventory = $inventoryLoader->loadSteamInventory(
             $guard->getUser()->steam_id
@@ -54,9 +57,14 @@ class BankController extends Controller
 
         $bank = $bankLoader->load($guard->getUser());
 
+        list($pendingDeposit, $pendingWithdraw) = $tradeRepo->getPendingTrade($guard->getUser());
+
+        dd($pendingDeposit);
         return view("bank/bank")
             ->with('userInventory', $inventory)
-            ->with('userBank', $bank);
+            ->with('userBank', $bank)
+            ->with('pendingDeposit', $pendingDeposit)
+            ->with('pendingWithdraw', $pendingWithdraw);
     }
 
     /**
