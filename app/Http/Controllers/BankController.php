@@ -20,6 +20,7 @@ use BookieGG\Contracts\InventoryLoaderInterface;
 use BookieGG\Contracts\BankLoaderInterface;
 use BookieGG\Services\ItemUtility;
 use \Illuminate\Auth\Guard;
+use \Illuminate\Http\Response;
 use \Illuminate\Http\Request;
 use BookieGG\Commands\DepositItemsCommand;
 use BookieGG\Repositories\Eloquent\UserTradeRepository;
@@ -70,19 +71,37 @@ class BankController extends Controller
      * Initiates an operation for moving items from
      * user's steam inventory to our bot's inventory
      *
-     * @param Request $request HTTP Request
+     * @param Request             $request   HTTP Request
+     * @param UserTradeRepository $tradeRepo A trade repo
      *
      * @see http://docs.bookiegg.apiary.io/#reference/betting-api/make-bet
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deposit(Request $request)
-    {
+    public function deposit(
+        Request $request,
+        UserTradeRepository $tradeRepo
+    ) {
+        list(
+            $pendingDeposit,
+            $pendingWithdraw
+        ) = $tradeRepo->getPendingTrade(auth()->getUser());
+        if (count($pendingDeposit) != 0
+            || count($pendingWithdraw) != 0
+        ) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'You already have one trade pending!'
+                ]
+            );
+        }
+
         $items = $request->input('items');
 
         $this->dispatch(
             new DepositItemsCommand(
-                \Auth::getUser(),
+                auth()->getUser(),
                 $items
             )
         );
