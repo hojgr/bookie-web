@@ -15,7 +15,8 @@
 		"mockery/mockery": "0.9.*",
 		"phpmd/phpmd": "~2.2",
 		"intervention/image": "~2.1",
-		"solidew/spaceless-blade": "^1.0"
+		"solidew/spaceless-blade": "^1.0",
+        "predis/predis": "~1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
