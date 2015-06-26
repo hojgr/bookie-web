@@ -33,6 +33,8 @@ class Kernel extends ConsoleKernel {
         'BookieGG\Console\Commands\Item\ItemLookup',
 
         'BookieGG\Console\Commands\UserAdmin',
+
+        'BookieGG\Console\Commands\SyncTrades',
     ];
 
     /**

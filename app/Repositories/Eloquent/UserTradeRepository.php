@@ -31,16 +31,18 @@ class UserTradeRepository
     /**
      * Create db record for trade deposit
      *
-     * @param User  $user  User that wants the trade
-     * @param array $items items to be deposited
+     * @param User   $user         User that wants the trade
+     * @param string $redisTradeId An integer trade was set into redis with
+     * @param array  $items        items to be deposited
      *
      * @return void
      */
-    public function createTradeDeposit(User $user, $items)
+    public function createTradeDeposit(User $user, $redisTradeId, $items)
     {
         $trade = new UserTrade;
         $trade->type = "deposit";
         $trade->user_id = $user->id;
+        $trade->redis_trade_id = $redisTradeId;
         $trade->status = "queue";
         $trade->save();
 

@@ -15,6 +15,7 @@ namespace BookieGG\Commands;
 use Illuminate\Contracts\Bus\SelfHandling;
 use BookieGG\Models\User;
 use BookieGG\Repositories\Eloquent\UserTradeRepository;
+use Illuminate\Redis\Database;
 
 /**
  * A command that creates an item deposit request
@@ -58,12 +59,38 @@ class DepositItemsCommand extends Command implements SelfHandling
      * Command execution
      *
      * @param UserTradeRepository $repository Repository
+     * @param Database            $redis      Redis connection
      *
      * @return void
      */
-    public function handle(UserTradeRepository $repository)
+    public function handle(UserTradeRepository $repository, Database $redis)
     {
-        $repository->createTradeDeposit($this->user, $this->items);
-        // insert it to redis
+        $currentId = $redis->incr('trade:counter');
+
+        $data = [
+            "type" => "request", // request | return
+            "steamid" => auth()->getUser()->steam_id,
+            "token" => auth()->getUser()->user_trade_link->token,
+            "message" => "No message yet",
+            "items" => array_values(
+                array_map(
+                    function ($a) {
+                        return $a['id'];
+                    },
+                    $this->items
+                )
+            ),
+        ];
+
+        $json_data = json_encode($data);
+
+        $base64_data = base64_encode($json_data);
+
+        $redis->set("trade:offer:$currentId", $base64_data);
+
+        $repository->createTradeDeposit($this->user, $currentId, $this->items);
+
+        $redis->rpush('trade:queue', $currentId);
+
     }
 }

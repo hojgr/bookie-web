@@ -20,6 +20,10 @@ class User extends Eloquent implements Authenticatable {
         return $this->hasOne('BookieGG\Models\BetaSubscription');
     }
 
+    public function user_trade_link() {
+        return $this->hasOne('BookieGG\Models\UserTradeLink');
+    }
+
     public function articles() {
         return $this->hasMany('BookieGG\Models\Article');
     }
