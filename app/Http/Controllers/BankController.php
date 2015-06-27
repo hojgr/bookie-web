@@ -106,4 +106,27 @@ class BankController extends Controller
             )
         );
     }
+
+    /**
+     * Initiates an operation for moving items from
+     * user's bank (bot) to his inventory
+     *
+     * @param Request             $request   HTTP Request
+     * @param UserTradeRepository $tradeRepo A trade repo
+     *
+     * @see http://docs.bookiegg.apiary.io/#reference/betting-api/make-bet
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function withdraw(
+        Request $request,
+        UserTradeRepository $tradeRepo
+    ) { 
+        return response()->json(
+            [
+                'success' => false,
+                'message' => 'Not implemented yet'
+            ]
+        );
+    }
 }

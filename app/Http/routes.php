@@ -41,6 +41,12 @@ Route::group(
             ['uses' => 'BankController@deposit']
         );
 
+        Route::post(
+            '/api/csgo/bank/withdraw',
+            ['uses' => 'BankController@withdraw']
+        );
+
+
 
         Route::get(
             '/',
