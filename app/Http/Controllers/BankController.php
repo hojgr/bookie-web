@@ -68,6 +68,36 @@ class BankController extends Controller
     }
 
     /**
+     * Checks for pending trade
+     *
+     * If returns a type of Response, trade is pending and should be returned.
+     * Otherwise none is pending
+     *
+     * @param UserTradeRepository $tradeRepo Trade repo
+     *
+     * @return Response|bool
+     */
+    public function checkPendingTrades(UserTradeRepository $tradeRepo)
+    {
+        list(
+            $pendingDeposit,
+            $pendingWithdraw
+        ) = $tradeRepo->getPendingTrade(auth()->getUser());
+        if (count($pendingDeposit) != 0
+            || count($pendingWithdraw) != 0
+        ) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'You already have one trade pending!'
+                ]
+            );
+        }
+
+        return false;
+    }
+
+    /**
      * Initiates an operation for moving items from
      * user's steam inventory to our bot's inventory
      *
@@ -82,19 +112,10 @@ class BankController extends Controller
         Request $request,
         UserTradeRepository $tradeRepo
     ) {
-        list(
-            $pendingDeposit,
-            $pendingWithdraw
-        ) = $tradeRepo->getPendingTrade(auth()->getUser());
-        if (count($pendingDeposit) != 0
-            || count($pendingWithdraw) != 0
-        ) {
-            return response()->json(
-                [
-                    'success' => false,
-                    'message' => 'You already have one trade pending!'
-                ]
-            );
+        $hasTradePending = $this->checkpendingTrades($tradeRepo);
+
+        if (!$hasTradePending) {
+            return $hasTradePending;
         }
 
         $items = $request->input('items');
@@ -128,7 +149,13 @@ class BankController extends Controller
     public function withdraw(
         Request $request,
         UserTradeRepository $tradeRepo
-    ) { 
+    ) {
+        $hasTradePending = $this->checkpendingTrades($tradeRepo);
+
+        if (!$hasTradePending) {
+            return $hasTradePending;
+        }
+
         return response()->json(
             [
                 'success' => false,
