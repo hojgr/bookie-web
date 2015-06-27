@@ -105,6 +105,13 @@ class BankController extends Controller
                 $items
             )
         );
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'You are in a queue waiting for available bot!'
+            ]
+        );
     }
 
     /**
