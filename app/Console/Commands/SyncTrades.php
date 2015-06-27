@@ -71,11 +71,15 @@ class SyncTrades extends Command
         $this->info('Synchronizing trades');
 
         foreach ($redisTrades->eachTrade() as $trade) {
-            dd($trade);
             if ($trade->isAccepted()) {
                 $this->info('Accepted');
             } if ($trade->isPending()) {
-                $this->info('Pending');
+                $this->info(
+                    sprintf(
+                        "Trade #%d is pending",
+                        $trade->redisId
+                    )
+                );
             } elseif ($trade->isCancelled()) {
                 $this->info('Cancelled');
             }
