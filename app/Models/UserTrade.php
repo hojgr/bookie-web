@@ -41,7 +41,7 @@ class UserTrade extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userTradeWithdrawItems()
+    public function user_trade_withdraw_items()
     {
         return $this->hasMany('BookieGG\Models\UserTradeWithdrawItem');
     }

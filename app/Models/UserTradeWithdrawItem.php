@@ -31,8 +31,18 @@ class UserTradeWithdrawItem extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function trade()
+    public function user_trade()
     {
         return $this->belongsTo('BookieGG\Models\UserTrade');
+    }
+
+    /**
+     * Bank row this item belongs to
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user_bank()
+    {
+        return $this->belongsTo('BookieGG\Models\UserBank');
     }
 }

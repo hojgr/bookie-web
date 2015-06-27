@@ -24,6 +24,7 @@ use \Illuminate\Http\Response;
 use \Illuminate\Http\Request;
 use BookieGG\Commands\DepositItemsCommand;
 use BookieGG\Repositories\Eloquent\UserTradeRepository;
+use BookieGG\Commands\WithdrawItemsCommand;
 
 /**
  * BankController
@@ -112,9 +113,18 @@ class BankController extends Controller
         Request $request,
         UserTradeRepository $tradeRepo
     ) {
+        if (count($request->input('items')) == 0) {
+            return response()->json(
+                [
+                    'success' => 'false',
+                    'message' => 'You must select items to deposit!'
+                ]
+            );
+        }
+
         $hasTradePending = $this->checkpendingTrades($tradeRepo);
 
-        if (!$hasTradePending) {
+        if ($hasTradePending) {
             return $hasTradePending;
         }
 
@@ -150,16 +160,31 @@ class BankController extends Controller
         Request $request,
         UserTradeRepository $tradeRepo
     ) {
+        if (count($request->input('items')) == 0) {
+            return response()->json(
+                [
+                    'success' => 'false',
+                    'message' => 'You must select items to deposit!'
+                ]
+            );
+        }
         $hasTradePending = $this->checkpendingTrades($tradeRepo);
 
-        if (!$hasTradePending) {
+        if ($hasTradePending) {
             return $hasTradePending;
         }
 
+        $this->dispatch(
+            new WithdrawItemsCommand(
+                auth()->getUser(),
+                $request->input('items')
+            )
+        );
+
         return response()->json(
             [
-                'success' => false,
-                'message' => 'Not implemented yet'
+                'success' => true,
+                'message' => 'You are in a queue waiting for available bot!'
             ]
         );
     }
