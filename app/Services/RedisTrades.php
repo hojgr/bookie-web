@@ -14,7 +14,7 @@
 namespace BookieGG\Services;
 
 use Illuminate\Redis\Database;
-use BookieGG\Models\TradeStatus;
+use BookieGG\Models\RedisTradeStatus;
 
 /**
  * Class handling Redis trades
@@ -69,7 +69,7 @@ class RedisTrades
                 "items"
             );
 
-            $tradeStatus = new TradeStatus(
+            $tradeStatus = new RedisTradeStatus(
                 (int)$redisId,
                 $trade[0],
                 json_decode($trade[2]),
@@ -78,5 +78,17 @@ class RedisTrades
 
             yield $tradeStatus;
         }
+    }
+
+    /**
+     * Deletes a trade status from redis
+     *
+     * @param RedisTradeStatus $trade Status from redis
+     *
+     * @return void
+     */
+    public function delete(RedisTradeStatus $trade)
+    {
+        $this->redis->del("trade:status:" . $trade->redisId);
     }
 }

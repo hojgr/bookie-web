@@ -24,7 +24,7 @@ namespace BookieGG\Models;
  * @license  MS Reference
  * @link     http://bookie.gg
  */
-class TradeStatus
+class RedisTradeStatus
 {
     const ACCEPTED = "3";
     const PENDING = "2";
@@ -37,21 +37,21 @@ class TradeStatus
      *
      * @var int (must be casted from redis explicitly)
      */
-    protected $redisId;
+    public $redisId;
 
     /**
      * ID of real tradeoffer on the Steam platform
      *
      * @var string (too long for 32 bit int)
      */
-    protected $tradeOfferId;
+    public $tradeOfferId;
 
     /**
      * Array of names this trade concerns
      *
      * @var string[]
      */
-    protected $itemNames;
+    public $itemNames;
 
     /**
      * Status of this trade
@@ -65,7 +65,7 @@ class TradeStatus
      *
      * @var string (really, that's because redis provides it)
      */
-    protected $status;
+    public $status;
 
     /**
      * Constructor!

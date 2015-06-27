@@ -19,8 +19,9 @@ namespace BookieGG\Console\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use BookieGG\Models\TradeStatus;
 use BookieGG\Services\RedisTrades;
+use BookieGG\Services\TradeManager;
+use BookieGG\Models\UserTrade;
 
 /**
  * Command for syncing all trades
@@ -62,18 +63,31 @@ class SyncTrades extends Command
     /**
      * Execute the console command.
      *
-     * @param RedisTrades $redisTrades redis trades
+     * @param RedisTrades  $redisTrades  Redis trades
+     * @param TradeManager $tradeManager Trade manager
      *
      * @return mixed
      */
-    public function fire(RedisTrades $redisTrades)
+    public function fire(RedisTrades $redisTrades, TradeManager $tradeManager)
     {
         $this->info('Synchronizing trades');
 
         foreach ($redisTrades->eachTrade() as $trade) {
             if ($trade->isAccepted()) {
-                $this->info('Accepted');
+                $userTrade = UserTrade::where('redis_trade_id', '=', $trade->redisId)
+                    ->firstOrFail();
+
+                $tradeManager->assignItems($userTrade, $trade);
+                $tradeManager->setStatus($trade, TradeManager::STATUS_CANCELLED);
+                $redisTrades->delete($trade);
+                $this->info(
+                    sprintf(
+                        "Trade #%d was accepted",
+                        $trade->redisId
+                    )
+                );
             } if ($trade->isPending()) {
+                $tradeManager->setStatus($trade, TradeManager::STATUS_ACTIVE);
                 $this->info(
                     sprintf(
                         "Trade #%d is pending",
@@ -81,7 +95,14 @@ class SyncTrades extends Command
                     )
                 );
             } elseif ($trade->isCancelled()) {
-                $this->info('Cancelled');
+                $tradeManager->setStatus($trade, TradeManager::STATUS_CANCELLED);
+                $redisTrades->delete($trade);
+                $this->info(
+                    sprintf(
+                        "Trade #%d was cancelled",
+                        $trade->redisId
+                    )
+                );
             }
         }
     }

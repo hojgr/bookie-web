@@ -67,7 +67,11 @@ class UserTradeRepository
      */
     public function getPendingTrade(User $user)
     {
-        $trade = UserTrade::where('user_id', '=', $user->id)->get()->last();
+        $trade = UserTrade::where('user_id', '=', $user->id)->where(
+            function ($q) {
+                $q->whereIn('status', ['queue', 'active']);
+            }
+        )->get()->last();
 
         if ($trade === null) {
             return [[], []];
@@ -88,5 +92,17 @@ class UserTradeRepository
             return [$items, []];
         }
         throw new \Exception("Not implemented");
+    }
+
+    /**
+     * Finds a trade by redis id
+     *
+     * @param int $redisId Redis id
+     *
+     * @return \BookieGG\Models\UserTrade
+     */
+    public function get($redisId)
+    {
+        return UserTrade::where('redis_trade_id', '=', $redisId)->firstOrFail();
     }
 }
