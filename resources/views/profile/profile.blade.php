@@ -12,7 +12,14 @@
 		{!! Form::open(array('url' => '/api/profile/tradeurl', 'class' => 'no-style')) !!}
 		<div class="input-group">
 			<label for="steam-trade-url">Steam trade URL <a target="_blank" href="http://steamcommunity.com/id/me/tradeoffers/privacy#trade_offer_access_url">(get it here)</a>:</label>
-			<input type="text" data-verify-url="/api/profile/tradeurl/verify" name="tradeURL" value="{{ $tradeUrl }}" id="steam-trade-url" placeholder="Enter your Steam trade URL">
+            <input 
+                type="text"
+                data-verify-url="/api/profile/tradeurl/verify"
+                name="tradeURL"
+                value="http://steamcommunity.com/tradeoffer/new/?partner={{ Auth::user()->user_trade_link->partner }}&token={{ Auth::user()->user_trade_link->token }}"
+                id="steam-trade-url"
+                placeholder="Enter your Steam trade URL"
+            />
 			<div class="focus-indicator"></div>
 		</div>
 		{!! Form::button("Submit", array('class'=>'btn-primary btn-wide', 'type'=>'submit')) !!}

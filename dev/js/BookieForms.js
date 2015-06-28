@@ -99,7 +99,8 @@ BookieForm.prototype.inputs.startVerification = function(elm){
     elm.verifying = true;
     elm.verifyingID = elm.verifyingID + 1 || 1;
     $holder.addClass("verifying");
-    $.ajax({url: url})
+
+    $.ajax({url: url, data: {tradeURL: elm.value}})
      .done(this.inputs.onVerification.bind(this, elm, elm.verifyingID))
      .fail(function(){
         that.inputs.showWarning(elm, "Could not reach validation server");
