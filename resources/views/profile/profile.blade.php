@@ -16,7 +16,7 @@
                 type="text"
                 data-verify-url="/api/profile/tradeurl/verify"
                 name="tradeURL"
-                value="http://steamcommunity.com/tradeoffer/new/?partner={{ Auth::user()->user_trade_link->partner }}&token={{ Auth::user()->user_trade_link->token }}"
+                value="{{ $tradeUrl }}"
                 id="steam-trade-url"
                 placeholder="Enter your Steam trade URL"
             />

@@ -14,6 +14,7 @@
 namespace BookieGG\Http\Controllers;
 
 use Illuminate\Http\Request;
+use BookieGG\Models\UserTradeLink;
 
 /**
  * Profile Controller
@@ -70,8 +71,18 @@ class ProfileController extends Controller
             ]
         ];
 
+        $tradeUrl = "";
+        
+        if (\Auth::getUser()->user_trade_link) {
+            $tradePartnerId = \Auth::getUser()->user_trade_link->partner;
+            $tradeToken = \Auth::getUser()->user_trade_link->token;
+            $tradeUrl = "http://steamcommunity.com/tradeoffer/new/"
+                ."?partner=$tradePartnerId&token=$tradeToken";
+        }
+
         return view("profile/profile")
-            ->with('matchHistory', $matchHistory);
+            ->with('matchHistory', $matchHistory)
+            ->with('tradeUrl', $tradeUrl);
     }
 
     /**
@@ -95,5 +106,56 @@ class ProfileController extends Controller
                 ) === 1
             ]
         );
+    }
+
+    /**
+     * Sets user's trade URL
+     *
+     * @param Request $request Request
+     *
+     * @return json
+     */
+    public function storeTradeURL(Request $request)
+    {
+        $regex = '~(https?://)?steamcommunity.com'
+                . '/tradeoffer/new/\?partner=([0-9]+)&token=([0-9a-zA-Z]+)~';
+        $success = preg_match($regex, $request->input('tradeURL'), $matches);
+
+        if ($success) {
+            $tradePartner = $matches[2];
+            $tradeToken = $matches[3];
+
+            $userId = auth()->getUser()->id;
+
+            $currentLink = UserTradeLink::where('user_id', '=', $userId)
+                ->firstOrFail();
+
+            if ($currentLink) {
+                $currentLink->partner = $tradePartner;
+                $currentLink->token = $tradeToken;
+                $currentLink->save();
+            } elseif (!$currentLink) {
+                $tradeLink = new UserTradeLink();
+
+                $tradeLink->user_id = $userId;
+                $tradeLink->partner = $tradePartner;
+                $tradeLink->token = $tradeToken;
+
+                $tradeLink->save();
+            }
+
+            return response()->json(
+                [
+                    'success' => true,
+                ]
+            );
+        }
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Provided Steam trade URL is not valid!'
+                ]
+            );
     }
 }

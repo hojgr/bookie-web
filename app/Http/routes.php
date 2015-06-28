@@ -51,6 +51,11 @@ Route::group(
             ['uses' => 'ProfileController@verifyTradeURL']
         );
 
+        Route::post(
+            '/api/profile/tradeurl',
+            ['uses' => 'ProfileController@storeTradeURL']
+        );
+
         Route::get(
             '/',
             ['as' => 'home', 'uses' => 'HomeController@index']
