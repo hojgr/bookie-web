@@ -1,14 +1,40 @@
 <?php
-
+/**
+ * A class that handles all profile-related actions
+ *
+ * PHP version 5.6
+ *
+ * @category Class
+ * @package  BookieGG\Http\Controllers
+ * @author   Michal Hojgr <michal.hojgr@gmail.com>
+ * @license  MS Reference
+ * @link     http://bookie.gg
+ */
 
 namespace BookieGG\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller {
-    public function show() {
-        $tradeUrl = "http://steamcommunity.com/tradeoffer/new/?partner=39424490&token=86voRSP_";
-        
+/**
+ * Profile Controller
+ *
+ * PHP version 5.6
+ *
+ * @category Class
+ * @package  BookieGG\Http\Controllers
+ * @author   Michal Hojgr <michal.hojgr@gmail.com>
+ * @license  MS Reference
+ * @link     http://bookie.gg
+ */
+class ProfileController extends Controller
+{
+    /**
+     * Shows profile page
+     *
+     * @return Response
+     */
+    public function show()
+    {
         $matchHistory = [
             (object) [
                 "team_1" => "Titan",
@@ -45,9 +71,7 @@ class ProfileController extends Controller {
         ];
 
         return view("profile/profile")
-            ->with('tradeUrl', $tradeUrl)
             ->with('matchHistory', $matchHistory);
-            //->with('userData', $user);
     }
 
     /**
