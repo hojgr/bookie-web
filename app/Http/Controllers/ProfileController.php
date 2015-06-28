@@ -84,7 +84,7 @@ class ProfileController extends Controller
     public function verifyTradeURL(Request $request)
     {
         $regex = '~(https?://)?steamcommunity.com'
-                . '/tradeoffer/new/cxv cxpartner=[0-9]+&token=[0-9a-zA-Z]+~';
+                . '/tradeoffer/new/\?partner=[0-9]+&token=[0-9a-zA-Z]+~';
 
         return response()->json(
             [
@@ -92,7 +92,7 @@ class ProfileController extends Controller
                 'valid' => preg_match(
                     $regex,
                     $request->input('tradeURL')
-                )
+                ) === 1
             ]
         );
     }
