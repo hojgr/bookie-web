@@ -46,7 +46,10 @@ Route::group(
             ['uses' => 'BankController@withdraw']
         );
 
-
+        Route::get(
+            '/api/profile/tradeurl/verify',
+            ['uses' => 'ProfileController@verifyTradeURL']
+        );
 
         Route::get(
             '/',

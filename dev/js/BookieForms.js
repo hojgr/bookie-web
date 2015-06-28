@@ -114,13 +114,9 @@ BookieForm.prototype.inputs.stopVerification = function(elm){
     elm.verifying = false;
     $holder.removeClass("verifying");
 };
-BookieForm.prototype.inputs.onVerification = function(elm, ID, data){
+BookieForm.prototype.inputs.onVerification = function(elm, ID, json){
     // abort early if a new verification has started
     if (elm.verifyingID !== ID) return;
-
-    var json;
-    try { json = JSON.parse(data); }
-    catch (e) { json = {success: false}; }
 
     if (!json.success) {
         this.inputs.showWarning(elm, "Could not be validated");

@@ -55,4 +55,19 @@ class ProfileController extends Controller {
             ->with('matchHistory', $matchHistory)
             ->with('userData', $user);
     }
+
+    /**
+     * Verifies Trade URL
+     *
+     * @return json
+     */
+    public function verifyTradeURL()
+    {
+        return response()->json(
+            [
+                'success' => true,
+                'valid' => true
+            ]
+        );
+    }
 }
