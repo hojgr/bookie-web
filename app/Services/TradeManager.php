@@ -86,18 +86,49 @@ class TradeManager
      */
     public function assignItems(UserTrade $userTrade, RedisTradeStatus $redisTrade)
     {
-        $dbItems = CsgoItem::whereIn('market_name', $redisTrade->itemNames)->get();
+        // does lookup, doesnt assign correctly!
+        $dbItems = CsgoItem::whereIn('market_name', $redisTrade->itemNames)->get()->keyBy('market_name');
 
         $insertData = [];
-        foreach ($dbItems as $dbItem) {
+
+        /*
+         * We iterate over $redisTrade->itemNames 
+         * as it has ALL the items. The $dbItems has only
+         * each item once. After the item from DB is queried,
+         * we iterate over $redisTrade->itemNames and pick
+         * the item from array.
+         *
+         * Otherwise when user is depositing 2 items
+         * of same name (and quality) he receives it only once in bank
+         */
+        foreach ($redisTrade->itemNames as $itemName) {
             $insertData[] = [
                 'user_id' => $userTrade->user_id,
-                'csgo_item_id' => $dbItem->id,
+                'csgo_item_id' => $dbItems[$itemName]->id,
                 'created_at' => date('Y-m-d H-i-s'),
                 'updated_at' => date('Y-m-d H-i-s')
             ];
         }
 
         UserBank::insert($insertData);
+    }
+
+    /**
+     * Remove items from user's bank
+     *
+     * @param UserTrade        $userTrade  DB Trade info
+     * @param RedisTradeStatus $redisTrade Redis trade info
+     *
+     * @return void
+     */
+    public function removeItems(UserTrade $userTrade, RedisTradeStatus $redisTrade)
+    {
+        $idsToDelete = $userTrade->user_trade_withdraw_items->map(
+            function ($a) {
+                return $a->user_bank_id;
+            }
+        );
+
+        UserBank::whereIn('id', $idsToDelete->toArray())->delete();
     }
 }

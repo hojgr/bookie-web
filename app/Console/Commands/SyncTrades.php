@@ -76,8 +76,11 @@ class SyncTrades extends Command
             if ($trade->isAccepted()) {
                 $userTrade = UserTrade::where('redis_trade_id', '=', $trade->redisId)
                     ->firstOrFail();
-
-                $tradeManager->assignItems($userTrade, $trade);
+                if ($userTrade->type == "deposit") {
+                    $tradeManager->assignItems($userTrade, $trade);
+                } elseif ($userTrade->type == "withdraw") {
+                    $tradeManager->removeItems($userTrade, $trade);
+                }
                 $tradeManager->setStatus($trade, TradeManager::STATUS_CANCELLED);
                 $redisTrades->delete($trade);
                 $this->info(
