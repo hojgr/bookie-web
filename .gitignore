@@ -9,3 +9,4 @@ storage/database.sqlite
 *.tags
 public/js
 public/css
+public/images

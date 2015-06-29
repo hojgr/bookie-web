@@ -77,16 +77,22 @@ gulp.task('css_admin', function(){
 	    .pipe(cssmin())
 	    .pipe(gulp.dest('public/css/admin/'));
 });
+// move images from resources to public
+gulp.task('images_copy', function() {
+    gulp.src(['resources/assets/images/**/*']).pipe(gulp.dest('public/images'));
+});
+
 // watch for file changes
 gulp.task('watch', function() {
 	gulp.watch(['dev/js/*.js'], ['js']);
 	gulp.watch(['dev/js/libs/*.js'], ['libs']);
 
 	gulp.watch(['dev/css/*.css'], ['css']);
+	gulp.watch(['dev/css/admin/*.css'], ['css_admin']);
 	gulp.watch(['dev/css/libs/*.css'], ['css_libs']);
 });
 // default
-gulp.task('dev', ['libs', 'js', 'css', 'css_libs', 'css_admin', 'watch']);
+gulp.task('dev', ['libs', 'js', 'css', 'css_libs', 'css_admin', 'images_copy', 'watch']);
 
 /*
  |--------------------------------------------------------------------------
