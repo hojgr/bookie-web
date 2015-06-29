@@ -58,7 +58,16 @@ class InventoryLoader implements InventoryLoaderInterface
      */
     public function getSteamInventory($steamId64)
     {
-        return $this->loadSteamInventory($steamId64);
+        $cacheKey = 'steam_inventory:' . $steamId64;
+
+        if (!\Cache::has($cacheKey)) {
+            $inventory = $this->loadSteamInventory($steamId64);
+            \Cache::put($cacheKey, $inventory, 1);
+
+            return $inventory;
+        }
+
+        return \Cache::get($cacheKey);
     }
 
     /**
