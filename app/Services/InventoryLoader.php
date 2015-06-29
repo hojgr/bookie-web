@@ -48,13 +48,27 @@ class InventoryLoader implements InventoryLoaderInterface
     }
 
     /**
+     * Loads steam inventory of given steam id
+     *
+     * Does do caching
+     *
+     * @param string $steamId64 Id of which to get
+     *
+     * @return object Object
+     */
+    public function getSteamInventory($steamId64)
+    {
+        return $this->loadSteamInventory($steamId64);
+    }
+
+    /**
      * Loads JSON of given id
      *
      * @param string $steamId64 Id of user to be loaded
      *
      * @return json Json of steamid's inventory
      */
-    public function loadSteamInventoryJSON($steamId64)
+    private function loadSteamInventoryJSON($steamId64)
     {
         $inventoryJsonURL = "http://steamcommunity.com/profiles/"
             . $steamId64
@@ -69,11 +83,13 @@ class InventoryLoader implements InventoryLoaderInterface
     /**
      * Loads user's inventory into an frontend object
      *
+     * Does not do caching
+     *
      * @param string $steamId64 Id of user to be loaded
      *
      * @return object Object
      */
-    public function loadSteamInventory($steamId64)
+    private function loadSteamInventory($steamId64)
     {
         $inventoryJson = $this->loadSteamInventoryJSON($steamId64);
 

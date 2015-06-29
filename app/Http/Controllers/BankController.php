@@ -53,7 +53,7 @@ class BankController extends Controller
         Guard $guard,
         UserTradeRepository $tradeRepo
     ) {
-        $inventory = $inventoryLoader->loadSteamInventory(
+        $inventory = $inventoryLoader->getSteamInventory(
             $guard->getUser()->steam_id
         );
 
