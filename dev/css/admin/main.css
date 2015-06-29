@@ -104,9 +104,7 @@ a.btn:visited {
   float: left;
   position: relative;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   display: block;
   font-size: 1.5em;
   font-weight: bold;
@@ -158,9 +156,7 @@ a.btn:visited {
   margin-left: 90px;
   position: relative;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 .content .content-box .team1 img {
   float: left;
@@ -174,9 +170,7 @@ a.btn:visited {
   margin-right: 90px;
   position: relative;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 .content .content-box .team2 img {
   margin-top: -20px;
@@ -279,5 +273,3 @@ table.form-table > tbody > tr > td:first-child {
 .notice.notice-success {
   background: lightgreen;
 }
-
-/*# sourceMappingURL=admin.css.map */

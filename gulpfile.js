@@ -69,6 +69,14 @@ gulp.task('css', function(){
 	    .pipe(concat('compiled.css'))
 	    .pipe(gulp.dest('public/css/'));
 });
+// concat, prefix and minify CSS for administration
+gulp.task('css_admin', function(){
+	gulp.src('dev/css/admin/*.css')
+		.pipe(plumber({errorHandler: errorHandler}))
+	    .pipe(autoprefix({browsers: 'last 2 versions', cascade: false}))
+	    .pipe(cssmin())
+	    .pipe(gulp.dest('public/css/admin/'));
+});
 // watch for file changes
 gulp.task('watch', function() {
 	gulp.watch(['dev/js/*.js'], ['js']);
@@ -78,7 +86,7 @@ gulp.task('watch', function() {
 	gulp.watch(['dev/css/libs/*.css'], ['css_libs']);
 });
 // default
-gulp.task('dev', ['libs', 'js', 'css', 'css_libs', 'watch']);
+gulp.task('dev', ['libs', 'js', 'css', 'css_libs', 'css_admin', 'watch']);
 
 /*
  |--------------------------------------------------------------------------

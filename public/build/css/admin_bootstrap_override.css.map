@@ -1,1 +1,0 @@
-{"version":3,"sources":["admin_bootstrap_override.less","admin_bootstrap_override.css"],"names":[],"mappings":"AAAA;EACC,YAAA;EACA,eAAA;ECCA;ADED;EACC,wBAAA;ECAA","file":"admin_bootstrap_override.css","sourcesContent":[".container {\n\tpadding: 0;\n\twidth: 1260px;\n}\n\n.table.vertical>tbody>tr>td {\n\tvertical-align: middle;\n}",null],"sourceRoot":"/source/"}
