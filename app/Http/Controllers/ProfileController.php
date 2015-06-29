@@ -115,35 +115,14 @@ class ProfileController extends Controller
      *
      * @return json
      */
-    public function storeTradeURL(Request $request)
+    public function storeTradeURL(Request $request, ProfileManager $profileManager)
     {
-        $regex = '~(https?://)?steamcommunity.com'
-                . '/tradeoffer/new/\?partner=([0-9]+)&token=([0-9a-zA-Z]+)~';
-        $success = preg_match($regex, $request->input('tradeURL'), $matches);
+        $success = $profileManager->assignTradeLink(
+            auth()->getUser(),
+            $request->input('tradeURL')
+        );
 
         if ($success) {
-            $tradePartner = $matches[2];
-            $tradeToken = $matches[3];
-
-            $userId = auth()->getUser()->id;
-
-            $currentLink = UserTradeLink::where('user_id', '=', $userId)
-                ->firstOrFail();
-
-            if ($currentLink) {
-                $currentLink->partner = $tradePartner;
-                $currentLink->token = $tradeToken;
-                $currentLink->save();
-            } elseif (!$currentLink) {
-                $tradeLink = new UserTradeLink();
-
-                $tradeLink->user_id = $userId;
-                $tradeLink->partner = $tradePartner;
-                $tradeLink->token = $tradeToken;
-
-                $tradeLink->save();
-            }
-
             return response()->json(
                 [
                     'success' => true,
@@ -151,11 +130,11 @@ class ProfileController extends Controller
             );
         }
 
-            return response()->json(
-                [
-                    'success' => false,
-                    'message' => 'Provided Steam trade URL is not valid!'
-                ]
-            );
+        return response()->json(
+            [
+                'success' => false,
+                'message' => 'Provided Steam trade URL is not valid!'
+            ]
+        );
     }
 }

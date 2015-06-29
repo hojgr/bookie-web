@@ -13,6 +13,9 @@
 
 namespace BookieGG\Services;
 
+use BookieGG\Models\User;
+use BookieGG\Models\UserTradeLink;
+
 /**
  * Profile Service
  *
@@ -36,5 +39,39 @@ class ProfileManager
     public function isTradeURLValid($url)
     {
         return preg_match(self::TRADE_URL_REGEX, $url) === 1;
+    }
+
+    /**
+     * Assigns trade link to user
+     *
+     * @param User   $user User to assign the link to
+     * @param string $url  Trade link url
+     *
+     * @return bool
+     */
+    public function assignTradeLink(User $user, $url)
+    {
+        $success = preg_match(self::TRADE_URL_REGEX, $url, $matches);
+
+        if (!$success) {
+            return false;
+        }
+
+        $tradePartner = $matches[1];
+        $tradeToken = $matches[2];
+
+        $tradeLink = UserTradeLink::where('user_id', '=', $user->id)
+            ->first();
+
+        if (!$tradeLink) {
+            $tradeLink = new UserTradeLink();
+            $tradeLink->user_id = $user->id;
+        }
+
+        $tradeLink->partner = $tradePartner;
+        $tradeLink->token = $tradeToken;
+        $tradeLink->save();
+
+        return true;
     }
 }
