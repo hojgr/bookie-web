@@ -7,3 +7,5 @@
 storage/database.sqlite
 *.swp
 *.tags
+public/js
+public/css
