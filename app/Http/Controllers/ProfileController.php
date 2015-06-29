@@ -15,6 +15,7 @@ namespace BookieGG\Http\Controllers;
 
 use Illuminate\Http\Request;
 use BookieGG\Models\UserTradeLink;
+use BookieGG\Services\ProfileManager;
 
 /**
  * Profile Controller
@@ -88,22 +89,21 @@ class ProfileController extends Controller
     /**
      * Verifies Trade URL
      *
-     * @param Request $request Request
+     * @param Request        $request        Request
+     * @param ProfileManager $profileManager Profile manager
      *
      * @return json
      */
-    public function verifyTradeURL(Request $request)
+    public function verifyTradeURL(Request $request, ProfileManager $profileManager)
     {
-        $regex = '~(https?://)?steamcommunity.com'
-                . '/tradeoffer/new/\?partner=[0-9]+&token=[0-9a-zA-Z]+~';
+        $isTradeUrlValid = $profileManager->isTradeURLValid(
+            $request->input('tradeURL')
+        );
 
         return response()->json(
             [
                 'success' => true,
-                'valid' => preg_match(
-                    $regex,
-                    $request->input('tradeURL')
-                ) === 1
+                'valid' => $isTradeUrlValid
             ]
         );
     }
