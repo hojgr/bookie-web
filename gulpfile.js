@@ -83,16 +83,21 @@ gulp.task('images_copy', function() {
 });
 
 // watch for file changes
-gulp.task('watch', function() {
+gulp.task('_watch', function() {
 	gulp.watch(['dev/js/*.js'], ['js']);
 	gulp.watch(['dev/js/libs/*.js'], ['libs']);
 
 	gulp.watch(['dev/css/*.css'], ['css']);
 	gulp.watch(['dev/css/admin/*.css'], ['css_admin']);
 	gulp.watch(['dev/css/libs/*.css'], ['css_libs']);
+
+	gulp.watch(['resources/assets/images/**/*'], ['images_copy']);
 });
 // default
-gulp.task('dev', ['libs', 'js', 'css', 'css_libs', 'css_admin', 'images_copy', 'watch']);
+gulp.task('dev', ['libs', 'js', 'css', 'css_libs', 'css_admin', 'images_copy', '_watch']);
+gulp.task('watch', ['dev']);
+
+gulp.task('default', ['libs', 'js', 'css', 'css_libs', 'css_admin', 'images_copy']);
 
 /*
  |--------------------------------------------------------------------------
