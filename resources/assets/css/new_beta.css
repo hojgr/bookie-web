@@ -326,6 +326,7 @@ html a.no-style {
 	margin: 4px 1% 6px;
 	padding: 1em 0 .5em;
 
+	color: #888;
 	font-size: 10pt;
 	text-align: center;
 	vertical-align: bottom;
@@ -345,7 +346,7 @@ html a.no-style {
 }
 .itembox-header * { display: inline-block; }
 .itembox-header .seperator { margin: 0 5%; }
-.itembox img { width: 100%; }
+.itembox > img { width: 100%; }
 .matchbox-link:last-child, .placed-items:last-child { border-bottom: none; }
 .itembox-footer {
 	position: absolute;
@@ -367,6 +368,17 @@ html a.no-style {
 }
 .itembox-footer:hover > * { top: -100%; }
 .item-quality { color: #fff; }
+.item-exterior:empty ~ * {
+	top: -100%;
+	color: #000;
+}
+
+.itembox.tipped > .tip { transition-delay: .2s; }
+.itembox.tipped:hover > .tip { transition-delay: 1s; }
+.itembox .tip > * {
+	display: inline-block;
+	vertical-align: middle;
+}
 
 .itembox.consumer { color: #b0c3d9 }
 .itembox.mil-spec { color: #4b69ff }
@@ -409,10 +421,15 @@ html a.no-style {
 	text-align: center;
 
 	transition: opacity .2s ease,
-	            transform .2s ease;
+	            transform .2s ease,
+	            visibility 0s linear;
 	visibility: hidden;
 	opacity: 0;
 }
+.tipped:hover .tip {
+	transition-delay: .4s;
+}
+.tip .tip { background: #222; }
 /* allows you to hover to tooltip & slightly outside */
 .tip::before {
 	content: "";
@@ -421,7 +438,7 @@ html a.no-style {
 	left: 50%;
 	transform: translate(-50%,-50%);
 
-	padding: .5em;
+	padding-top: 1em;
 	width: 100%;
 	height: 100%;
 	z-index: -1;
@@ -439,7 +456,8 @@ html a.no-style {
 	border-bottom-color: #444;
 	z-index: -1;
 }
-.tipped:hover .tip {
+.tip .tip::after { border-bottom-color: #222; }
+.tipped:hover > .tip {
 	transform: translate(-50%, .5em);
 	visibility: visible;
 	opacity: 1;
@@ -511,7 +529,10 @@ h1,h2,h3,h4 {
 	margin: 0;
 	font-weight: 400;
 }
-h4 { display: inline-block; }
+h4 {
+	display: inline-block;
+	font-weight: 700;
+}
 p { margin: 0; }
 p + p { margin-top: 1em; }
 a {

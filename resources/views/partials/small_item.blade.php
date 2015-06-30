@@ -1,4 +1,16 @@
 <div class="itembox small {{ strtolower($item->quality) }} tipped">
+	@foreach($item as $k=>$v)
+		@if($k != "steam_info")
+			<input type="hidden" name="{{ $k }}" value="{{ $v }}" />
+		@endif
+		@if($k == "steam_info")
+			<input type="hidden" name="{{ $k }}" value="
+			@foreach($v as $v)
+				{{$v}},
+			@endforeach
+			" />
+		@endif
+	@endforeach
 	@if(isset($item->steam_info))
 		@foreach($item->steam_info as $n=>$v)
 			<input type="hidden" name="items[{{ $item->id }}][{{ $n }}]" value="{{ $v }}">
@@ -22,7 +34,13 @@
 	</div>
 
 	<div class="tip">
-		<span>Text goes here.</span><br />
-		<span>Some more text.</span>
+		<img alt="{{ $item->weaponName }}" class="item-img" src="{{ $item->image }}" />
+		<div class="text-content text-center">
+			<h4>{{ $item->weaponName }}
+			@if($item->stattrak)
+				<span class="tipped">(ST)<div class="tip">This item has stattrack technology</div></span>
+			@endif</h4>
+			<p>{{ $item->quality }}</p>
+		</div>
 	</div>
 </div>
