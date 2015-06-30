@@ -15,6 +15,13 @@ namespace BookieGG\Http\Controllers;
 
 class PopupController extends Controller {
     public function getActive() {
+        // returns json
+        return response()->json(
+            [
+                'ignore' => true
+            ]
+        );
+
         return view('popup/active');
     }
 }
