@@ -56,6 +56,16 @@ Route::group(
             ['uses' => 'ProfileController@storeTradeURL']
         );
 
+        Route::post(
+            '/api/core/popup',
+            ['uses' => '']
+        );
+
+        Route::get(
+            '/api/core/popup',
+            ['uses' => 'PopupController@getActive']
+        );
+
         Route::get(
             '/',
             ['as' => 'home', 'uses' => 'HomeController@index']
