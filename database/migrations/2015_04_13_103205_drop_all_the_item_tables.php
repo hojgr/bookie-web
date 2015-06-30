@@ -12,7 +12,6 @@ class DropAllTheItemTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::drop("user_banks");
 		Schema::drop("csgo_item_prices");
 		Schema::drop("csgo_item_exteriors");
 		Schema::drop("csgo_item_skins");

@@ -13,7 +13,6 @@ class TradeStatusesDrop extends Migration
      */
     public function up()
     {
-        Schema::drop('trade_statuses');
     }
 
     /**
