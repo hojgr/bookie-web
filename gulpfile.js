@@ -33,7 +33,7 @@ function errorHandler(err) {
 
 	if (err.showStack)
 		util.log(util.colors.red(err.stack));
-};
+}
 
 // concat and minify custom JS
 gulp.task('js', function(){
@@ -45,11 +45,11 @@ gulp.task('js', function(){
 });
 // concat and minify libraries
 var specificLibs = [
-	'resources/assets/js/libs/jquery/dist/jquery.min.js',
+	'vendor_bower/jquery/dist/jquery.js',
 	'resources/assets/js/libs/smoothstate/jquery.smoothState.js'
 ];
 gulp.task('libs', function(){
-	gulp.src(specificLibs.concat('resources/assets/js/libs/*.js'))
+	gulp.src(specificLibs)
 		.pipe(uglify())
 		.pipe(concat('libs.js'))
 		.pipe(gulp.dest('public/js/'));

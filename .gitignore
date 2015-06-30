@@ -1,4 +1,5 @@
 /vendor
+/vendor_bower
 /node_modules
 .env
 .idea

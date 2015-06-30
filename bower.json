@@ -1,0 +1,20 @@
+{
+  "name": "Bookie.GG Web",
+  "version": "0.5.0",
+  "authors": [
+    "Michal Hojgr <michal.hojgr@gmail.com>",
+    "Johan Fagerberg <not@known.com>"
+  ],
+  "license": "MS Reference",
+  "homepage": "http://bookie.gg",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.1.*"
+  }
+}
