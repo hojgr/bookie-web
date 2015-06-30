@@ -39,30 +39,22 @@ BookieForm.prototype.submitHandler = function(e){
         url = $this.attr("action"),
         data = $this.serialize();
 
-    $.ajax({
+    // Submit
+    BookieAPI.sendRequest({
         type: "POST",
         url: url,
         data: data,
         success: function(data){
-            // received message is JSON, as defined in our API documentation
-            // if action failed, show error message
-            if (!data.success) {
-                var msgType = data.messageType ? data.messageType : "error",
-                    msg = data.message ? data.message : "Whoops! Looks like something went wrong.";
-                
-                BookieUI.messages.add(msgType, msg);
-                return;
-            }
-
-            if (data.hasOwnProperty("message")) {
-                var msgType = data.messageType ? data.messageType : "default";
-
-                BookieUI.messages.add(msgType, data.message);
-                return;
-            }
-            if (data.hasOwnProperty("queue")) {
-                BookieUI.queue.set(data.queue);
-                return;
+            if (!data.message && !data.popup) {
+                if (data.success) {
+                    BookieUI.messages.addText(
+                        "success",
+                        $this.attr("data-success-text") || "Submitted succesfully!");
+                } else {
+                    BookieUI.messages.addText(
+                        "error",
+                        $this.attr("data-error-text") || "Whoops! Looks like something went wrong. Try reloading.");
+                }
             }
         },
         xhr: BookieUI.progressBar.getXHR
@@ -100,12 +92,13 @@ BookieForm.prototype.inputs.startVerification = function(elm){
     elm.verifyingID = elm.verifyingID + 1 || 1;
     $holder.addClass("verifying");
 
-    $.ajax({url: url, data: {tradeURL: elm.value}})
-     .done(this.inputs.onVerification.bind(this, elm, elm.verifyingID))
-     .fail(function(){
-        that.inputs.showWarning(elm, "Could not reach validation server");
-        that.inputs.stopVerification(elm);
-     });
+    BookieAPI.GET(url,
+        {tradeURL: elm.value},
+        this.inputs.onVerification.bind(this, elm, elm.verifyingID),
+        function(){
+            that.inputs.showWarning(elm, "Could not reach validation server");
+            that.inputs.stopVerification(elm);
+        });
 };
 BookieForm.prototype.inputs.stopVerification = function(elm){
     var $holder = $(elm.parentNode);
