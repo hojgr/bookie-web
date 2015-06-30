@@ -27,7 +27,7 @@ use BookieGG\Models\UserTradeLink;
  */
 class ProfileManager
 {
-    const TRADE_URL_REGEX = '~(?:https?://)?steamcommunity.com/tradeoffer/new/\?partner=([0-9]+)&token=([0-9a-zA-Z]+)~';
+    const TRADE_URL_REGEX = '~(?:https?://)?steamcommunity.com/tradeoffer/new/\?partner=([0-9]+)&token=(.+)~';
 
     /**
      * Validas wether or not given URL is valid trade link
