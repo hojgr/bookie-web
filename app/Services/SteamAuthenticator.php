@@ -114,4 +114,5 @@ class SteamAuthenticator implements Authenticatable {
         $this->hybrid_auth->logoutAllProviders();
     }
 
+
 }
