@@ -46,7 +46,7 @@ gulp.task('js', function(){
 // concat and minify libraries
 var specificLibs = [
 	'vendor_bower/jquery/dist/jquery.js',
-	'resources/assets/js/libs/smoothstate/jquery.smoothState.js'
+	'vendor_bower/smoothstate/src/jquery.smoothState.js'
 ];
 gulp.task('libs', function(){
 	gulp.src(specificLibs)
