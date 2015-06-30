@@ -37,7 +37,7 @@ function errorHandler(err) {
 
 // concat and minify custom JS
 gulp.task('js', function(){
-	gulp.src('dev/js/*.js')
+	gulp.src('resources/assets/js/*.js')
 	       .pipe(plumber({errorHandler: errorHandler}))
 		   .pipe(uglify())
 		   .pipe(concat('compiled.js'))
@@ -45,24 +45,24 @@ gulp.task('js', function(){
 });
 // concat and minify libraries
 var specificLibs = [
-	'dev/js/libs/jquery/dist/jquery.min.js',
-	'dev/js/libs/smoothstate/jquery.smoothState.js'
+	'resources/assets/js/libs/jquery/dist/jquery.min.js',
+	'resources/assets/js/libs/smoothstate/jquery.smoothState.js'
 ];
 gulp.task('libs', function(){
-	gulp.src(specificLibs.concat('dev/js/libs/*.js'))
+	gulp.src(specificLibs.concat('resources/assets/js/libs/*.js'))
 		.pipe(uglify())
 		.pipe(concat('libs.js'))
 		.pipe(gulp.dest('public/js/'));
 });
 gulp.task('css_libs', function(){
-	gulp.src('dev/css/libs/*.css')
+	gulp.src('resources/assets/css/libs/*.css')
 	    .pipe(cssmin())
 	    .pipe(concat('libs.css'))
 	    .pipe(gulp.dest('public/css/'));
 });
 // concat, prefix and minify CSS
 gulp.task('css', function(){
-	gulp.src('dev/css/*.css')
+	gulp.src('resources/assets/css/*.css')
 		.pipe(plumber({errorHandler: errorHandler}))
 	    .pipe(autoprefix({browsers: 'last 2 versions', cascade: false}))
 	    .pipe(cssmin())
@@ -71,7 +71,7 @@ gulp.task('css', function(){
 });
 // concat, prefix and minify CSS for administration
 gulp.task('css_admin', function(){
-	gulp.src('dev/css/admin/*.css')
+	gulp.src('resources/assets/css/admin/*.css')
 		.pipe(plumber({errorHandler: errorHandler}))
 	    .pipe(autoprefix({browsers: 'last 2 versions', cascade: false}))
 	    .pipe(cssmin())
@@ -84,12 +84,12 @@ gulp.task('images_copy', function() {
 
 // watch for file changes
 gulp.task('_watch', function() {
-	gulp.watch(['dev/js/*.js'], ['js']);
-	gulp.watch(['dev/js/libs/*.js'], ['libs']);
+	gulp.watch(['resources/assets/js/*.js'], ['js']);
+	gulp.watch(['resources/assets/js/libs/*.js'], ['libs']);
 
-	gulp.watch(['dev/css/*.css'], ['css']);
-	gulp.watch(['dev/css/admin/*.css'], ['css_admin']);
-	gulp.watch(['dev/css/libs/*.css'], ['css_libs']);
+	gulp.watch(['resources/assets/css/*.css'], ['css']);
+	gulp.watch(['resources/assets/css/admin/*.css'], ['css_admin']);
+	gulp.watch(['resources/assets/css/libs/*.css'], ['css_libs']);
 
 	gulp.watch(['resources/assets/images/**/*'], ['images_copy']);
 });
