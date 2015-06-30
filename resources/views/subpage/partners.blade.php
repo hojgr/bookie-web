@@ -4,7 +4,7 @@
 <div class="column medium">
 	<div class="module partner-module">
 		<a href="http://opskins.com" target="_blank" class="no-style">
-			<img style="width: 100%" src="http://img3.fotos-hochladen.net/uploads/ckras2awgfk1536itgpfmh2u4.png" />
+			<img style="width: 100%" src="{{ asset('images/partners/opskins.png') }}" />
 			<p>A secured marketplace allowing you to exchange your CSGO goodies for real life money.</p>
 
 			<p><b>OPSkins</b> allows its users to trade their Counter-Strike: Global Offensive goodies (skins) for real money,
