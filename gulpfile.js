@@ -55,7 +55,11 @@ gulp.task('libs', function(){
 		.pipe(gulp.dest('public/js/'));
 });
 gulp.task('css_libs', function(){
-	gulp.src('resources/assets/css/libs/*.css')
+    var cssLibs = [
+        'vendor_bower/normalize.css/normalize.css'
+    ];
+
+	gulp.src(cssLibs)
 	    .pipe(cssmin())
 	    .pipe(concat('libs.css'))
 	    .pipe(gulp.dest('public/css/'));
