@@ -18,6 +18,7 @@ use BookieGG\Models\User;
 use BookieGG\Models\UserTradeDepositItem;
 use BookieGG\Models\UserBank;
 use BookieGG\Models\UserTradeWithdrawItem;
+use BookieGG\Services\TradeManager;
 
 /**
  * Repository
@@ -157,5 +158,26 @@ class UserTradeRepository
     public function get($redisId)
     {
         return UserTrade::where('redis_trade_id', '=', $redisId)->firstOrFail();
+    }
+
+    /**
+     * Returns where there is user's trade in queue
+     *
+     * @param User $user
+     *
+     * @return integer position
+     */
+    public function getQueuePosition(User $user)
+    {
+        $userTrade = $user->user_last_trade;
+
+        if ($userTrade->status !== TradeManager::STATUS_QUEUE) {
+            return false;
+        }
+
+        $count = UserTrade::where('status', '=', TradeManager::STATUS_QUEUE)
+            ->where('id', '<=', $userTrade->id)->count();
+
+        return $count;
     }
 }
