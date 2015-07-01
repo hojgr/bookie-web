@@ -1,6 +1,4 @@
-<?php
-/**
- * A class that manages Customer trades
+<?php /** * A class that manages Customer trades
  *
  * PHP version 5.6
  *
@@ -34,6 +32,7 @@ class TradeManager
     const STATUS_QUEUE = "queue";
     const STATUS_ACTIVE = "active";
     const STATUS_CANCELLED = "cancelled";
+    const STATUS_ACCEPTED = "accepted";
     /**
      * Redis connection
      *

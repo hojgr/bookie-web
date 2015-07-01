@@ -81,7 +81,7 @@ class SyncTrades extends Command
                 } elseif ($userTrade->type == "withdraw") {
                     $tradeManager->removeItems($userTrade, $trade);
                 }
-                $tradeManager->setStatus($trade, TradeManager::STATUS_CANCELLED);
+                $tradeManager->setStatus($trade, TradeManager::STATUS_ACCEPTED);
                 $redisTrades->delete($trade);
                 $this->info(
                     sprintf(
