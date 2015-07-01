@@ -12,7 +12,6 @@ BookieUI.reset = function(){
     this.inited = false;
     this.header.inited = false;
     this.messages.inited = !!$(".message-container").length;
-    this.queue.inited = !!$("#queue").length;
 }
 // Initialize all JS-side UI interactions
 BookieUI.init = function(){
@@ -63,7 +62,6 @@ BookieUI.init = function(){
 
     this.progressBar.init();
     this.messages.init();
-    this.queue.init();
     this.header.init();
     this.inited = true;
 };
@@ -144,35 +142,6 @@ BookieUI.header.moveIndicator = function($elm, dontAnim){
 };
 
 /**
- * BookieUI.queue singleton
- * -
- * Handles setting/hiding the queue
- */
-BookieUI.queue = {};
-BookieUI.queue.inited = false;
-BookieUI.queue.init = function(){
-    if (this.inited) return;
-
-    this.$elm = $('<div id="queue"></div>').hide().appendTo("body");
-    this.inited = true;
-};
-BookieUI.queue.set = function(html){
-    if (!this.inited) this.init();
-
-    this.$elm.html(html);
-    this.$elm.fadeIn(200);
-};
-BookieUI.queue.remove = function(){
-    if (!this.inited) return;
-
-    var self = this;
-    self.inited = false;
-    this.$elm.fadeOut(200, function(){
-        self.$elm.remove();
-    });
-}
-
-/**
  * BookieUI.messages singleton
  * -
  * Handles adding/removing popup messages
@@ -228,17 +197,21 @@ BookieUI.messages.add = function(type, html, time) {
                 // on mouseout, remove after 1.5 s
                 this._removeable = true;
 
-                if (time !== undefined)
+                if (typeof time === "number" && time > 0)
                     msg._removeTimer = setTimeout(this._removeFunc, 1500);
-            })
+            });
+
     // and that it is when clicking it
-        .click(function(){
+    if (typeof time === "number") {
+        $msg.click(function(){
             this._removeable = true;
             this._removeFunc();
         });
+        $msg.css({cursor: "pointer"});
+    }
 
     // if time is given, remove message after time milliseconds
-    if (time !== undefined) {
+    if (typeof time === "number" && time > 0) {
         msg._removeTimer = setTimeout(msg._removeFunc, time);
     }
 
@@ -250,6 +223,65 @@ BookieUI.messages.addText = function(type, text, time) {
     div.innerHTML = text;
 
     return this.add(type, div.textContent, time);
+};
+BookieUI.messages.remove = function(elm) {
+    if (elm instanceof jQuery) elm = elm[0];
+
+    if (!elm._removeFunc) return;
+
+    elm._removeable = true;
+    elm._removeFunc();
+};
+
+/**
+ * BookieUI.popup class
+ * -
+ * Handles persistent popups, updated through our API
+ **/
+BookieUI.popup = function(token){
+    if (BookieUI.popup.instance) return instance;
+    
+    token = token || $("input[name='_token']").val();
+    if (!token) return;
+
+    this.$elm = BookieUI.messages.add("",
+        "<p class='text-center'>Loading...</p>");
+    this.token = token;
+    this.tickInterval = setInterval(this.tick.bind(this), 1000);
+
+    this.update();
+
+    // make sure we don't have multiple popups going at a time
+    BookieUI.popup.instance = this;
+};
+BookieUI.popup.prototype.tick = function(){
+    // update the time left display
+    var $time = $(".time-left", this.$elm),
+        time = parseInt($time.text());
+
+    time = Math.max( 0, time - 1 );
+
+    if (time === 0) {
+        this.$elm.html("<p class='text-center'>The offer has expired.</p>");
+        return;
+    }
+
+    $time.text( time );
+};
+BookieUI.popup.prototype.update = function(){
+    var that = this;
+
+    BookieAPI.GET("/api/core/popup",
+        "_token="+this.token,
+        function success(data){
+            if (data.success && data.html && !data.ignore) {
+                that.$elm.html(data.html);
+            }
+        });
+};
+BookieUI.popup.prototype.destroy = function(){
+    delete BookieUI.popup.instance;
+    BookieUI.messages.remove( this.$elm[0] );
 };
 
 /**

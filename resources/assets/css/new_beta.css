@@ -475,19 +475,34 @@ html a.no-style {
 .message {
 	padding: .5em;
 	margin-top: .5em;
+	max-width: 250px;
 
 	background: #02a4d9;
 	color: #fff;
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0,0,0,.2);
-
-	cursor: pointer;
 }
 .message:first-child { margin-top: 0; }
 
 .message.error { background: #fa6262; }
 .message.warning { background: #ffb300; }
 .message.success { background: #2c2; }
+
+.message em {
+	font-style: normal;
+	text-shadow: 0 1px 1px rgba(0,0,0,.2);
+}
+.message p + p { margin-top: .5em; }
+.message .btn {
+	display: block;
+	color: #fff;
+	margin: .5em auto;
+}
+.message .btn:hover {
+	color: #fff;
+	background: rgba(255,255,255,.1);
+	text-decoration: none;
+}
 
 /**
  * Pagination

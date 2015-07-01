@@ -16,12 +16,29 @@ namespace BookieGG\Http\Controllers;
 class PopupController extends Controller {
     public function getActive() {
         // returns json
-        return response()->json(
+        /*return response()->json(
             [
                 'ignore' => true
             ]
-        );
+        );*/
 
-        return view('popup/active');
+        /*return response()->json([
+        		'html' => view('popup/active')
+                          ->with('state', 'queue')
+                          ->with('data', ['place' => 24])
+                          ->render(),
+                'success' => true
+			]);*/
+
+        return response()->json([
+        		'html' => view('popup/active')
+                          ->with('state', 'offer')
+                          ->with('data', ['bot' => 'Bookkeeper Banana',
+                          	              'code' => '1AS2',
+                          	              'time-left' => 25,
+                          	              'url' => 'http://google.com'])
+                          ->render(),
+                'success' => true
+			]);
     }
 }

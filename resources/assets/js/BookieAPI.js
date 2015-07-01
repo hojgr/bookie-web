@@ -17,6 +17,18 @@ BookieAPI.sendRequest = function(opts){
 	}
 	opts.success = this.handleSuccess.bind({callback: opts.success});
 
+	// extract token from data
+	if (typeof opts.data === "string") {
+		var d = /_token=(.+?)(&|$)/.exec(opts.data);
+
+		if (d && d[1]) {
+			BookieAPI.token = d[1];
+		}
+	}
+	if (opts.data instanceof Object && opts.data.hasOwnProperty("_token")) {
+		BookieAPI.token = opts.data["_token"];
+	}
+
 	// perform the AJAX request
 	return $.ajax(opts);
 };
@@ -51,7 +63,6 @@ BookieAPI.handleSuccess = function(data){
 	if (typeof data === "string") {
 		try { data = JSON.parse(data); }
 		catch (e) {
-			console.error("API responded with ",data);
 			data = {success: false};
 		}
 	}
@@ -67,12 +78,14 @@ BookieAPI.handleSuccess = function(data){
 		if (data.message) {
 			BookieUI.messages.addText(
 					data.messageType || "",
-					data.message);
+					data.message,
+					-1);
 		}
 		if (data.popup) {
-			BookieUI.messages.add(
-					data.popupType || "",
-					data.popup);
+			data.popup = new BookieUI.popup( BookieAPI.token );
+		}
+		if (data.destroy && BookieUI.popup.instance) {
+			BookieUI.popup.instance.destroy();
 		}
 	}
 
@@ -81,9 +94,8 @@ BookieAPI.handleSuccess = function(data){
 };
 // Fallback handler for requests that respond with an HTTP error
 BookieAPI.handleError = function(xhr, status, err){
-	console.log("Failed",arguments);
-
 	BookieUI.messages.addText(
 			"error",
-			"Failed to connect: "+err);
+			"Failed to connect: "+err,
+			-1);
 };
