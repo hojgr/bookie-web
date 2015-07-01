@@ -73,19 +73,37 @@ BookieAPI.handleSuccess = function(data){
 		data.popupType = "error";
 	}
 
-	// show messages if applicable
+	// handle shared logic if we shouldn't ignore the message
 	if (!data.ignore) {
+		// show plain-text message
 		if (data.message) {
 			BookieUI.messages.addText(
 					data.messageType || "",
 					data.message,
 					-1);
 		}
+		// show/hide popup
 		if (data.popup) {
 			data.popup = new BookieUI.popup( BookieAPI.token );
 		}
 		if (data.destroy && BookieUI.popup.instance) {
-			BookieUI.popup.instance.destroy();
+			if (typeof data.destroy === "number") {
+				setTimeout(function(){
+					BookieUI.popup.instance.destroy();
+				}, data.destroy);
+			} else {
+				BookieUI.popup.instance.destroy();
+			}
+		}
+		// refresh page
+		if (data.refresh) {
+			if (typeof data.refresh === "number") {
+				setTimeout(function(){
+					BookieCore.reload();
+				}, data.refresh);
+			} else {
+				BookieCore.reload();
+			}
 		}
 	}
 

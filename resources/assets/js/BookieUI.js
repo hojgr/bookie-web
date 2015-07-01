@@ -38,7 +38,7 @@ BookieUI.init = function(){
                     $body.css('cursor', 'auto');
                     $body.find('a').css('cursor', 'auto');
                     $cont.html($content);
-                    init();
+                    BookieCore.init();
                 }
             },
             development: true
@@ -232,6 +232,12 @@ BookieUI.messages.remove = function(elm) {
     elm._removeable = true;
     elm._removeFunc();
 };
+BookieUI.messages.setType = function($elm, type) {
+    if (!($elm instanceof jQuery)) $elm = $(elm);
+
+    $elm.removeClass("error warning success");
+    $elm.addClass(type);
+};
 
 /**
  * BookieUI.popup class
@@ -270,17 +276,35 @@ BookieUI.popup.prototype.tick = function(){
     $time.text( time );
 };
 BookieUI.popup.prototype.update = function(){
-    var that = this;
+    var that = this,
+        data = { "_token": this.token };
+
+    if (this.state) {
+        data.state = this.state;
+    }
 
     BookieAPI.GET("/api/core/popup",
-        "_token="+this.token,
+        data,
         function success(data){
-            if (data.success && data.html && !data.ignore) {
+            if (data.ignore) return;
+
+            // change the popup content
+            if (data.success && data.html) {
                 that.$elm.html(data.html);
+            }
+            // change the popup type
+            if (data.success && data.hasOwnProperty("type")) {
+                BookieUI.messages.setType( that.$elm , data.type );
+            }
+            // store the last received state
+            if (data.success && data.state) {
+                that.state = data.state;
             }
         });
 };
 BookieUI.popup.prototype.destroy = function(){
+    clearInterval(this.tickInterval);
+    clearInterval(this.updateInterval);
     delete BookieUI.popup.instance;
     BookieUI.messages.remove( this.$elm[0] );
 };
@@ -374,14 +398,3 @@ BookieUI.progressBar.draw = function() {
         this.visible = true;
     }
 };
-
-/**
- * jQuery document.onready
- * -
- * Triggers once the DOM has loaded
- **/
-function init(){
-    BookieUI.reset();
-    BookieUI.init();
-}
-$(init);
