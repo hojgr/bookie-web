@@ -250,6 +250,7 @@ BookieUI.popup = function(token){
     this.tickInterval = setInterval(this.tick.bind(this), 1000);
 
     this.update();
+    this.updateInterval = setInterval(this.update.bind(this), 5000);
 
     // make sure we don't have multiple popups going at a time
     BookieUI.popup.instance = this;
