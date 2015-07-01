@@ -6,4 +6,9 @@
 	<a class="btn" target="_blank" href="{{ $data['url'] }}">You have received an offer</a>
 	<p class="text-center">Verification code: <em>{{ $data['code'] }}</em></p>
 	<p class="text-center">Time left: <em class="time-left">{{ $data['time-left'] }}</em>s</p>
+@elseif ($state == "cancelled")
+    <p class="text-center">Cancelled</p>
+@elseif ($state == "accepted")
+    <p class="text-center">Accepted</p>
 @endif
+

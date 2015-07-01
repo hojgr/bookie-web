@@ -32,6 +32,10 @@ class User extends Eloquent implements Authenticatable {
         return $this->hasMany('BookieGG\Models\UserBank');
     }
 
+    public function user_last_trade() {
+        return $this->hasOne('BookieGG\Models\UserTrade')->latest();
+    }
+
     /**
      * Activate user account
      *

@@ -25,6 +25,7 @@ use \Illuminate\Http\Request;
 use BookieGG\Commands\DepositItemsCommand;
 use BookieGG\Repositories\Eloquent\UserTradeRepository;
 use BookieGG\Commands\WithdrawItemsCommand;
+use BookieGG\Services\TradeManager;
 
 /**
  * BankController
@@ -139,8 +140,8 @@ class BankController extends Controller
 
         return response()->json(
             [
-                'success' => true,
-                'message' => 'You are in a queue waiting for available bot!'
+                'popup' => true,
+                'success' => true
             ]
         );
     }
@@ -184,7 +185,7 @@ class BankController extends Controller
         return response()->json(
             [
                 'success' => true,
-                'message' => 'You are in a queue waiting for available bot!'
+                'popup' => true,
             ]
         );
     }
