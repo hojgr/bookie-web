@@ -76,12 +76,21 @@ class SyncTrades extends Command
             if ($trade->isAccepted()) {
                 $userTrade = UserTrade::where('redis_trade_id', '=', $trade->redisId)
                     ->firstOrFail();
+
+                $affectedRows = UserTrade::where("status", "!=", TradeManager::STATUS_ACCEPTED)
+                    ->where('id', '=', $userTrade->id)
+                    ->update(['status' => TradeManager::STATUS_ACCEPTED]);
+
                 if ($userTrade->type == "deposit") {
-                    $tradeManager->assignItems($userTrade, $trade);
+                    if ($affectedRows !== 1) {
+                        $this->info("Trade unsuccessful due to $affectedRows not equal to 1");
+                        continue;
+                    } elseif ($affectedRows === 1) { // just to be sure future edits dont fuck it up
+                        $tradeManager->assignItems($userTrade, $trade);
+                    }
                 } elseif ($userTrade->type == "withdraw") {
                     $tradeManager->removeItems($userTrade, $trade);
                 }
-                $tradeManager->setStatus($trade, TradeManager::STATUS_ACCEPTED);
                 $redisTrades->delete($trade);
                 $this->info(
                     sprintf(
