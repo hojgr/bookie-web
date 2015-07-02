@@ -6,6 +6,8 @@
 function BookieInventory($elm, opts) {
     if (!$elm.length) return;
 
+    var that = this;
+
     this.options = $.extend({}, this.defaults, opts);
     this.$elm = $elm;
     this.$items = $(".itembox", $elm);
@@ -14,6 +16,11 @@ function BookieInventory($elm, opts) {
     this.$selectedHolder = $(".item-holder", this.$form);
     this.$itemHolder = $(".inventory-holder", $elm);
     this.selectedItems = [];
+
+    // any already selected items should be added to this.selectedItems
+    $(".itembox", this.$selectedHolder).each(function(){
+            that.getItemClickHandler.apply(that).apply(this);
+        });
 
     // paginate the inventory
     this.paginated = new BookiePaginated(this.$itemHolder);

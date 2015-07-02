@@ -1,4 +1,5 @@
 {{--*/ if(!isset($emptyText)) { $emptyText = "Select items to bet"; } /*--}}
+{{--*/ if(!isset($selected)) { $selected = []; }/*--}}
 
 <div class="inventory">
 	@if(isset($submitUrl))
@@ -9,7 +10,13 @@
 				{!! Form::hidden($n, $v) !!}
 			@endforeach
 		@endif
-		<div class="item-holder" data-if-empty="{{ $emptyText }}"></div>
+		<div class="item-holder" data-if-empty="{{ $emptyText }}">
+			@if(isset($selected))
+				@foreach($selected as $item)
+					@include('partials/small_item', ['item' => $item])
+				@endforeach
+			@endif
+		</div>
 		<div class="btn-holder">
 			{{--*/ $i = -1; /*--}}
 			@foreach($btns as $b=>$s)
@@ -25,7 +32,9 @@
 	<div class="inventory-holder item-holder">
 	@spaceless
 	@foreach($items as $item)
-		@include('partials/small_item', ['item' => $item])
+		@if(!in_array($item, $selected))
+			@include('partials/small_item', ['item' => $item])
+		@endif
 	@endforeach
 	@endspaceless
 	</div>
