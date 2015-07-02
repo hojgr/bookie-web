@@ -17,6 +17,9 @@ use BookieGG\Models\RedisTradeStatus;
 use BookieGG\Models\CsgoItem;
 use BookieGG\Models\UserTrade;
 use BookieGG\Models\UserBank;
+use BookieGG\Models\User;
+use BookieGG\Services\RedisTrades;
+use BookieGG\Services\TradeManager;
 
 /**
  * A clas that manager customer trades
@@ -48,15 +51,27 @@ class TradeManager
     protected $tradeRepo;
 
     /**
+     * Redis trades
+     *
+     * @var RedisTrades
+     */
+    protected $redisTrades;
+
+    /**
      * Constructor
      *
-     * @param Database            $redis     Redis connection
-     * @param UserTradeRepository $tradeRepo User Trade Repository
+     * @param Database            $redis        Redis connection
+     * @param UserTradeRepository $tradeRepo    User Trade Repository
+     * @param RedisTrades         $redisTrades  Redis trades
      */
-    public function __construct(Database $redis, UserTradeRepository $tradeRepo)
-    {
+    public function __construct(
+        Database $redis,
+        UserTradeRepository $tradeRepo,
+        RedisTrades $redisTrades
+    ) {
         $this->redis = $redis;
         $this->tradeRepo = $tradeRepo;
+        $this->redisTrades = $redisTrades;
     }
 
     /**
@@ -120,7 +135,7 @@ class TradeManager
      *
      * @return void
      */
-    public function removeItems(UserTrade $userTrade, RedisTradeStatus $redisTrade)
+    public function removeItems(UserTrade $userTrade)
     {
         $idsToDelete = $userTrade->user_trade_withdraw_items->map(
             function ($a) {
@@ -129,5 +144,50 @@ class TradeManager
         );
 
         UserBank::whereIn('id', $idsToDelete->toArray())->delete();
+    }
+
+    /**
+     * Syncs user's trade with redis
+     *
+     * @param User         $user         User to be synced
+     *
+     * @return void
+     */
+    public function syncUser(User $user)
+    {
+        $userTrade = $user->user_last_trade;
+        $redisTrade = $this->redisTrades->getTrade($userTrade->redis_trade_id);
+
+        if ($redisTrade->isPending() && $userTrade->status != TradeManager::STATUS_ACTIVE) {
+            $userTrade->status = TradeManager::STATUS_ACTIVE;
+            $userTrade->save();
+        } elseif ($redisTrade->isCancelled() && $userTrade->status != TradeManager::STATUS_CANCELLED) {
+            $userTrade->status = TradeManager::STATUS_CANCELLED;
+            $userTrade->save();
+            $this->redisTrades->delete($redisTrade);
+        } elseif ($redisTrade->isAccepted() && $userTrade->status != TradeManager::STATUS_ACCEPTED) {
+            // updating the row this way prevents a race condition
+            // where the items are assigned more than once
+            $affectedRows = UserTrade::where("status", "!=", TradeManager::STATUS_ACCEPTED)
+                ->where('id', '=', $userTrade->id)
+                ->update(['status' => TradeManager::STATUS_ACCEPTED]);
+
+            // DO NOT CALL SAVE ON $userTrade
+            // this assignation is just for the purpose to be returned correctly
+            // the status is saved few lines above
+            $userTrade->status = TradeManager::STATUS_ACCEPTED;
+
+            if ($userTrade->type == "withdraw") {
+                    $this->removeItems($userTrade, $redisTrade);
+            } elseif ($userTrade->type == "deposit") {
+                if ($affectedRows !== 1) {
+                    throw new \Exception("Affected rows is not equal to 1! \$affectedRows = $affectedRows");
+                }
+
+                $this->assignItems($userTrade, $redisTrade);
+            }
+        }
+
+        return $userTrade;
     }
 }

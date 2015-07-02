@@ -91,4 +91,28 @@ class RedisTrades
     {
         $this->redis->del("trade:status:" . $trade->redisId);
     }
+
+    /**
+     * Returns a trade
+     *
+     * @param string $tradeid
+     *
+     * @return RedisTradeStatus
+     */
+    public function getTrade($redisId)
+    {
+        $trade = $this->redis->hmget(
+            "trade:status:$redisId",
+            "tradeofferid",
+            "status",
+            "items"
+        );
+
+        return new RedisTradeStatus(
+            (int)$redisId,
+            $trade[0],
+            json_decode($trade[2]),
+            $trade[1]
+        );
+    }
 }

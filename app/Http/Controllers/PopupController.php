@@ -15,19 +15,23 @@ namespace BookieGG\Http\Controllers;
 
 use BookieGG\Repositories\Eloquent\UserTradeRepository;
 use BookieGG\Services\TradeManager;
+use BookieGG\Services\RedisTrades;
 
 class PopupController extends Controller
 {
     /**
      * Returns active popup
      *
-     * @param UserTradeRepository $tradeRepo Trade repo
+     * @param UserTradeRepository $tradeRepo    Trade repo
+     * @param TradeManager        $tradeManager Trade manager
      *
      * @return json
      */
-    public function getActive(UserTradeRepository $tradeRepo)
-    {
-        $userTrade = auth()->getUser()->user_last_trade;
+    public function getActive(
+        UserTradeRepository $tradeRepo,
+        TradeManager $tradeManager
+    ) {
+        $userTrade = $tradeManager->syncUser(auth()->getUser());
 
         if ($userTrade->status == TradeManager::STATUS_QUEUE) {
             return response()->json(
