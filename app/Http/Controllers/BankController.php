@@ -54,19 +54,22 @@ class BankController extends Controller
         Guard $guard,
         UserTradeRepository $tradeRepo
     ) {
-        $inventory = $inventoryLoader->getSteamInventory(
-            $guard->getUser()->steam_id
+        // $pendingDeposit and $pendingWithdraw are arrays with IDs
+        list($pendingDeposit, $pendingWithdraw) = $tradeRepo->getPendingTrade($guard->getUser());
+
+        list($inventory, $inventoryPending) = $inventoryLoader->getSteamInventory(
+            $guard->getUser()->steam_id,
+            $pendingDeposit
         );
 
-        $bank = $bankLoader->load($guard->getUser());
-
-        list($pendingDeposit, $pendingWithdraw) = $tradeRepo->getPendingTrade($guard->getUser());
+        list($bank, $bankPending) = $bankLoader->load($guard->getUser(), $pendingWithdraw);
 
         return view("bank/bank")
             ->with('userInventory', $inventory)
+            ->with('userInventoryPending', $inventoryPending)
             ->with('userBank', $bank)
-            ->with('pendingDeposit', $pendingDeposit)
-            ->with('pendingWithdraw', $pendingWithdraw);
+            ->with('userBankPending', $bankPending);
+
     }
 
     /**

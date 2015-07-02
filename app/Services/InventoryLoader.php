@@ -52,13 +52,14 @@ class InventoryLoader implements InventoryLoaderInterface
      *
      * Does do caching
      *
-     * @param string $steamId64 Id of which to get
+     * @param string $steamId64      Id of which to get
+     * @param array  $pendingDeposit Pending deposit
      *
      * @return object Object
      */
-    public function getSteamInventory($steamId64)
+    public function getSteamInventory($steamId64, $pendingDeposit)
     {
-        return $this->loadSteamInventory($steamId64);
+        return $this->loadSteamInventory($steamId64, $pendingDeposit);
 
         $cacheKey = 'steam_inventory:' . $steamId64;
 
@@ -111,15 +112,18 @@ class InventoryLoader implements InventoryLoaderInterface
      *
      * Does not do caching
      *
-     * @param string $steamId64 Id of user to be loaded
+     * @param string $steamId64      Id of user to be loaded
+     * @param array  $pendingDeposit Pending deposit
      *
      * @return object Object
      */
-    private function loadSteamInventory($steamId64)
+    private function loadSteamInventory($steamId64, $pendingDeposit)
     {
         $inventoryJson = $this->loadSteamInventoryJSON($steamId64);
 
         $inv = [];
+        $invPending = [];
+        
         $names = [];
         foreach ($inventoryJson->rgInventory as $item) {
             $jsonKey = $item->classid . "_" . $item->instanceid;
@@ -140,7 +144,7 @@ class InventoryLoader implements InventoryLoaderInterface
                 "StatTrak"
             );
 
-            $inv[] = (object) [
+            $currentItem = (object) [
                 "id" => $item->id, // this is used as index for all POST params
                 "weaponName" => $itemDescription->market_hash_name,
                 "exterior" => $exterior,
@@ -156,6 +160,12 @@ class InventoryLoader implements InventoryLoaderInterface
                     "instance_id" => $item->instanceid,
                 ]
             ];
+
+            if (in_array($item->id, $pendingDeposit)) {
+                $invPending[] = $currentItem;
+            } else {
+                $inv[] = $currentItem;
+            }
         }
 
         $prices = CsgoItem::whereIn('market_name', $names)
@@ -163,6 +173,15 @@ class InventoryLoader implements InventoryLoaderInterface
             ->keyBy("market_name");
 
         foreach ($inv as $id => $item) {
+            if (!isset($prices[$item->weaponName])) {
+                unset($inv[$id]);
+                continue;
+            }
+
+            $item->price = $prices[$item->weaponName]->latestPrice->price;
+        }
+
+        foreach ($invPending as $id => $item) {
             if (!isset($prices[$item->weaponName])) {
                 unset($inv[$id]);
                 continue;
@@ -186,6 +205,21 @@ class InventoryLoader implements InventoryLoaderInterface
             }
         );
 
-        return $inv;
+        usort(
+            $invPending,
+            function ($a, $b) {
+                if ($a->price == $b->price) {
+                    return 0;
+                }
+
+                if (floatval($b->price) > floatval($a->price)) {
+                    return 1;
+                }
+
+                return -1;
+            }
+        );
+
+        return [$inv, $invPending];
     }
 }

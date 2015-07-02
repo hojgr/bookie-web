@@ -126,11 +126,7 @@ class UserTradeRepository
             $items = [];
             
             foreach ($trade->user_trade_deposit_items as $tradeDepositItem) {
-                $items[] = [
-                    'id' => $tradeDepositItem->steam_item_id,
-                    'class_id' => $tradeDepositItem->class_id,
-                    'instance_id' => $tradeDepositItem->instance_id
-                ];
+                $items[] = $tradeDepositItem->steam_item_id;
             }
 
             // the expected return value is [pendingDeposit, pendingWithdraw]
@@ -139,9 +135,7 @@ class UserTradeRepository
             $items = [];
 
             foreach ($trade->user_trade_withdraw_items as $tradeWithdrawItem) {
-                $items[] = [
-                    'id' => $tradeWithdrawItem->user_bank_id
-                ];
+                $items[] = $tradeWithdrawItem->user_bank_id;
             }
 
             return [[], $items];

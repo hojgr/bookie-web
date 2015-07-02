@@ -5,5 +5,5 @@ namespace BookieGG\Contracts;
 use BookieGG\Models\User;
 
 interface BankLoaderInterface {
-    function load(User $user); 
+    function load(User $user, $bankPending); 
 }

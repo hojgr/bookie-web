@@ -46,14 +46,16 @@ class BankLoader implements BankLoaderInterface
      *
      * @return object Bank contents
      */
-    public function load(User $user)
+    public function load(User $user, $pendingWithdraw)
     {
         $bankItems = $this->bankRepository->getBank($user);
 
         // generate bank
         $bank = [];
+        $bankPending = [];
+
         foreach ($bankItems as $bankItem) {
-            $bank[] = (object) [
+            $item = (object) [
                 "id" => $bankItem->id,
                 "weaponName" => $bankItem->csgo_item->market_name,
                 "exterior" => $bankItem->csgo_item->csgo_item_exterior->name,
@@ -62,6 +64,12 @@ class BankLoader implements BankLoaderInterface
                 "stattrak" => $bankItem->csgo_item->stattrak == 1,
                 "image" => $bankItem->csgo_item->getLogoURL()
             ];
+
+            if (in_array($bankItem->id, $pendingWithdraw)) {
+                $bankPending[] = $item;
+            } else {
+                $bank[] = $item;
+            }
         }
 
         usort(
@@ -79,6 +87,21 @@ class BankLoader implements BankLoaderInterface
             }
         );
 
-        return $bank;
+        usort(
+            $bankPending,
+            function ($a, $b) {
+                if ($a->price == $b->price) {
+                    return 0;
+                }
+
+                if (floatval($b->price) > floatval($a->price)) {
+                    return 1;
+                }
+
+                return -1;
+            }
+        );
+
+        return [$bank, $bankPending];
     }
 }

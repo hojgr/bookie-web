@@ -8,7 +8,7 @@ interface InventoryLoaderInterface
      * Loads items from user's inventory
      * on steam page
      */
-    public function getSteamInventory($steamId64);
+    public function getSteamInventory($steamId64, $depositPending);
 
     /**
      * Invalidate cache of given steamId
