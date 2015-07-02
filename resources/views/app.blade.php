@@ -125,14 +125,12 @@
 	<div class="loader hidden"></div>
 	</div>
 
-	<div class="popup">
-		@if(Session::has('message'))
-		@foreach(Session::get('message') as $m)
-			<div class="message message-{{ $m['type'] }}">
-				{!! $m['message'] !!}
-			</div>
-		@endforeach
-		@endif
-	</div>
+	<div class="popup"></div>
+
+	@if($isPopupActive)
+	<script type="text/javascript">
+		new BookieUI.popup('{{ csrf_token() }}');
+	</script>
+	@endif
 </body>
 </html>
