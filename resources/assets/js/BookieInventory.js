@@ -15,12 +15,18 @@ function BookieInventory($elm, opts) {
     this.$buttons = $(".btn-holder button", this.$form);
     this.$selectedHolder = $(".item-holder", this.$form);
     this.$itemHolder = $(".inventory-holder", $elm);
+    this.disabled = this.$elm.hasClass("disabled");
     this.selectedItems = [];
 
     // any already selected items should be added to this.selectedItems
     $(".itembox", this.$selectedHolder).each(function(){
-            that.getItemClickHandler.apply(that).apply(this);
-        });
+        that.getItemClickHandler.apply(that).apply(this);
+    });
+
+    // disable self on submit
+    this.$form.submit(function(){
+        that.toggle(false);
+    });
 
     // paginate the inventory
     this.paginated = new BookiePaginated(this.$itemHolder);
@@ -31,13 +37,34 @@ function BookieInventory($elm, opts) {
 BookieInventory.prototype.defaults = {
     maxItems: 10
 };
+// Toggle the inventory, optionally specify enabled/disabled
+BookieInventory.prototype.toggle = function(enabled){
+    // if enabled isn't set, set it to the opposite of current
+    if (typeof enabled === "undefined") {
+        enabled = this.disabled;
+    }
+
+    this.disabled = !enabled;
+    this.$elm.toggleClass("disabled", !enabled);
+    this.$buttons.attr("disabled", !enabled+"");
+};
 // Returns a function to be used as click event listener for items
 BookieInventory.prototype.getItemClickHandler = function(){
     if (this.clickFunction) return this.clickFunction;
 
     var inv = this;
     // the actual click event listener
-    return this.clickFunction = function(){
+    return this.clickFunction = function(e){
+        if (inv.disabled) return;
+
+        // don't trigger if clicking the tooltip
+        console.log(e);
+        if (typeof e !== "undefined") {
+            if ($(e.target).hasClass("tip") || $(e.target).parents(".tip").length) {
+                return;
+            }
+        }
+
         var selectedInd = inv.selectedItems.indexOf(this),
             selected = selectedInd !== -1,
             $this = $(this);
