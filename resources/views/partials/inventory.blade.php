@@ -1,7 +1,7 @@
 {{--*/ if(!isset($emptyText)) { $emptyText = "Select items to bet"; } /*--}}
 {{--*/ if(!isset($selected)) { $selected = []; }/*--}}
 
-<div class="inventory @if(count($selected))disabled @endif">
+<div class="inventory @if($disable)disabled @endif">
 	@if(isset($submitUrl))
 	{!! Form::open(array('url' => $submitUrl, 'class' => 'inventory-selection no-style')) !!}
 		@spaceless
