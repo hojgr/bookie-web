@@ -20,6 +20,7 @@ use BookieGG\Models\UserBank;
 use BookieGG\Models\User;
 use BookieGG\Services\RedisTrades;
 use BookieGG\Services\TradeManager;
+use BookieGG\Services\BotManager;
 
 /**
  * A clas that manager customer trades
@@ -58,6 +59,13 @@ class TradeManager
     protected $redisTrades;
 
     /**
+     * Manages bots
+     *
+     * @var BotManager
+     */
+    protected $botManager;
+
+    /**
      * Constructor
      *
      * @param Database            $redis        Redis connection
@@ -67,11 +75,13 @@ class TradeManager
     public function __construct(
         Database $redis,
         UserTradeRepository $tradeRepo,
-        RedisTrades $redisTrades
+        RedisTrades $redisTrades,
+        BotManager $botManager
     ) {
         $this->redis = $redis;
         $this->tradeRepo = $tradeRepo;
         $this->redisTrades = $redisTrades;
+        $this->botManager = $botManager;
     }
 
     /**
@@ -159,6 +169,9 @@ class TradeManager
         $redisTrade = $this->redisTrades->getTrade($userTrade->redis_trade_id);
 
         if ($redisTrade->isPending() && $userTrade->status != TradeManager::STATUS_ACTIVE) {
+            $bot = $this->botManager->getOrCreate($redisTrade->botSteamId, $redisTrade->botDisplayName);
+            $userTrade->bot_id = $bot->id;
+            $userTrade->trade_id = $redisTrade->tradeOfferId;
             $userTrade->status = TradeManager::STATUS_ACTIVE;
             $userTrade->save();
         } elseif ($redisTrade->isCancelled() && $userTrade->status != TradeManager::STATUS_CANCELLED) {

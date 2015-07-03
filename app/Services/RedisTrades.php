@@ -105,14 +105,20 @@ class RedisTrades
             "trade:status:$redisId",
             "tradeofferid",
             "status",
-            "items"
+            "items",
+            "displayName",
+            "steamId",
+            "createdAt"
         );
 
         return new RedisTradeStatus(
             (int)$redisId,
             $trade[0],
             json_decode($trade[2]),
-            $trade[1]
+            $trade[1],
+            $trade[3],
+            $trade[4],
+            $trade[5]
         );
     }
 }
