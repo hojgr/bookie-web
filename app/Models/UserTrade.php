@@ -45,4 +45,13 @@ class UserTrade extends Model
     {
         return $this->hasMany('BookieGG\Models\UserTradeWithdrawItem');
     }
+
+    public function bot()
+    {
+        return $this->belongsTo('BookieGG\Models\Bot');
+    }
+
+    public function getTradeURL() {
+        return 'https://steamcommunity.com/tradeoffer/' . $this->trade_id . '/';
+    }
 }
