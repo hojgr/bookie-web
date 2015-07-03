@@ -121,7 +121,18 @@ class BankController extends Controller
             return response()->json(
                 [
                     'success' => 'false',
+                    'messageType' => 'error',
                     'message' => 'You must select items to deposit!'
+                ]
+            );
+        }
+
+        if (count($request->input('items')) > 10) {
+            return response()->json(
+                [
+                    'success' => 'false',
+                    'messageType' => 'error',
+                    'message' => 'You can\'t deposite more than 10 items at the same time!'
                 ]
             );
         }
@@ -133,6 +144,8 @@ class BankController extends Controller
         }
 
         $items = $request->input('items');
+
+
 
         $this->dispatch(
             new DepositItemsCommand(
@@ -168,10 +181,22 @@ class BankController extends Controller
             return response()->json(
                 [
                     'success' => 'false',
+                    'messageType' => 'error',
                     'message' => 'You must select items to deposit!'
                 ]
             );
         }
+
+        if (count($request->input('items')) > 10) {
+            return response()->json(
+                [
+                    'success' => 'false',
+                    'messageType' => 'error',
+                    'message' => 'You can\'t deposite more than 10 items at the same time!'
+                ]
+            );
+        }
+
         $hasTradePending = $this->checkpendingTrades($tradeRepo);
 
         if ($hasTradePending) {
