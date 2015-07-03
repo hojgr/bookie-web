@@ -60,9 +60,11 @@ class PopupController extends Controller
             return response()->json(
                 [
                     'html' => view('popup/active')
-                              ->with('state', 'accepted')
-                              ->render(),
-                    'success' => true
+                        ->with('state', 'accepted')
+                        ->render(),
+                    'success' => true,
+                    'destroy' => 1000,
+                    'refresh' => 1000
                 ]
             );
         } elseif ($userTrade->status == TradeManager::STATUS_CANCELLED) {
@@ -71,7 +73,8 @@ class PopupController extends Controller
                     'html' => view('popup/active')
                               ->with('state', 'cancelled')
                               ->render(),
-                    'success' => true
+                    'success' => true,
+                    'destroy' => 5000
                 ]
             );
         }
