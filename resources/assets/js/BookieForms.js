@@ -6,6 +6,8 @@
 var BookieForm = function($elm){
 	if (!$elm.length) return;
 
+    this.$elm = $elm;
+
 	// send the clicked 'submit' button as a POST param
     $("[type='submit']", $elm).click(this.submitClickHandler);
 
@@ -13,7 +15,7 @@ var BookieForm = function($elm){
     $("input[data-verify-url]", $elm).on("input", this.verifyChangeHandler.bind(this));
 
     // make form submit over AJAX
-    $elm.submit(this.submitHandler);
+    $elm.submit(this.submitHandler.bind(this));
 };
 // Saves the name and value of the clicked `submit` button to a hidden input
 BookieForm.prototype.submitClickHandler = function(e){
@@ -35,30 +37,33 @@ BookieForm.prototype.submitClickHandler = function(e){
 // Send the form over AJAX instead of reloading
 BookieForm.prototype.submitHandler = function(e){
     e.preventDefault();
-    var $this = $(this),
-        url = $this.attr("action"),
-        data = $this.serialize();
+    var $elm = this.$elm,
+        url = $elm.attr("action"),
+        data = $elm.serialize();
 
     // Submit
     BookieAPI.sendRequest({
         type: "POST",
         url: url,
         data: data,
-        success: function(data){
-            if (!data.message && !data.popup) {
-                if (data.success) {
-                    BookieUI.messages.addText(
-                        "success",
-                        $this.attr("data-success-text") || "Submitted succesfully!");
-                } else {
-                    BookieUI.messages.addText(
-                        "error",
-                        $this.attr("data-error-text") || "Whoops! Looks like something went wrong. Try reloading.");
-                }
-            }
-        },
+        success: this.submitSuccessHandler,
         xhr: BookieUI.progressBar.getXHR
     });
+};
+// Success handler for form submission
+BookieForm.prototype.submitSuccessHandler = function(data){
+    // messages and popups are handled by BookieAPI
+    if (!data.message && !data.popup) {
+        if (data.success) {
+            BookieUI.messages.addText(
+                "success",
+                $this.attr("data-success-text") || "Submitted succesfully!");
+        } else {
+            BookieUI.messages.addText(
+                "error",
+                $this.attr("data-error-text") || "Whoops! Looks like something went wrong. Try reloading.");
+        }
+    }
 };
 BookieForm.prototype.verifyChangeHandler = function(e){
     var that = e.target,

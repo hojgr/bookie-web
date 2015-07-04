@@ -6,6 +6,8 @@
 var BookieAPI = {};
 // Send a request using an object of jQuery AJAX options
 BookieAPI.sendRequest = function(opts){
+	console.log("API call",opts);
+
 	if (!opts.url) return;
 
 	// wrap the success/error callbacks in our API handling logic
@@ -103,6 +105,15 @@ BookieAPI.handleSuccess = function(data){
 				}, data.refresh);
 			} else {
 				BookieCore.reload();
+			}
+		}
+		// enable/disable inventories
+		if (data.hasOwnProperty("inventories")) {
+			var invs = BookieUI.inventories || [],
+			    state = !!data.inventories;
+
+			for (var i = 0; i < invs.length; ++i) {
+				invs[i].toggle(state);
 			}
 		}
 	}

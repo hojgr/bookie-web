@@ -23,10 +23,22 @@ function BookieInventory($elm, opts) {
         that.getItemClickHandler.apply(that).apply(this);
     });
 
-    // disable self on submit
+    // disable all inventories on submit
     this.$form.submit(function(){
-        that.toggle(false);
+        var invs = BookieUI.inventories;
+        for (var i = 0; i < invs.length; ++i) {
+            invs[i].toggle(false);
+        }
     });
+
+    // initialize form
+    this.form = new BookieForm(this.$form);
+    // inject custom logic before the form logic
+    var _successHandler = this.form.submitSuccessHandler;
+    this.form.submitSuccessHandler = function(data){
+        that.submitSuccessHandler(data);
+        _successHandler(data);
+    };
 
     // paginate the inventory
     this.paginated = new BookiePaginated(this.$itemHolder);
@@ -86,5 +98,11 @@ BookieInventory.prototype.clickHandler = function(){
         this.$buttons.removeAttr("disabled");
     } else {
         this.$buttons.attr("disabled", "true");
+    }
+};
+// Inventory-specific logic for when the items are submitted
+BookieInventory.prototype.submitSuccessHandler = function(data){
+    if (!data.success) {
+        this.toggle(true);
     }
 };
