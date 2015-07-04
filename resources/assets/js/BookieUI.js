@@ -45,9 +45,10 @@ BookieUI.init = function(){
         });
     }
 
-    // create BookieForm's for each form
-    $("form").each(function(){
-        new BookieForm($(this));
+    // create BookieForm's for each form (except inventories)
+    BookieUI.forms = [];
+    $("form").not(".inventory form").each(function(){
+        BookieUI.forms.push( new BookieForm($(this)) );
     });
 
     // initialize all inventories
