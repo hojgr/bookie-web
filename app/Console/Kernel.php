@@ -35,6 +35,8 @@ class Kernel extends ConsoleKernel {
         'BookieGG\Console\Commands\UserAdmin',
 
         'BookieGG\Console\Commands\SyncTrades',
+
+        'BookieGG\Console\Commands\Dev\TradeCancel',
     ];
 
     /**
