@@ -51,8 +51,9 @@ BookieUI.init = function(){
     });
 
     // initialize all inventories
+    BookieUI.inventories = [];
     $(".inventory").each(function(){
-        var inv = new BookieInventory($(this));
+        BookieUI.inventories.push( new BookieInventory($(this)) );
     });
 
     // load twitter
