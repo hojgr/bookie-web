@@ -22,6 +22,10 @@ class PopupManager
     {
         $userTrade = $user->user_last_trade;
 
+        if (!$userTrade) {
+            return false;
+        }
+
         if ($userTrade->status === TradeManager::STATUS_ACTIVE) {
             return true;
         }
