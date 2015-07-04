@@ -3,7 +3,7 @@
  * -
  * Proxy for API requests, handling shared logic
  **/
-var BookieAPI = {};
+var BookieAPI = { timers: {} };
 // Send a request using an object of jQuery AJAX options
 BookieAPI.sendRequest = function(opts){
 	console.log("API call",opts);
@@ -88,10 +88,14 @@ BookieAPI.handleSuccess = function(data){
 		if (data.popup) {
 			data.popup = new BookieUI.popup( BookieAPI.token );
 		}
-		if (data.destroy && BookieUI.popup.instance) {
-			if (typeof data.destroy === "number") {
-				setTimeout(function(){
-					BookieUI.popup.instance.destroy();
+		if (data.destroy && typeof BookieUI.popup.instance !== "undefined") {
+			if (typeof data.destroy === "number" && !BookieAPI.timers.hasOwnProperty("destroy")) {
+				BookieAPI.timers.destroy = setTimeout(function(){
+					delete BookieAPI.timers.destroy;
+
+					if (typeof BookieUI.popup.instance !== "undefined") {
+						BookieUI.popup.instance.destroy();
+					}
 				}, data.destroy);
 			} else {
 				BookieUI.popup.instance.destroy();
@@ -99,8 +103,10 @@ BookieAPI.handleSuccess = function(data){
 		}
 		// refresh page
 		if (data.refresh) {
-			if (typeof data.refresh === "number") {
-				setTimeout(function(){
+			if (typeof data.refresh === "number" && !BookieAPI.timers.hasOwnProperty("refresh")) {
+				BookieAPI.timers.refresh = setTimeout(function(){
+					delete BookieAPI.timers.refresh;
+
 					BookieCore.reload();
 				}, data.refresh);
 			} else {
