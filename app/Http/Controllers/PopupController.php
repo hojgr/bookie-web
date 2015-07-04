@@ -48,10 +48,10 @@ class PopupController extends Controller
                 [
                     'html' => view('popup/active')
                               ->with('state', 'offer')
-                              ->with('data', ['bot' => 'Bookkeeper Banana',
+                              ->with('data', ['bot' => $userTrade->bot->display_name,
                                               'code' => '1AS2',
                                               'time-left' => (strtotime($userTrade->created_at) + 4 * 60) - time(),
-                                              'url' => 'http://google.com'])
+                                              'url' => $userTrade->getTradeURL()])
                               ->render(),
                     'success' => true
                 ]
@@ -60,9 +60,11 @@ class PopupController extends Controller
             return response()->json(
                 [
                     'html' => view('popup/active')
-                              ->with('state', 'accepted')
-                              ->render(),
-                    'success' => true
+                        ->with('state', 'accepted')
+                        ->render(),
+                    'success' => true,
+                    'destroy' => 1000,
+                    'refresh' => 1000
                 ]
             );
         } elseif ($userTrade->status == TradeManager::STATUS_CANCELLED) {
@@ -71,7 +73,8 @@ class PopupController extends Controller
                     'html' => view('popup/active')
                               ->with('state', 'cancelled')
                               ->render(),
-                    'success' => true
+                    'success' => true,
+                    'destroy' => 5000
                 ]
             );
         }

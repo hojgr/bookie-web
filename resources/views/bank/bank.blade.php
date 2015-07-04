@@ -22,6 +22,7 @@
                 'submitUrl' => '/api/csgo/bank/withdraw',
                 'items' => $userBank,
                 'selected' => $userBankPending,
+                'disable' => (count($userBankPending) > 0 || count($userInventoryPending) > 0),
                 'btns' => ['Withdraw' => ''],
                 'emptyText' => 'Select items to withdraw'
             ]
@@ -37,6 +38,7 @@
                 'submitUrl' => '/api/csgo/bank/deposit',
                 'items' => $userInventory,
                 'selected' => $userInventoryPending,
+                'disable' => (count($userBankPending) > 0 || count($userInventoryPending) > 0),
                 'btns' => ['Deposit' => ''],
                 'emptyText' => 'Select items to deposit'
             ]

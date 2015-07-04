@@ -68,6 +68,26 @@ class RedisTradeStatus
     public $status;
 
     /**
+     * Bot's Display name
+     *
+     * @var string
+     */
+    public $botDisplayName;
+
+    /**
+     * Bot's Steam ID
+     *
+     * @var string
+     */
+    public $botSteamId;
+
+    /**
+     * When was trade created at
+     *
+     * @var \DateTime
+     */
+    public $createdAt;
+    /**
      * Constructor!
      *
      * Everything is string, because that's what
@@ -77,13 +97,27 @@ class RedisTradeStatus
      * @param string $tradeOfferId ID on steam platform
      * @param string $itemNames    Array of items that is being manipulated
      * @param string $status       Status of trade
+     * @param string $displayName  Display name
+     * @param string $steamId      Steam ID
+     * @param string $createdAt    Timestamp of then it was created
      */
-    public function __construct($redisId, $tradeOfferId, $itemNames, $status)
-    {
+    public function __construct(
+        $redisId,
+        $tradeOfferId,
+        $itemNames,
+        $status,
+        $displayName,
+        $steamId,
+        $createdAt
+    ) {
         $this->redisId = $redisId;
         $this->tradeOfferId = $tradeOfferId;
         $this->itemNames = $itemNames;
         $this->status = $status;
+
+        $this->botDisplayName = $displayName;
+        $this->botSteamId = $steamId;
+        $this->createdAt = new \DateTime($createdAt);
     }
 
     /**
