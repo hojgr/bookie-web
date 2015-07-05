@@ -51,7 +51,17 @@ class UserTrade extends Model
         return $this->belongsTo('BookieGG\Models\Bot');
     }
 
-    public function getTradeURL() {
+    public function getTradeURL()
+    {
         return 'https://steamcommunity.com/tradeoffer/' . $this->trade_id . '/';
+    }
+
+    public function getCreatedAtTimestamp()
+    {
+        if ($this->trade_created_at instanceof \Datetime) {
+            return $this->trade_created_at->getTimestamp();
+        }
+
+        return strtotime($this->trade_created_at);
     }
 }
