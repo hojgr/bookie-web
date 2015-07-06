@@ -302,6 +302,10 @@ BookieUI.popup.prototype.update = function(){
             if (data.success && data.state) {
                 that.state = data.state;
             }
+        },
+        function error(xhr, status, err){
+            that.$elm.html("<p class='text-center'>Loading...</p><p>Failed to connect: "+err+"</p>");
+            BookieUI.messages.setType( that.$elm , "error" );
         });
 };
 BookieUI.popup.prototype.destroy = function(){

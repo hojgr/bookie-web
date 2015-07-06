@@ -39,7 +39,20 @@ BookieForm.prototype.submitHandler = function(e){
     e.preventDefault();
     var $elm = this.$elm,
         url = $elm.attr("action"),
-        data = $elm.serialize();
+        data = $elm.serialize(),
+        opts = {};
+
+    opts = {
+        type: "POST",
+        data: data,
+        url: url,
+        success: this.submitSuccessHandler,
+        xhr: BookieUI.progressBar.getXHR
+    };
+
+    if (this.submitErrorHandler) {
+        opts.error = this.submitErrorHandler;
+    }
 
     // Submit
     BookieAPI.sendRequest({

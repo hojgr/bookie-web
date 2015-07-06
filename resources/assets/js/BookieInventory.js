@@ -114,3 +114,18 @@ BookieInventory.prototype.submitSuccessHandler = function(data){
         }
     }
 };
+// Inventory-specific logic for when the items fail to submit
+BookieInventory.prototype.submitErrorHandler = function(xhr, status, error){
+    console.log("Inventory handling error");
+    // reenable all inventories
+    var invs = BookieUI.inventories;
+    for (var i = 0; i < invs.length; ++i) {
+        invs[i].toggle(true);
+    }
+
+    // show message
+    BookieUI.messages.addText(
+            "error",
+            "Failed to connect: "+err,
+            -1);
+};
