@@ -61,22 +61,8 @@ class RedisTrades
             preg_match("/trade:status:([0-9]+)/", $tradeKey, $matches);
 
             $redisId = $matches[1];
-
-            $trade = $this->redis->hmget(
-                $tradeKey,
-                "tradeofferid",
-                "status",
-                "items"
-            );
-
-            $tradeStatus = new RedisTradeStatus(
-                (int)$redisId,
-                $trade[0],
-                json_decode($trade[2]),
-                $trade[1]
-            );
-
-            yield $tradeStatus;
+            
+            yield $this->getTrade($redisId);
         }
     }
 

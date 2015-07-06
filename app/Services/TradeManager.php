@@ -21,6 +21,7 @@ use BookieGG\Models\User;
 use BookieGG\Services\RedisTrades;
 use BookieGG\Services\TradeManager;
 use BookieGG\Services\BotManager;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * A clas that manager customer trades
@@ -94,10 +95,16 @@ class TradeManager
      */
     public function setStatus(RedisTradeStatus $redisTrade, $status)
     {
-        $dbTrade = $this->tradeRepo->get($redisTrade->redisId);
+        try {
+            $dbTrade = $this->tradeRepo->get($redisTrade->redisId);
+        } catch(ModelNotFoundException $e) {
+            return false;
+        }
 
         $dbTrade->status = $status;
         $dbTrade->save();
+
+        return true;
     }
 
     /**

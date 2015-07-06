@@ -67,13 +67,16 @@ class PopupController extends Controller
                     'refresh' => 1000
                 ]
             );
+        } elseif (false) {
+       
         } elseif ($userTrade->status == TradeManager::STATUS_CANCELLED) {
             return response()->json(
                 [
                     'html' => view('popup/active')
                               ->with('state', 'cancelled')
                               ->render(),
-                    'success' => true,
+                    'success' => false,
+                    'inventories' => true,
                     'destroy' => 5000
                 ]
             );
@@ -81,7 +84,8 @@ class PopupController extends Controller
 
         return response()->json(
             [
-                'destroy' => true
+                'destroy' => true,
+                'success' => false,
             ]
         );
     }
