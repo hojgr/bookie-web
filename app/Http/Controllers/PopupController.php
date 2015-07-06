@@ -63,6 +63,7 @@ class PopupController extends Controller
                         ->with('state', 'accepted')
                         ->render(),
                     'success' => true,
+                    'popupType' => 'success',
                     'destroy' => 1000,
                     'refresh' => 1000
                 ]
@@ -75,7 +76,8 @@ class PopupController extends Controller
                     'html' => view('popup/active')
                               ->with('state', 'cancelled')
                               ->render(),
-                    'success' => false,
+                    'success' => true,
+                    'popupType' => 'error',
                     'inventories' => true,
                     'destroy' => 5000
                 ]

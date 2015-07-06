@@ -196,6 +196,7 @@ BookieUI.messages.prototype.forceRemove = function(){
     this.remove();
 };
 BookieUI.messages.prototype.remove = function() {
+    console.log("Removing message",this);
     if (this.removeable) {
         clearTimeout(this.removeTimer);
 
@@ -278,15 +279,15 @@ BookieUI.popup.prototype.update = function(){
             if (data.ignore) return;
 
             // change the popup content
-            if (data.success && data.html) {
+            if (data.html) {
                 that.$elm.html(data.html);
             }
             // change the popup type
-            if (data.success && data.hasOwnProperty("type")) {
-                that.msg.setType(data.type);
+            if (data.hasOwnProperty("popupType")) {
+                that.msg.setType(data.popupType);
             }
             // store the last received state
-            if (data.success && data.state) {
+            if (data.state) {
                 that.state = data.state;
             }
         },
@@ -296,10 +297,12 @@ BookieUI.popup.prototype.update = function(){
         });
 };
 BookieUI.popup.prototype.destroy = function(){
+    console.log("Removing popup");
+
     clearInterval(this.tickInterval);
     clearInterval(this.updateInterval);
     delete BookieUI.popup.instance;
-    this.msg.remove();
+    this.msg.forceRemove();
 };
 
 /**
