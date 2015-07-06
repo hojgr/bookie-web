@@ -56,9 +56,13 @@ BookieInventory.prototype.toggle = function(enabled){
         enabled = this.disabled;
     }
 
+    if (enabled) {
+        this.$buttons.removeAttr("disabled");
+    } else {
+        this.$button.attr("disabled", !enabled+"");
+    }
     this.disabled = !enabled;
     this.$elm.toggleClass("disabled", !enabled);
-    this.$buttons.attr("disabled", !enabled+"");
 };
 // Returns a function to be used as click event listener for items
 BookieInventory.prototype.getItemClickHandler = function(){

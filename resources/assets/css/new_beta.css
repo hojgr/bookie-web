@@ -362,14 +362,18 @@ html a.no-style {
 	top: 0;
 	height: 100%;
 
-	font-size: 8pt;
+	font-size: 7.5pt;
+	line-height: 1em;
 	transition: top .2s ease;
 	transition-delay: .4s;
 }
 .itembox-footer:hover > * { top: -100%; }
-.item-quality { color: #fff; }
+.item-quality {
+	color: #fff;
+	line-height: 1.5em;
+}
 .item-exterior:empty ~ * {
-	top: -100%;
+	top: -120%;
 	color: inherit;
 }
 
