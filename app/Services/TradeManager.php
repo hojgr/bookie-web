@@ -173,6 +173,7 @@ class TradeManager
             $userTrade->bot_id = $bot->id;
             $userTrade->trade_id = $redisTrade->tradeOfferId;
             $userTrade->status = TradeManager::STATUS_ACTIVE;
+            $userTrade->trade_created_at = new \DateTime("@" . $redisTrade->createdAt);
             $userTrade->save();
         } elseif ($redisTrade->isCancelled() && $userTrade->status != TradeManager::STATUS_CANCELLED) {
             $userTrade->status = TradeManager::STATUS_CANCELLED;

@@ -50,7 +50,7 @@ class PopupController extends Controller
                               ->with('state', 'offer')
                               ->with('data', ['bot' => $userTrade->bot->display_name,
                                               'code' => '1AS2',
-                                              'time-left' => (strtotime($userTrade->created_at) + 4 * 60) - time(),
+                                              'time-left' => ($userTrade->getCreatedAtTimestamp() + 4 * 60) - time(),
                                               'url' => $userTrade->getTradeURL()])
                               ->render(),
                     'success' => true

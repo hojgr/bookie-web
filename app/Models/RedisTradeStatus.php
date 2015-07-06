@@ -117,7 +117,7 @@ class RedisTradeStatus
 
         $this->botDisplayName = $displayName;
         $this->botSteamId = $steamId;
-        $this->createdAt = new \DateTime($createdAt);
+        $this->createdAt = $createdAt;
     }
 
     /**
