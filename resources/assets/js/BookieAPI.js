@@ -79,9 +79,11 @@ BookieAPI.handleSuccess = function(data){
 	if (!data.ignore) {
 		// show plain-text message
 		if (data.message) {
-			BookieUI.messages.addText(
+			var msg = BookieCore.sanitize(data.message);
+
+			new BookieUI.messages(
 					data.messageType || "",
-					data.message,
+					msg,
 					-1);
 		}
 		// show/hide popup
@@ -129,7 +131,7 @@ BookieAPI.handleSuccess = function(data){
 };
 // Fallback handler for requests that respond with an HTTP error
 BookieAPI.handleError = function(xhr, status, err){
-	BookieUI.messages.addText(
+	new BookieUI.messages(
 			"error",
 			"Failed to connect: "+err,
 			-1);

@@ -124,7 +124,7 @@ BookieInventory.prototype.submitErrorHandler = function(xhr, status, error){
     }
 
     // show message
-    BookieUI.messages.addText(
+    new BookieUI.messages(
             "error",
             "Failed to connect: "+err,
             -1);

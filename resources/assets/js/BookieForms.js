@@ -68,11 +68,11 @@ BookieForm.prototype.submitSuccessHandler = function(data){
     // messages and popups are handled by BookieAPI
     if (!data.message && !data.popup) {
         if (data.success) {
-            BookieUI.messages.addText(
+            new BookieUI.messages(
                 "success",
                 $this.attr("data-success-text") || "Submitted succesfully!");
         } else {
-            BookieUI.messages.addText(
+            new BookieUI.messages(
                 "error",
                 $this.attr("data-error-text") || "Whoops! Looks like something went wrong. Try reloading.");
         }

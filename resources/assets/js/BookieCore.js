@@ -19,4 +19,10 @@ BookieCore.reload = function(){
 		window.location.reload();
 	}
 };
+// Sanitize an HTML string
+BookieCore.sanitize = function(html){
+	var div = document.createElement("div");
+	div.innerHTML = html;
+	return div.textContent;
+};
 $(BookieCore.init);
