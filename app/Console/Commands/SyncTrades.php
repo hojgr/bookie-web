@@ -75,7 +75,11 @@ class SyncTrades extends Command
         foreach ($redisTrades->eachTrade() as $trade) {
             if ($trade->isAccepted()) {
                 $userTrade = UserTrade::where('redis_trade_id', '=', $trade->redisId)
-                    ->firstOrFail();
+                    ->first();
+
+                if (!$userTrade) {
+                    continue;
+                }
 
                 $affectedRows = UserTrade::where("status", "!=", TradeManager::STATUS_ACCEPTED)
                     ->where('id', '=', $userTrade->id)
