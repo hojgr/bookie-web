@@ -59,7 +59,7 @@ BookieInventory.prototype.toggle = function(enabled){
     if (enabled) {
         this.$buttons.removeAttr("disabled");
     } else {
-        this.$button.attr("disabled", !enabled+"");
+        this.$buttons.attr("disabled", !enabled+"");
     }
     this.disabled = !enabled;
     this.$elm.toggleClass("disabled", !enabled);
@@ -106,7 +106,11 @@ BookieInventory.prototype.clickHandler = function(){
 };
 // Inventory-specific logic for when the items are submitted
 BookieInventory.prototype.submitSuccessHandler = function(data){
+    // reenable all inventories if not a success
     if (!data.success) {
-        this.toggle(true);
+        var invs = BookieUI.inventories;
+        for (var i = 0; i < invs.length; ++i) {
+            invs[i].toggle(true);
+        }
     }
 };
