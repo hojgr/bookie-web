@@ -43,6 +43,16 @@ function BookieInventory($elm, opts) {
 
     // paginate the inventory
     this.paginated = new BookiePaginated(this.$itemHolder);
+    // sort by price
+    this.paginated.setSorter(function(a,b){
+        var price1 = a.price || $(".item-price",a).text()-0,
+            price2 = b.price || $(".item-price",b).text()-0;
+
+        a.price = price1;
+        b.price = price2;
+
+        return price2-price1;
+    });
 
     this.$items.click(this.getItemClickHandler());
 }
@@ -75,7 +85,6 @@ BookieInventory.prototype.getItemClickHandler = function(){
         if (inv.disabled) return;
 
         // don't trigger if clicking the tooltip
-        console.log(e);
         if (typeof e !== "undefined") {
             if ($(e.target).hasClass("tip") || $(e.target).parents(".tip").length) {
                 return;
@@ -104,6 +113,8 @@ BookieInventory.prototype.clickHandler = function(){
     } else {
         this.$buttons.attr("disabled", "true");
     }
+
+    this.paginated.render();
 };
 // Inventory-specific logic for when the items are submitted
 BookieInventory.prototype.submitSuccessHandler = function(data){
@@ -117,7 +128,6 @@ BookieInventory.prototype.submitSuccessHandler = function(data){
 };
 // Inventory-specific logic for when the items fail to submit
 BookieInventory.prototype.submitErrorHandler = function(xhr, status, error){
-    console.log("Inventory handling error");
     // reenable all inventories
     var invs = BookieUI.inventories;
     for (var i = 0; i < invs.length; ++i) {
