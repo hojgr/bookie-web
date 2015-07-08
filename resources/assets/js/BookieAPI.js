@@ -89,16 +89,19 @@ BookieAPI.handleSuccess = function(data){
 		// show/hide popup
 		if (data.popup) {
 			data.popup = new BookieUI.popup( BookieAPI.token );
+			data.popup.msg.setType( data.popupType || "" );
 		}
 		if (data.destroy && typeof BookieUI.popup.instance !== "undefined") {
+			// hide it after given time
 			if (typeof data.destroy === "number" && !BookieAPI.timers.hasOwnProperty("destroy")) {
+				var instance = BookieUI.popup.instance;
 				BookieAPI.timers.destroy = setTimeout(function(){
 					delete BookieAPI.timers.destroy;
 
-					if (typeof BookieUI.popup.instance !== "undefined") {
-						BookieUI.popup.instance.destroy();
-					}
+					instance.destroy();
 				}, data.destroy);
+				BookieUI.popup.instance.removing = true;
+			// or immediately
 			} else {
 				BookieUI.popup.instance.destroy();
 			}

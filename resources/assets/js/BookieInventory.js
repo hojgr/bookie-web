@@ -39,6 +39,7 @@ function BookieInventory($elm, opts) {
         that.submitSuccessHandler(data);
         _successHandler(data);
     };
+    this.form.submitErrorHandler = this.submitErrorHandler;
 
     // paginate the inventory
     this.paginated = new BookiePaginated(this.$itemHolder);
@@ -124,8 +125,5 @@ BookieInventory.prototype.submitErrorHandler = function(xhr, status, error){
     }
 
     // show message
-    new BookieUI.messages(
-            "error",
-            "Failed to connect: "+err,
-            -1);
+    BookieAPI.handleError.apply(null, arguments);
 };

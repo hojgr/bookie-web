@@ -196,7 +196,6 @@ BookieUI.messages.prototype.forceRemove = function(){
     this.remove();
 };
 BookieUI.messages.prototype.remove = function() {
-    console.log("Removing message",this);
     if (this.removeable) {
         clearTimeout(this.removeTimer);
 
@@ -234,7 +233,15 @@ BookieUI.messages.prototype.setType = function(type) {
  * Handles persistent popups, updated through our API
  **/
 BookieUI.popup = function(token){
-    if (BookieUI.popup.instance) return instance;
+    // return the current instance if it exists
+    if (typeof BookieUI.popup.instance !== "undefined") {
+        var instance = BookieUI.popup.instance;
+        if (typeof instance.removing === "undefined" || !instance.removing) {
+            if (token) instance.token = token;
+
+            return BookieUI.popup.instance;
+        }
+    }
     
     token = token || $("input[name='_token']").val();
     if (!token) return;
@@ -269,6 +276,12 @@ BookieUI.popup.prototype.update = function(){
     var that = this,
         data = { "_token": this.token };
 
+    // don't bother updating if we're being removed
+    if (typeof this.removing !== "undefined" && this.removing) {
+        return;
+    }
+
+    // send the last state if it exists
     if (this.state) {
         data.state = this.state;
     }
@@ -297,11 +310,11 @@ BookieUI.popup.prototype.update = function(){
         });
 };
 BookieUI.popup.prototype.destroy = function(){
-    console.log("Removing popup");
-
     clearInterval(this.tickInterval);
     clearInterval(this.updateInterval);
-    delete BookieUI.popup.instance;
+
+    if (BookieUI.popup.instance === this) delete BookieUI.popup.instance;
+
     this.msg.forceRemove();
 };
 

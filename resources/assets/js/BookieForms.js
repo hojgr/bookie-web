@@ -42,6 +42,7 @@ BookieForm.prototype.submitHandler = function(e){
         data = $elm.serialize(),
         opts = {};
 
+    // create AJAX options object
     opts = {
         type: "POST",
         data: data,
@@ -49,19 +50,12 @@ BookieForm.prototype.submitHandler = function(e){
         success: this.submitSuccessHandler,
         xhr: BookieUI.progressBar.getXHR
     };
-
     if (this.submitErrorHandler) {
         opts.error = this.submitErrorHandler;
     }
 
     // Submit
-    BookieAPI.sendRequest({
-        type: "POST",
-        url: url,
-        data: data,
-        success: this.submitSuccessHandler,
-        xhr: BookieUI.progressBar.getXHR
-    });
+    BookieAPI.sendRequest(opts);
 };
 // Success handler for form submission
 BookieForm.prototype.submitSuccessHandler = function(data){
