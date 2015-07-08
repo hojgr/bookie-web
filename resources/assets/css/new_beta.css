@@ -11,6 +11,7 @@ body {
 	background: #eaeaea;
 	font-family: 'Roboto', sans-serif;
   	font-size: 16px;
+  	overflow-x: hidden;
 }
 #body { text-align: center; }
 #body > * { text-align: left; }
