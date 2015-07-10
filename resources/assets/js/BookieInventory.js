@@ -101,6 +101,8 @@ BookieInventory.prototype.getItemClickHandler = function(){
         } else if (inv.selectedItems.length < inv.options.maxItems) {
             inv.selectedItems.push(this);
             $(this).appendTo(inv.$selectedHolder);
+        } else {
+            return;
         }
 
         inv.clickHandler();

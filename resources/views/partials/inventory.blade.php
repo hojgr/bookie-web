@@ -1,5 +1,6 @@
 {{--*/ if(!isset($emptyText)) { $emptyText = "Select items to bet"; } /*--}}
 {{--*/ if(!isset($selected)) { $selected = []; }/*--}}
+{{--*/ if(!isset($disable)) { $disable = false; }/*--}}
 
 <div class="inventory @if($disable)disabled @endif">
 	@if(isset($submitUrl))

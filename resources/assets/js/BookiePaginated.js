@@ -114,7 +114,7 @@ BookiePaginated.prototype.render = function(){
 
 	// sort/filter elements
 	if (this.filter) $elms = $elms.filter(this.filter);
-	if (this.sorter) $elms = $elms.sort(this.sorter);
+	if (this.sorter) $elms = $( BookieCore.mergeSort($elms, this.sorter) );
 
 	// order them in the DOM
 	if (this.sorter)
