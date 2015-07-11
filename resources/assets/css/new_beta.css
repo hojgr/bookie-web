@@ -540,6 +540,42 @@ html a.no-style {
 }
 .pagination .active { color: #000; }
 
+/**
+ * Lightbox
+ */
+[data-lightbox] { cursor: pointer; }
+.lightbox {
+	display: none;
+	opacity: 0;
+
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+	z-index: 999;
+
+	cursor: pointer;
+	transition: opacity .2s ease;
+}
+.lightbox.open {
+	display: block;
+	opacity: 1;
+}
+.lightbox .content {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+
+	background: #333;
+	padding: 1em;
+	border-radius: 3px;
+	box-shadow: 0 1px 4px rgba(0,0,0,.2);
+	cursor: auto;
+}
+.lightbox * { display: block; }
 
 /* ====================
  *        THEME
@@ -882,6 +918,8 @@ button:last-child, .btn:last-child { margin: 0; }
 	.user-navigation .btn-wide:first-child:not(:last-child) {
 		margin-top: -1em;
 	}
+
+	.lightbox * { max-width: 100%; }
 }
 @media (max-width: 465px) {
 	.page { padding: 1em 0; }

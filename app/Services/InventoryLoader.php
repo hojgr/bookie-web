@@ -154,6 +154,9 @@ class InventoryLoader implements InventoryLoaderInterface
                 "image" => "http://steamcommunity-a.akamaihd.net/economy/image/"
                     . $itemDescription->icon_url
                 . "/90fx60f",
+                "image_large" => "http://steamcommunity-a.akamaihd.net/economy/image/"
+                    . $itemDescription->icon_url
+                    . "/512fx512f",
                 "steam_info" => [
                     "id" => $item->id,
                     "class_id" => $item->classid,

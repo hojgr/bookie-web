@@ -57,6 +57,10 @@ BookieUI.init = function(){
         BookieUI.inventories.push( new BookieInventory($(this)) );
     });
 
+    // initialize lightbox
+    BookieLightbox.init();
+    $("[data-lightbox]").click(BookieLightbox.handleElementClick);
+
     // load twitter
     if (typeof twttr !== "undefined" && twttr.hasOwnProperty("widgets") && twttr.widgets.hasOwnProperty("load")) {
         twttr.widgets.load();

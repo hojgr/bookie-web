@@ -34,7 +34,7 @@
 	</div>
 
 	<div class="tip">
-		<img alt="{{ $item->weaponName }}" class="item-img" src="{{ $item->image }}" />
+		<img alt="{{ $item->weaponName }} @if(isset($item->image_large))lightbox @endif" class="item-img" src="{{ $item->image }}" @if(isset($item->image_large))data-lightbox="{{ $item->image_large }}" @endif />
 		<div class="text-content text-center">
 			<h4>{{ $item->weaponName }}
 			@if($item->stattrak)
