@@ -127,8 +127,6 @@
 	<div class="loader hidden"></div>
 	</div>
 
-	<div class="popup"></div>
-
 	@if($isPopupActive)
 	<script type="text/javascript">
 		new BookieUI.popup('{{ csrf_token() }}');

@@ -191,7 +191,12 @@ BookieUI.messages.prototype.inited = false;
 BookieUI.messages.init = function(){
     if (this.prototype.inited) return;
 
-    this.prototype.$container = $(".popup");
+    var cont = $(".message-container");
+    if (!cont.length) {
+        cont = $("<div class='message-container'></div>")
+                   .appendTo("body");
+    }
+    this.prototype.$container = cont;
     this.prototype.inited = true;
 };
 BookieUI.messages.messages = [];
@@ -253,6 +258,7 @@ BookieUI.popup = function(token){
     this.msg = new BookieUI.messages("",
         "<p class='text-center'>Loading...</p>");
     this.$elm = this.msg.$elm;
+    this.$elm.addClass("popup");
     this.token = token;
     this.tickInterval = setInterval(this.tick.bind(this), 1000);
 

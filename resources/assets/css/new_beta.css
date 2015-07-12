@@ -488,7 +488,7 @@ html a.no-style {
 /**
  * Popup & messages
  */
-.popup {
+.message-container {
 	position: fixed;
 	right: 1em;
 	bottom: 1em;
@@ -513,15 +513,18 @@ html a.no-style {
 	left: 8px;
 	top: 50%;
 	transform: translateY(-50%);
-
 }
+.message.popup {
+	padding-left: .5em;
+}
+.message.popup::before { display: none; }
 .message:first-child { margin-top: 0; }
 
 .message.error {
 	background: #EF5350;
 	text-shadow: 0 1px #B71C1C;
 }
-.message.error::before { content: "error_outline"; }
+.message.error::before { content: "error"; }
 .message.warning {
 	background: #FFA000;
 	text-shadow: 0 1px #E65100;
