@@ -29,7 +29,7 @@ td > a {
 }
 
 /* material icons */
-.material-iconed::before, .message::before {
+i, .message::before {
 	font-family: 'Material Icons';
 	font-weight: normal;
 	font-style: normal;
@@ -332,6 +332,71 @@ html a.no-style {
 }
 .inventory-selection .btn-holder button { font-size: 11pt; }
 
+/* sorting/filtering */
+.inventory-ui { margin-bottom: 8px; }
+.inventory-ui i {
+	display: inline-block;
+	vertical-align: bottom;
+	font-size: 20px;
+	color: #999;
+	cursor: pointer;
+}
+.inventory-ui i.active {
+	color: inherit;
+}
+.inventory-ui .splitter {
+	display: inline-block;
+	vertical-align: bottom;
+	width: 1px;
+	height: 1.2em;
+	margin: 0 .5em 0 .25em;
+	background: #dcdcdc;
+}
+i.stattrak {
+	vertical-align: baseline;
+	font-size: 14px;
+	font-weight: 900;
+	margin: 0 2px;
+}
+/* search */
+.inventory-ui .input-group {
+	margin: 0 .5em 0 0;
+	width: 30%;
+	float: right;
+}
+.inventory-ui input {
+	padding: 0;
+	font-size: 16px;
+	vertical-align: top;
+}
+.inventory-ui i.search {
+	float: right;
+	width: 20%;
+	text-align: center;
+}
+/* sorting direction icon */
+i.dir {
+	position: relative;
+	width: 1em;
+	height: 1em;
+}
+i.dir::before, i.dir::after {
+	content: "expand_less";
+	position: absolute;
+	left: 0;
+	top: -.25em;
+	color: #000;
+}
+i.dir::after {
+	content: "expand_more";
+	top: initial;
+	bottom: -.25em;
+	color: #999;
+}
+i.dir.desc::before { color:  #999; }
+i.dir.desc::after { color: #000; }
+
+
 /**
  * Itembox
  */
@@ -393,7 +458,10 @@ html a.no-style {
 	color: inherit;
 }
 
-.itembox.tipped > .tip { transition-delay: .2s; }
+.itembox.tipped > .tip {
+	font-size: 10pt;
+	transition-delay: .2s;
+}
 .itembox.tipped:hover > .tip { transition-delay: 1s; }
 .itembox .tip > * {
 	display: inline-block;
@@ -433,6 +501,9 @@ html a.no-style {
 	z-index: 8;
 	cursor: auto;
 
+	font-family: 'Roboto', sans-serif;
+	font-size: 12pt;
+	font-weight: 300;
 	background: #444;
 	color: #fff;
 	padding: .25em .5em;
@@ -532,7 +603,7 @@ html a.no-style {
 .message.warning::before { content: "warning"; }
 .message.success {
 	background: #3C3;
-	text-shadow: 0 1px #1B5E20;
+	text-shadow: 0 1px #292;
 }
 .message.success::before { content: "check"; }
 

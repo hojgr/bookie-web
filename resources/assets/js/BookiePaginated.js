@@ -12,6 +12,8 @@ function BookiePaginated($elm, opts) {
 	this.$elm = $elm;
 	this.page = 0;
 
+	this.filters = [];
+
 	this.render();
 };
 BookiePaginated.prototype.defaults = {
@@ -113,7 +115,11 @@ BookiePaginated.prototype.render = function(){
 	$children.addClass("hidden");
 
 	// sort/filter elements
-	if (this.filter) $elms = $elms.filter(this.filter);
+	if (this.filters.length) {
+		for (var i = 0; i < this.filters.length; ++i) {
+			$elms = $elms.filter(this.filters[i]);
+		}
+	}
 	if (this.sorter) $elms = $( BookieCore.mergeSort($elms, this.sorter) );
 
 	// order them in the DOM
@@ -133,6 +139,8 @@ BookiePaginated.prototype.render = function(){
 // Sets the function used for sorting elements
 // Sorter follows Array.prototype.sort callback signature
 BookiePaginated.prototype.setSorter = function(sorter){
+	if (this.sorter === sorter) return;
+
 	this.sorter = sorter;
 	this.render();
 };
@@ -142,11 +150,23 @@ BookiePaginated.prototype.removeSorter = function(){
 };
 // Sets the function used for filtering elements
 // Filter has signature function(index, elm){}
-BookiePaginated.prototype.setFilter = function(filter){
-	this.filter = filter;
+BookiePaginated.prototype.addFilter = function(filter){
+	if (this.filters.indexOf(filter) !== -1) return;
+
+	this.filters.push(filter);
 	this.render();
 };
-BookiePaginated.prototype.removeFilter = function(){
-	delete this.filter;
+BookiePaginated.prototype.removeFilter = function(filter){
+	var ind = this.filters.indexOf(filter);
+	if (ind !== -1) {
+		this.filters.splice(ind, 1);
+	}
+
 	this.render();
+};
+BookiePaginated.prototype.clearFilters = function(silent){
+	this.filters = [];
+	if (!silent) {
+		this.render();
+	}
 };

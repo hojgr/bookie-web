@@ -30,6 +30,33 @@
 	{!! Form::close() !!}
 	@endif
 	
+	<div class="inventory-ui">
+		<i class="dir asc"></i>
+		<span>Sort: </span>
+		<i class="tipped value active">attach_money
+			<div class="tip">Value</div>
+		</i>
+		<i class="tipped quality">star
+			<div class="tip">Quality</div>
+		</i>
+		<span class="splitter"></span>
+		<span>Filter: </span>
+		<i class="tipped stattrak">ST
+			<div class="tip">StatTrak</div>
+		</i>
+		<i class="tipped stickers">crop_original
+			<div class="tip">Stickers</div>
+		</i>
+		<i class="tipped misc">vpn_key
+			<div class="tip">Misc</div>
+		</i>
+
+		<div class="input-group">
+			<input type="search" placeholder="Search">
+			<div class="focus-indicator"></div>
+		</div>
+	</div>
+
 	<div class="inventory-holder item-holder">
 	@spaceless
 	@foreach($items as $item)
