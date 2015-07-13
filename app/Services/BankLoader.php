@@ -62,7 +62,8 @@ class BankLoader implements BankLoaderInterface
                 "quality" =>  $bankItem->csgo_item->csgo_item_quality->name,
                 "price" => $bankItem->csgo_item->latestPrice->price,
                 "stattrak" => $bankItem->csgo_item->stattrak == 1,
-                "image" => $bankItem->csgo_item->getLogoURL()
+                "image" => $bankItem->csgo_item->getLogoURL(),
+                "image_large" => $bankItem->csgo_item->getLargeLogoUrl(),
             ];
 
             if (in_array($bankItem->id, $pendingWithdraw)) {

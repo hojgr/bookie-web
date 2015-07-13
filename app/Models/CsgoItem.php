@@ -31,4 +31,8 @@ class CsgoItem extends Model {
     public function getLogoURL() {
         return "http://steamcommunity-a.akamaihd.net/economy/image/" . $this->logo . "/90fx60f";
     }
+
+    public function getLargeLogoURL() {
+        return "http://steamcommunity-a.akamaihd.net/economy/image/" . $this->logo . "/512fx512f";
+    }
 }
